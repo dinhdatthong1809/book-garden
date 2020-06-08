@@ -114,18 +114,6 @@ CREATE TABLE BOOK_AUTHOR
 )
 GO
 
-CREATE TABLE BOOK_PUBLISHER
-(
-	book_id			VARCHAR(50),
-	publisher_id	INT,
-	version			INT,
-
-	CONSTRAINT PK_BookPublisher				PRIMARY KEY (book_id, publisher_id),
-	CONSTRAINT FK_BookPublisher_BookId		FOREIGN KEY (book_id) REFERENCES BOOK(id),
-	CONSTRAINT FK_BookPublisher_PublisherId FOREIGN KEY (publisher_id) REFERENCES PUBLISHER(id)
-)
-GO
-
 CREATE TABLE CUSTOMER
 (
 	id				INT IDENTITY (100, 1),
