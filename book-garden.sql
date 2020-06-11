@@ -1,4 +1,4 @@
-﻿/* Tạo cơ sở dữ liệu */
+/* Tạo cơ sở dữ liệu */
 USE master
 GO
 
@@ -26,7 +26,7 @@ GO
 
 CREATE TABLE BOOKSHELF
 (
-	id				VARCHAR(50),
+	id				INT IDENTITY (1, 1),
 	location_name	NVARCHAR(256) NOT NULL,
 	max_storage		INT CHECK(max_storage > 0),
 	description     NVARCHAR(256),
@@ -38,7 +38,7 @@ GO
 
 CREATE TABLE AUTHOR
 (
-	id				INT IDENTITY (100, 1),
+	id				INT IDENTITY (1, 1),
 	full_name		NVARCHAR(50) NOT NULL,
 	date_of_birth	DATE,
 	date_of_death	DATE,
@@ -53,7 +53,7 @@ GO
 
 CREATE TABLE PUBLISHER
 (
-	id				INT IDENTITY (100, 1),
+	id				INT IDENTITY (1, 1),
 	name			NVARCHAR(256) NOT NULL,
 	phone_number	VARCHAR(13),
 	email			VARCHAR(100) NOT NULL,
@@ -68,7 +68,8 @@ GO
 
 CREATE TABLE BOOK
 (
-	id					VARCHAR(50),
+	id					INT IDENTITY (1, 1),
+	code				VARCHAR(50),
 	title				NVARCHAR(100) NOT NULL,
 	page_num			INT,
 	amount				INT,
@@ -76,7 +77,7 @@ CREATE TABLE BOOK
 	release_year    	INT,
 	sell_price			MONEY,
 	image				NVARCHAR(256),
-	bookshelf_id		VARCHAR(50),
+	bookshelf_id		INT,
 	rentable			BIT DEFAULT 1,
 	buyable             BIT DEFAULT 1,
 	rent_price			MONEY,
@@ -93,7 +94,7 @@ GO
 
 CREATE TABLE BOOK_CATEGORY
 (
-	book_id     VARCHAR(50),
+	book_id     INT,
 	category_id INT,
 
 	CONSTRAINT PK_BookCategory              PRIMARY KEY (book_id, category_id),
@@ -104,7 +105,7 @@ GO
 
 CREATE TABLE BOOK_AUTHOR 
 (
-	book_id		VARCHAR(50),
+	book_id		INT,
 	author_id	INT,
 	version		INT,
 
@@ -114,9 +115,21 @@ CREATE TABLE BOOK_AUTHOR
 )
 GO
 
+CREATE TABLE BOOK_PUBLISHER
+(
+	book_id			INT,
+	publisher_id	INT,
+	version			INT,
+
+	CONSTRAINT PK_BookPublisher				PRIMARY KEY (book_id, publisher_id),
+	CONSTRAINT FK_BookPublisher_BookId		FOREIGN KEY (book_id) REFERENCES BOOK(id),
+	CONSTRAINT FK_BookPublisher_PublisherId FOREIGN KEY (publisher_id) REFERENCES PUBLISHER(id)
+)
+GO
+
 CREATE TABLE CUSTOMER
 (
-	id				INT IDENTITY (100, 1),
+	id				INT IDENTITY (1, 1),
     username		VARCHAR(100) UNIQUE NOT NULL,
 	password		VARCHAR(100) NOT NULL,
 	full_name		NVARCHAR(50),
@@ -134,7 +147,7 @@ GO
 
 CREATE TABLE EMPLOYEE
 (
-	id              INT IDENTITY(101, 1),
+	id              INT IDENTITY(1, 1),
 	username		VARCHAR(50) UNIQUE NOT NULL,
 	password		VARCHAR(50) NOT NULL,
 	full_name		NVARCHAR(50) NOT NULL,
@@ -154,7 +167,7 @@ GO
 
 CREATE TABLE STORAGE
 (
-	id				INT IDENTITY(100, 1),
+	id				INT IDENTITY(1, 1),
 	employee_id		INT NOT NULL,
 	description		NVARCHAR(256),
 	created_date	DATE DEFAULT(GETDATE()),
@@ -168,7 +181,7 @@ GO
 CREATE TABLE STORAGE_DETAIL
 (
 	storage_id	INT,
-	book_id		VARCHAR(50),
+	book_id		INT,
 	amount		INT CHECK (amount > 0),
 	price		MONEY,
 
@@ -180,7 +193,7 @@ GO
 
 CREATE TABLE ORDER_RENT
 (
-	id				INT IDENTITY(100, 1),
+	id				INT IDENTITY(1, 1),
 	customer_id		INT,
 	employee_id		INT, 
 	cost_rent		MONEY,
@@ -200,7 +213,7 @@ GO
 CREATE TABLE ORDER_RENT_DETAIL
 (
 	order_rent_id	INT ,
-	book_id			VARCHAR(50),
+	book_id			INT,
 	amount			INT NOT NULL,
 	price			MONEY,
 
@@ -212,7 +225,7 @@ GO
 
 CREATE TABLE ORDER_SELL
 (
-	id				INT IDENTITY(100, 1),
+	id				INT IDENTITY(1, 1),
 	customer_id		INT,
 	employee_id		INT,
 	date_created	DATE,
@@ -227,7 +240,7 @@ GO
 CREATE TABLE ORDER_SELL_DETAIL
 (
 	order_sell_id	INT NOT NULL,
-	book_id			VARCHAR(50) NOT NULL,
+	book_id			INT NOT NULL,
 	amount			INT NOT NULL,
 	price			MONEY NOT NULL,
 
@@ -260,10 +273,10 @@ GO
 
 CREATE TABLE BOOK_LOST_DETAIL
 (
-	book_lost_id INT,
-	book_id VARCHAR(50) NOT NULL,
-	amount INT NOT NULL CHECK (amount > 0),
-	cost MONEY,
+	book_lost_id	INT,
+	book_id			INT NOT NULL,
+	amount			INT NOT NULL CHECK (amount > 0),
+	cost			MONEY,
 
 	CONSTRAINT PK_BookLostDetail				PRIMARY KEY (book_lost_id, book_id),
 	CONSTRAINT FK_BookLostDetail_OrderRentId	FOREIGN KEY (book_lost_id) REFERENCES BOOK_LOST(id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -294,7 +307,7 @@ GO
 
 CREATE TABLE SHIPPING_STATUS
 (
-	id			VARCHAR(50),
+	id			INT IDENTITY (1, 1),
 	name		NVARCHAR(100),
 	description NVARCHAR(256),
 
@@ -310,7 +323,7 @@ CREATE TABLE ORDER_SHIPPING
 	user_id					INT,
 	employee_id				INT,
 	address_id				INT,
-	status_id				VARCHAR(50),
+	status_id				INT,
 	employee_note   	    NVARCHAR(256),
 	user_note   	    	NVARCHAR(256),
 	
@@ -331,7 +344,7 @@ CREATE TABLE RATING_SHIPPING
 	employee_id			INT,
 	user_comment		NVARCHAR(256),
 	employee_comment	NVARCHAR(256),
-	star				TINYINT CHECK (star > 0 AND star <= 5),
+	stars				TINYINT CHECK (stars > 0 AND stars <= 5),
 
 	CONSTRAINT PK_RatingShipping					PRIMARY KEY (order_shipping_id),
 	CONSTRAINT FK_RatingShipping_OrderShippingId	FOREIGN KEY (order_shipping_id) REFERENCES ORDER_SHIPPING(id),
@@ -341,15 +354,15 @@ CREATE TABLE RATING_SHIPPING
 GO
 
 /* Nhập dữ liệu */
-INSERT INTO BOOKSHELF (id, location_name, max_storage, description)
-VALUES ('A1', N'Kệ A1', 100, N''),
-       ('A4', N'Kệ A4', 90, N''),
-       ('A2', N'Kệ A2', 120, N''),
-       ('A3', N'Kệ A3', 130, N''),
-       ('A5', N'Kệ A5', 100, N''),
-       ('A6', N'Kệ A6', 100, N''),
-       ('A7', N'Kệ A7', 120, N''),
-       ('A8', N'Kệ A8', 110, N'')
+INSERT INTO BOOKSHELF (location_name, max_storage, description)
+VALUES (N'Kệ A1', 100, N''),
+       (N'Kệ A4', 90, N''),
+       (N'Kệ A2', 120, N''),
+       (N'Kệ A3', 130, N''),
+       (N'Kệ A5', 100, N''),
+       (N'Kệ A6', 100, N''),
+       (N'Kệ A7', 120, N''),
+       (N'Kệ A8', 110, N'')
 GO
 
 INSERT INTO CATEGORY (name, description)
@@ -369,9 +382,9 @@ VALUES (N'BXB Trẻ', '0376546521', 'contact@nxbtre.com', N'Đây là nhà xuấ
        (N'BXB Nhi Đồng', '0186224665', 'contact@nxbnhidong.com', N'Đây là nhà xuất bản nhi đồng', GETDATE())
 GO
 
-INSERT INTO BOOK (id, title, page_num, amount, publisher_id, release_year, sell_price, image, bookshelf_id, description, created_date)
-VALUES ('GH12', N'TÔI THẤY MÌNH CÒN TRẺ', 274, 100, 100, 2017, 100000, N'', 'A1', '', '11/05/2018'),
-       ('JH42', N'TÔI THẤY HOA VÀNG TRÊN CỎ XANH', 274, 102, 101, 2017, 100000, N'', 'A2', '', '11/06/2018')
+INSERT INTO BOOK (code, title, page_num, amount, publisher_id, release_year, sell_price, image, bookshelf_id, description, created_date)
+VALUES ('GH12', N'TÔI THẤY MÌNH CÒN TRẺ', 274, 100, 1, 2017, 100000, N'', 1, '', '11/05/2018'),
+       ('JH42', N'TÔI THẤY HOA VÀNG TRÊN CỎ XANH', 274, 120, 2, 2017, 100000, N'', 2, '', '11/06/2018')
 GO
 
 INSERT INTO CUSTOMER(username, password, full_name, date_of_birth, email, phone_number, is_active)
@@ -385,33 +398,34 @@ VALUES ('quanly', '123', N'Lý Tiểu Long', 'lytieulong@gmail.com', '0168243931
 GO
 
 INSERT INTO ORDER_SELL (customer_id, employee_id, date_created)
-VALUES (100, 101, GETDATE()),
-       (101, 102, GETDATE())
+VALUES (1, 1, GETDATE()),
+       (2, 1, GETDATE())
 GO
 
+
 INSERT INTO ORDER_SELL_DETAIL (order_sell_id, book_id, amount, price)
-VALUES (100, 'GH12', 3, 200000),
-       (101, 'JH42', 2, 300000)
+VALUES (1, 1, 3, 200000),
+       (1, 2, 2, 300000)
 GO
 
 INSERT INTO ORDER_RENT (customer_id, employee_id, cost_rent, cost_expiration, expiration_day, created_date, returned_date, status)
-VALUES (100, 101, 5000, 1000, 7, GETDATE(), NULL, 0),
-       (101, 102, 5000, 1000, 7, GETDATE(), GETDATE(), 1)
+VALUES (1, 1, 5000, 1000, 7, GETDATE(), NULL, 0),
+       (2, 2, 5000, 1000, 7, GETDATE(), GETDATE(), 1)
 GO
 
 INSERT INTO ORDER_RENT_DETAIL (order_rent_id, book_id, amount, price)
-VALUES (100, 'GH12', 3, 300000),
-       (101, 'JH42', 4, 400000),
-       (101, 'GH12', 2, 400000)
+VALUES (1, 'GH12', 3, 300000),
+       (2, 'JH42', 4, 400000),
+       (2, 'GH12', 2, 400000)
 GO
 
 INSERT INTO STORAGE (employee_id, description, created_date)
-VALUES (101, N'Không ghi chú gì hết', GETDATE())
+VALUES (1, N'Không ghi chú gì hết', GETDATE())
 GO
 
 INSERT INTO STORAGE_DETAIL (storage_id, book_id, amount, price)
-VALUES (100, 'GH12', 90, 250000),
-       (100, 'JH42', 50, 180000)
+VALUES (1, 'GH12', 90, 250000),
+       (1, 'JH42', 50, 180000)
 GO
 
 /* Tạo người dùng */
