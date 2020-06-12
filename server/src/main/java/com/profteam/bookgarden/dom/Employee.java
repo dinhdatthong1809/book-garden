@@ -10,14 +10,11 @@ import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @BatchSize(size = 20)
@@ -26,40 +23,41 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Publisher extends AbstractEntity {
-
-    @Column
-    @NotNull
-    @NotBlank
-    @Size(max = 256)
-    private String name;
-
-    @Column
-    @Size(min = 11, max = 14)
-    private String phoneNumber;
-
+public class Employee extends AbstractEntity {
+    
     @Column
     @NotNull
     @NotBlank
     @Size(max = 100)
+    private String username;
+    
+    @Column
+    @NotNull
+    @NotBlank
+    @Size(max = 100)
+    private String password;
+    
+    @Column
+    @NotBlank
+    @Size(max = 50)
+    private String fullName;
+    
+    @Column
+    @NotBlank
+    @Size(max = 100)
     @Email(regexp = AppConstants.EMAIL_REGEX)
     private String email;
-
+    
+    @Size(min = 11, max = 14)
+    private String phoneNumber;
+    
     @Column
-    @Size(max = 200)
-    private String address;
-
+    private Boolean sex;
+    
     @Column
-    @Size(max = 1000)
-    private String introduce;
+    private Boolean isActive;
     
     @Column
     private LocalDate createdDate;
-    
-    @OneToMany(mappedBy = "publisher")
-    private List<Book> books = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "bookPublisherId.publisher")
-    private List<BookPublisher> bookPublishers = new ArrayList<>();
     
 }

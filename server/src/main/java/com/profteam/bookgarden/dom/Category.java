@@ -10,8 +10,11 @@ import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @BatchSize(size = 20)
@@ -31,5 +34,8 @@ public class Category extends AbstractEntity {
     @Column
     @Size(max = 1000)
     private String description;
+    
+    @OneToMany(mappedBy = "bookCategoryId.category")
+    private List<BookCategory> bookCategories = new ArrayList<>();
 
 }

@@ -57,7 +57,7 @@ CREATE TABLE PUBLISHER
 (
     id           INT IDENTITY (1, 1),
     name         NVARCHAR(256) NOT NULL,
-    phone_number VARCHAR(13),
+    phone_number VARCHAR(14),
     email        VARCHAR(100)  NOT NULL,
     address      NVARCHAR(200),
     introduce    NVARCHAR(1000),
@@ -134,9 +134,9 @@ CREATE TABLE CUSTOMER
     id            INT IDENTITY (1, 1),
     username      VARCHAR(100) UNIQUE NOT NULL,
     password      VARCHAR(100)        NOT NULL,
-    full_name     NVARCHAR(50),
+    full_name     NVARCHAR(50)        NOT NULL,
     date_of_birth DATE,
-    email         VARCHAR(50),
+    email         VARCHAR(100),
     phone_number  VARCHAR(14),
     sex           BIT,
     is_active     BIT,
@@ -149,21 +149,22 @@ GO
 
 CREATE TABLE EMPLOYEE
 (
-    id           INT IDENTITY (1, 1),
-    username     VARCHAR(50) UNIQUE NOT NULL,
-    password     VARCHAR(50)        NOT NULL,
-    full_name    NVARCHAR(50)       NOT NULL,
-    email        VARCHAR(50),
-    ident_number VARCHAR(12),
-    phone_number VARCHAR(14)        NOT NULL,
-    image        NVARCHAR(256),
-    sex          BIT,
-    role         INT                NOT NULL,
-    is_active    BIT,
-    created_date DATE DEFAULT (GETDATE()),
-    version      INT,
+    id            INT IDENTITY (1, 1),
+    username      VARCHAR(100) UNIQUE NOT NULL,
+    password      VARCHAR(100)        NOT NULL,
+    full_name     NVARCHAR(50)        NOT NULL,
+    date_of_birth DATE,
+    email         VARCHAR(100),
+    ident_number  VARCHAR(12),
+    phone_number  VARCHAR(14)         NOT NULL,
+    image         NVARCHAR(256),
+    sex           BIT,
+    role          INT                 NOT NULL,
+    is_active     BIT,
+    created_date  DATE DEFAULT (GETDATE()),
+    version       INT,
 
-    CONSTRAINT PK_Admin PRIMARY KEY (id),
+    CONSTRAINT PK_Employee PRIMARY KEY (id),
 )
 GO
 

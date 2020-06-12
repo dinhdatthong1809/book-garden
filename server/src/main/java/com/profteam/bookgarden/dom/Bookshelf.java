@@ -6,14 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @BatchSize(size = 20)
@@ -37,5 +39,8 @@ public class Bookshelf extends AbstractEntity {
     @Column
     @Size(max = 256)
     private String description;
+    
+    @OneToMany(mappedBy = "bookshelf")
+    private List<Book> books = new ArrayList<>();
 
 }
