@@ -7,10 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -22,14 +22,13 @@ import javax.validation.constraints.Size;
 @Setter
 public class Category extends AbstractEntity {
 
-    @Column(nullable = false, length = 50)
-    @Nationalized
+    @Column
     @NotNull
-    @Size(min = 1, max = 50)
+    @NotBlank
+    @Size(max = 50)
     private String name;
 
-    @Column(length = 1000)
-    @Nationalized
+    @Column
     @Size(max = 1000)
     private String description;
 

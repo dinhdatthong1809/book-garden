@@ -11,6 +11,7 @@ import org.hibernate.annotations.Nationalized;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,10 +24,10 @@ import javax.validation.constraints.Size;
 @Setter
 public class Bookshelf extends AbstractEntity {
 
-    @Column(nullable = false)
-    @Nationalized
+    @Column
     @NotNull
-    @Size(max = 255)
+    @NotBlank
+    @Size(max = 256)
     private String locationName;
 
     @Column
@@ -34,8 +35,7 @@ public class Bookshelf extends AbstractEntity {
     private int maxStorage;
 
     @Column
-    @Nationalized
-    @Size(max = 255)
+    @Size(max = 256)
     private String description;
 
 }

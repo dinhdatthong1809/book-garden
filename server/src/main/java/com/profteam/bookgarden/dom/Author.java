@@ -10,6 +10,7 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -23,9 +24,9 @@ import java.time.LocalDate;
 @Setter
 public class Author extends AbstractEntity {
 
-    @Column(nullable = false, length = 50)
-    @Nationalized
+    @Column
     @NotNull
+    @NotBlank
     @Size(max = 50)
     private String fullName;
 
@@ -36,15 +37,15 @@ public class Author extends AbstractEntity {
     private LocalDate dateOfDeath;
 
     @Column
-    @Size(max = 255)
+    @Size(max = 256)
     private String image;
 
     @Column
-    @Nationalized
+    @Size(max = 1000)
     private String introduce;
 
     @Column
     @NotNull
-    private LocalDate createdDate = LocalDate.now();
+    private LocalDate createdDate;
 
 }

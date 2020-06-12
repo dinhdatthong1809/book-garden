@@ -10,8 +10,10 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Entity
 @BatchSize(size = 20)
@@ -22,25 +24,31 @@ import javax.validation.constraints.Size;
 @Setter
 public class Publisher extends AbstractEntity {
 
-    @Column(length = )
-    @Nationalized
+    @Column
     @NotNull
+    @NotBlank
+    @Size(max = 256)
     private String name;
 
-    @Column(length = 13)
-    @Size(min = 13, max = 13)
+    @Column
+    @Size(min = 11, max = 13)
     private String phoneNumber;
 
-    @Column(length = 100)
+    @Column
     @NotNull
     @Size(max = 100)
     private String email;
 
     @Column
-    @Nationalized
-    @NotNull
+    @Size(max = 200)
     private String address;
 
-
+    @Column
+    @Size(max = 1000)
     private String introduce;
+    
+    @Column
+    @NotNull
+    private LocalDate createdDate;
+    
 }
