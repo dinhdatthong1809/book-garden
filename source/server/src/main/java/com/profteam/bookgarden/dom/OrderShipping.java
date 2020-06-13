@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @BatchSize(size = 20)
@@ -18,7 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class OrderShipping {
+@SuperBuilder
+public class OrderShipping implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,8 +56,5 @@ public class OrderShipping {
     @Column
     @Size(max = 256)
     private String userNote;
-    
-    @OneToMany(mappedBy = "orderShipping")
-    private List<RatingShipping> ratingShippings = new ArrayList<>();
     
 }

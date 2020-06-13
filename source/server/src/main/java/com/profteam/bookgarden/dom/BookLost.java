@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BookLost {
+@SuperBuilder
+public class BookLost implements Serializable {
     
     @Id
     private int id;

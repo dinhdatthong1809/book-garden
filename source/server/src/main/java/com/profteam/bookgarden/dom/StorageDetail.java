@@ -1,6 +1,7 @@
 package com.profteam.bookgarden.dom;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
@@ -14,7 +15,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class StorageDetail {
+@SuperBuilder
+public class StorageDetail implements Serializable {
     
     @EmbeddedId
     private StorageDetailId storageDetailId;

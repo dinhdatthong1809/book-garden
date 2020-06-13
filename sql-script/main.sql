@@ -18,7 +18,7 @@ CREATE TABLE CATEGORY
     id          INT IDENTITY (1, 1),
     name        NVARCHAR(50),
     description NVARCHAR(1000),
-    version     INT,
+    version     INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_Category PRIMARY KEY (id)
 )
@@ -30,7 +30,7 @@ CREATE TABLE BOOKSHELF
     location_name NVARCHAR(256) NOT NULL,
     max_storage   INT CHECK (max_storage > 0),
     description   NVARCHAR(256),
-    version       INT,
+    version       INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_Bookshelf PRIMARY KEY (id)
 )
@@ -45,7 +45,7 @@ CREATE TABLE AUTHOR
     image         NVARCHAR(256),
     introduce     NVARCHAR(1000),
     created_date  DATE,
-    version       INT,
+    version       INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_Author PRIMARY KEY (id)
 )
@@ -60,7 +60,7 @@ CREATE TABLE PUBLISHER
     address      NVARCHAR(200),
     introduce    NVARCHAR(1000),
     created_date DATE,
-    version      INT,
+    version      INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_Publisher PRIMARY KEY (id)
 )
@@ -84,7 +84,7 @@ CREATE TABLE BOOK
     description  NVARCHAR(256),
     introduce    NVARCHAR(256),
     created_date DATE,
-    version      INT,
+    version      INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_Book PRIMARY KEY (id),
     CONSTRAINT FK_Book_BookShelf_id FOREIGN KEY (bookshelf_id) REFERENCES BOOKSHELF (id) ON UPDATE CASCADE,
@@ -107,7 +107,7 @@ CREATE TABLE BOOK_AUTHOR
 (
     book_id   INT,
     author_id INT,
-    version   INT,
+    version   INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_BookAuthor PRIMARY KEY (book_id, author_id),
     CONSTRAINT FK_BookAuthor_BookId FOREIGN KEY (book_id) REFERENCES BOOK (id),
@@ -119,7 +119,7 @@ CREATE TABLE BOOK_PUBLISHER
 (
     book_id      INT,
     publisher_id INT,
-    version      INT,
+    version      INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_BookPublisher PRIMARY KEY (book_id, publisher_id),
     CONSTRAINT FK_BookPublisher_BookId FOREIGN KEY (book_id) REFERENCES BOOK (id),
@@ -139,7 +139,7 @@ CREATE TABLE CUSTOMER
     sex           BIT,
     is_active     BIT,
     created_date  DATE,
-    version       INT,
+    version       INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_Customer PRIMARY KEY (id),
 )
@@ -160,7 +160,7 @@ CREATE TABLE EMPLOYEE
     role          INT                 NOT NULL,
     is_active     BIT,
     created_date  DATE DEFAULT (GETDATE()),
-    version       INT,
+    version       INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_Employee PRIMARY KEY (id),
 )
@@ -172,7 +172,7 @@ CREATE TABLE STORAGE
     employee_id  INT NOT NULL,
     description  NVARCHAR(256),
     created_date DATE DEFAULT (GETDATE()),
-    version      INT,
+    version      INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_Storage PRIMARY KEY (id),
     CONSTRAINT FK_Storage_EmployeeId FOREIGN KEY (employee_id) REFERENCES EMPLOYEE (id) ON UPDATE CASCADE
@@ -203,7 +203,7 @@ CREATE TABLE ORDER_RENT
     created_date    DATE,
     returned_date   DATE,
     status          VARCHAR(10),
-    version         INT,
+    version         INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_OrderRent PRIMARY KEY (id),
     CONSTRAINT FK_OrderRent_CustomerId FOREIGN KEY (customer_id) REFERENCES CUSTOMER (id) ON UPDATE CASCADE,
@@ -230,7 +230,7 @@ CREATE TABLE ORDER_SELL
     customer_id  INT,
     employee_id  INT,
     created_date DATE,
-    version      INT,
+    version      INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_OrderSell PRIMARY KEY (id),
     CONSTRAINT FK_OrderSell_CustomerId FOREIGN KEY (customer_id) REFERENCES CUSTOMER (id) ON UPDATE CASCADE,
@@ -264,7 +264,7 @@ CREATE TABLE BOOK_LOST
     employee_id  INT,
     cost_lost    SMALLMONEY,
     created_date DATE,
-    version      INT,
+    version      INT NOT NULL DEFAULT 0,
 
     CONSTRAINT PK_BookLost PRIMARY KEY (id),
     CONSTRAINT fk_LostBook_OrderRentId FOREIGN KEY (id) REFERENCES ORDER_RENT (id) ON UPDATE CASCADE,
@@ -355,6 +355,12 @@ CREATE TABLE RATING_SHIPPING
 GO
 
 /* Nhập dữ liệu */
+INSERT INTO CATEGORY (name, description)
+VALUES (N'Trinh thám', N''),
+       (N'Khoa học', N''),
+       (N'Tô màu', N'')
+GO
+
 INSERT INTO BOOKSHELF (location_name, max_storage, description)
 VALUES (N'Kệ A1', 100, N''),
        (N'Kệ A4', 90, N''),
@@ -364,12 +370,6 @@ VALUES (N'Kệ A1', 100, N''),
        (N'Kệ A6', 100, N''),
        (N'Kệ A7', 120, N''),
        (N'Kệ A8', 110, N'')
-GO
-
-INSERT INTO CATEGORY (name, description)
-VALUES (N'Kỉ Niệm HÀ NỘI tôi', '71 trang'),
-       (N'Đi tìm ngày xưa', ''),
-       (N'Sống đúng', '')
 GO
 
 INSERT INTO AUTHOR (full_name, date_of_birth, image, introduce, created_date)
@@ -388,6 +388,13 @@ VALUES ('GH12', N'TÔI THẤY MÌNH CÒN TRẺ', 274, 100, 1, 2017, 100000, N'',
        ('JH42', N'TÔI THẤY HOA VÀNG TRÊN CỎ XANH', 274, 120, 2, 2017, 100000, N'', 2, '', '11/06/2018')
 GO
 
+INSERT INTO BOOK_CATEGORY (book_id, category_id)
+VALUES (1, 1),
+       (1, 2),
+       (2, 3),
+       (2, 1)
+GO
+
 INSERT INTO CUSTOMER(username, password, full_name, date_of_birth, email, phone_number, is_active)
 VALUES ('haond', '123', N'Nguyễn Văn Hao', '1999-06-11', 'teonv@gmail.com', '0623457413', 1),
        ('nopt12', '123', N'Nguyễn Thị Nở', '1993-03-11', 'nopt@gmail.com', '054632179', 0)
@@ -402,7 +409,6 @@ INSERT INTO ORDER_SELL (customer_id, employee_id, created_date)
 VALUES (1, 1, GETDATE()),
        (2, 1, GETDATE())
 GO
-
 
 INSERT INTO ORDER_SELL_DETAIL (order_sell_id, book_id, amount, price)
 VALUES (1, 1, 3, 200000),

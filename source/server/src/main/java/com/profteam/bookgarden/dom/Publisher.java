@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Publisher extends AbstractEntity {
+@SuperBuilder
+public class Publisher extends AbstractEntity implements Serializable {
 
     @Column
     @NotNull

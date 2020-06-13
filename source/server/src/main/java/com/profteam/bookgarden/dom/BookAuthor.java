@@ -13,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BookAuthor {
+public class BookAuthor implements Serializable {
     
     @EmbeddedId
     private BookAuthorId bookAuthorId;

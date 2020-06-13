@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 @BatchSize(size = 20)
@@ -18,10 +20,11 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Getter
 @Setter
-public class RatingShipping {
+@SuperBuilder
+public class RatingShipping implements Serializable {
     
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_shipping_id")
     private OrderShipping orderShipping;
     
@@ -36,7 +39,6 @@ public class RatingShipping {
     @Column
     @Size(max = 256)
     private String customerComment;
-    
     
     @Column
     @Size(max = 256)

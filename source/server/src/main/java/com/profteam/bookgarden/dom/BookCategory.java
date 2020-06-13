@@ -1,6 +1,7 @@
 package com.profteam.bookgarden.dom;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
@@ -13,7 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BookCategory {
+@SuperBuilder
+public class BookCategory implements Serializable {
     
     @EmbeddedId
     private BookCategoryId bookCategoryId;
