@@ -1,6 +1,5 @@
 package com.profteam.bookgarden.dom;
 
-import com.profteam.bookgarden.dom.abstraction.AbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +18,25 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Storage extends AbstractEntity {
+public class BookLost {
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @Id
+    private int id;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
     
     @Column
-    @Size(max = 256)
-    private String description;
+    private Double costLost;
     
     @Column
     private LocalDate createdDate;
     
-    @OneToMany(mappedBy = "storageDetailId.storage")
-    private List<StorageDetail> storageDetails = new ArrayList<>();
+    @Version
+    private int version;
+    
+    @OneToMany(mappedBy = "bookLostDetailId.bookLost")
+    private List<BookLostDetail> bookLostDetails = new ArrayList<>();
     
 }

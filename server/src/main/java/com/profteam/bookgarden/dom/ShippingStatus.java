@@ -1,6 +1,5 @@
 package com.profteam.bookgarden.dom;
 
-import com.profteam.bookgarden.dom.abstraction.AbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,20 +18,21 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Storage extends AbstractEntity {
+public class ShippingStatus {
     
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    
+    @Column
+    @Size(max = 100)
+    private String name;
     
     @Column
     @Size(max = 256)
     private String description;
     
-    @Column
-    private LocalDate createdDate;
-    
-    @OneToMany(mappedBy = "storageDetailId.storage")
-    private List<StorageDetail> storageDetails = new ArrayList<>();
+    @OneToMany(mappedBy = "shippingStatus")
+    private List<OrderShipping> orderShippings = new ArrayList<>();
     
 }

@@ -204,7 +204,7 @@ CREATE TABLE ORDER_RENT
     expiration_day  SMALLINT,
     created_date    DATE,
     returned_date   DATE,
-    status          INT,
+    status          VARCHAR(10),
     version         INT,
 
     CONSTRAINT PK_OrderRent PRIMARY KEY (id),
@@ -231,7 +231,7 @@ CREATE TABLE ORDER_SELL
     id           INT IDENTITY (1, 1),
     customer_id  INT,
     employee_id  INT,
-    date_created DATE,
+    created_date DATE,
     version      INT,
 
     CONSTRAINT PK_OrderSell PRIMARY KEY (id),
@@ -242,8 +242,8 @@ GO
 
 CREATE TABLE ORDER_SELL_DETAIL
 (
-    order_sell_id INT   NOT NULL,
-    book_id       INT   NOT NULL,
+    order_sell_id INT,
+    book_id       INT,
     amount        INT   NOT NULL,
     price         MONEY NOT NULL,
 
@@ -323,7 +323,7 @@ CREATE TABLE ORDER_SHIPPING
     id            INT IDENTITY (100, 1),
     order_sell_id INT,
     order_rent_id INT,
-    user_id       INT,
+    customer_id   INT,
     employee_id   INT,
     address_id    INT,
     status_id     INT,
@@ -333,7 +333,7 @@ CREATE TABLE ORDER_SHIPPING
     CONSTRAINT PK_OrderShipping PRIMARY KEY (id),
     CONSTRAINT FK_OrderShipping_OrderSellId FOREIGN KEY (order_sell_id) REFERENCES ORDER_SELL (id),
     CONSTRAINT FK_OrderShipping_OrderRentId FOREIGN KEY (order_rent_id) REFERENCES ORDER_RENT (id),
-    CONSTRAINT FK_OrderShipping_UserId FOREIGN KEY (user_id) REFERENCES CUSTOMER (id),
+    CONSTRAINT FK_OrderShipping_UserId FOREIGN KEY (customer_id) REFERENCES CUSTOMER (id),
     CONSTRAINT FK_OrderShipping_EmployeeId FOREIGN KEY (employee_id) REFERENCES EMPLOYEE (id),
     CONSTRAINT FK_OrderShipping_AddressId FOREIGN KEY (address_id) REFERENCES ADDRESS (id),
     CONSTRAINT FK_OrderShipping_StatusId FOREIGN KEY (status_id) REFERENCES SHIPPING_STATUS (id),
@@ -343,15 +343,15 @@ GO
 CREATE TABLE RATING_SHIPPING
 (
     order_shipping_id INT,
-    user_id           INT,
+    customer_id       INT,
     employee_id       INT,
-    user_comment      NVARCHAR(256),
+    customer_comment  NVARCHAR(256),
     employee_comment  NVARCHAR(256),
     stars             TINYINT CHECK (stars > 0 AND stars <= 5),
 
     CONSTRAINT PK_RatingShipping PRIMARY KEY (order_shipping_id),
     CONSTRAINT FK_RatingShipping_OrderShippingId FOREIGN KEY (order_shipping_id) REFERENCES ORDER_SHIPPING (id),
-    CONSTRAINT FK_RattingShipping_CustomerId FOREIGN KEY (user_id) REFERENCES CUSTOMER (id),
+    CONSTRAINT FK_RattingShipping_CustomerId FOREIGN KEY (customer_id) REFERENCES CUSTOMER (id),
     CONSTRAINT FK_RattingShipping_EmployeeId FOREIGN KEY (employee_id) REFERENCES EMPLOYEE (id),
 )
 GO
@@ -400,7 +400,7 @@ VALUES ('quanly', '123', N'Lý Tiểu Long', 'lytieulong@gmail.com', '0168243931
        ('truongphong', '123', N'Nguyễn Đại Trân', 'ngueyndairan@gmail.com', '0123456789', 1, '06/05/2012', 1)
 GO
 
-INSERT INTO ORDER_SELL (customer_id, employee_id, date_created)
+INSERT INTO ORDER_SELL (customer_id, employee_id, created_date)
 VALUES (1, 1, GETDATE()),
        (2, 1, GETDATE())
 GO
@@ -412,8 +412,8 @@ VALUES (1, 1, 3, 200000),
 GO
 
 INSERT INTO ORDER_RENT (customer_id, employee_id, cost_rent, cost_expiration, expiration_day, created_date, returned_date, status)
-VALUES (1, 1, 5000, 1000, 7, GETDATE(), NULL, 0),
-       (2, 2, 5000, 1000, 7, GETDATE(), GETDATE(), 1)
+VALUES (1, 1, 5000, 1000, 7, GETDATE(), NULL, 'TEST1'),
+       (2, 2, 5000, 1000, 7, GETDATE(), GETDATE(), 'TEST2')
 GO
 
 INSERT INTO ORDER_RENT_DETAIL (order_rent_id, book_id, amount, price)

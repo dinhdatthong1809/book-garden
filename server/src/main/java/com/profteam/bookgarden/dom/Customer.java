@@ -10,11 +10,14 @@ import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @BatchSize(size = 20)
@@ -62,5 +65,20 @@ public class Customer extends AbstractEntity {
     
     @Column
     private LocalDate createdDate;
+    
+    @OneToMany(mappedBy = "customer")
+    private List<OrderRent> orderRents = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "customer")
+    private List<OrderSell> orderSells = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "customerAddressId.customer")
+    private List<CustomerAddress> customerAddresses = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "customer")
+    private List<OrderShipping> orderShippings = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "customer")
+    private List<RatingShipping> ratingShippings = new ArrayList<>();
     
 }

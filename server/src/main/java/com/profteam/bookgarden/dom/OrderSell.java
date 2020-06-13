@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +19,23 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Storage extends AbstractEntity {
+public class OrderSell extends AbstractEntity {
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
     
     @Column
-    @Size(max = 256)
-    private String description;
-    
-    @Column
     private LocalDate createdDate;
     
-    @OneToMany(mappedBy = "storageDetailId.storage")
-    private List<StorageDetail> storageDetails = new ArrayList<>();
+    @OneToMany(mappedBy = "orderSellDetailId.orderSell")
+    private List<OrderSellDetail> orderSellDetails = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "orderSell")
+    private List<OrderShipping> orderShippings = new ArrayList<>();
     
 }

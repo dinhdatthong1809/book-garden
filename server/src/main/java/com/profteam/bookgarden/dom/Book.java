@@ -92,5 +92,17 @@ public class Book extends AbstractEntity {
     
     @OneToMany(mappedBy = "bookPublisherId.book")
     private List<BookPublisher> bookPublishers = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "storageDetailId.book")
+    private List<StorageDetail> storageDetails = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "orderRentDetailId.book")
+    List<OrderRentDetail> orderRentDetails = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "orderSellDetailId.book")
+    private List<OrderSellDetail> orderSellDetails = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "bookLostDetailId.book")
+    private List<BookLostDetail> bookLostDetails = new ArrayList<>();
 
 }
