@@ -1,4 +1,4 @@
-package com.profteam.bookgarden.service.category;
+package com.profteam.bookgarden.service.interfaces;
 
 import com.profteam.bookgarden.dom.Category;
 

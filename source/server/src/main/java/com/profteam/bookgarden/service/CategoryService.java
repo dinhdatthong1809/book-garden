@@ -1,8 +1,9 @@
-package com.profteam.bookgarden.service.category;
+package com.profteam.bookgarden.service;
 
 import com.profteam.bookgarden.dom.Category;
 import com.profteam.bookgarden.exception.EntityCustomNotFoundException;
 import com.profteam.bookgarden.repository.ICategoryRepository;
+import com.profteam.bookgarden.service.interfaces.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

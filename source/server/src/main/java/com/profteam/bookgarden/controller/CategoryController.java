@@ -2,7 +2,7 @@ package com.profteam.bookgarden.controller;
 
 import com.profteam.bookgarden.constants.AppConstants;
 import com.profteam.bookgarden.dto.CategoryDto;
-import com.profteam.bookgarden.service.category.ICategoryService;
+import com.profteam.bookgarden.service.interfaces.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
