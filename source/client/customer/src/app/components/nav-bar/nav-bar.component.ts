@@ -15,7 +15,7 @@ export class NavBarComponent implements OnInit {
             disabled: false
         },
         {
-            name: "",
+            name: "Contact",
             url: "/",
             disabled: false
         }

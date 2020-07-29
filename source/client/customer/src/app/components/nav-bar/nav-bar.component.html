@@ -1,6 +1,6 @@
 <nav class="w-100 navbar shadow-sm navbar-expand-lg navbar-custom navbar-light font-balooda">
     <a class="navbar-brand" routerLink="/">
-        <img src="assets/images/logo4.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="assets/images/logo4.png" width="30" class="d-inline-block align-top" alt="brand logo">
         <span class="text-dark pl-2">BOOK</span>
         <span class="text-primary">GARDEN</span>
     </a>
@@ -11,8 +11,8 @@
         <ul class="navbar-nav">
             <li *ngFor="let item of leftItems" class="nav-item">
                 <a [routerLink]="item.url"
-                   class="nav-link text-uppercase"
                    [ngClass]="{'disabled': item.disabled}"
+                   class="nav-link text-uppercase"
                 >
                     {{item.name}}
                 </a>
@@ -21,8 +21,8 @@
         <ul class="navbar-nav ml-auto">
             <li *ngFor="let item of rightItems; let last = last;" class="nav-item">
                 <a [routerLink]="item.url"
-                   class="nav-link text-uppercase"
                    [ngClass]="{'btn btn-primary text-white': last}"
+                   class="nav-link text-uppercase"
                 >
                     {{item.name}}
                 </a>
