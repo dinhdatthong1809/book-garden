@@ -1,10 +1,6 @@
 export class ApiUrl {
 
-    private static readonly PROTOCOL: string = "http"
-    private static readonly ROOT: string = "localhost:8080/api";
-    private static readonly API_VERSION: string = "1"
-    private static readonly FULL_API_LINK: string = `${ApiUrl.PROTOCOL}://${ApiUrl.ROOT}/v${ApiUrl.API_VERSION}`;
+    static readonly BOOK: string = "https://5f23df433b9d350016203b13.mockapi.io/api/v1/book";
 
-    static readonly PROJECT: string = `${ApiUrl.FULL_API_LINK}/projects`;
 
 }

@@ -9511,6 +9511,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 }
 
 .text-truncate {
+    --max-lines: 3;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap

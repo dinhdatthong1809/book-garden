@@ -10,4 +10,8 @@ export class AppConstants {
     static readonly PASSWORD_MIN_LENGTH: number = 5;
     static readonly PASSWORD_MAX_LENGTH: number = 40;
 
+    static readonly EMAIL_REGEX: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    static readonly EMAIL_MIN_LENGTH: number = 3;
+    static readonly EMAIL_MAX_LENGTH: number = 100;
+
 }

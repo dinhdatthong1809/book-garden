@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from "src/app/abstract/menu";
+import {AppUrl} from "src/app/constants/app-url";
 
 @Component({
     selector: 'app-nav-bar',
@@ -11,25 +12,25 @@ export class NavBarComponent implements OnInit {
     leftItems: MenuItem[] = [
         {
             name: "Books",
-            url: "/",
+            url: `/${AppUrl.BOOKS}`,
             disabled: false
         },
         {
             name: "Contact",
-            url: "/",
+            url: `/${AppUrl.CONTACT}`,
             disabled: false
         }
     ];
 
     rightItems: MenuItem[] = [
         {
-            name: "Sign in",
-            url: "/sign-in",
+            name: "Sign up",
+            url: `/${AppUrl.SIGN_UP}`,
             disabled: false
         },
         {
-            name: "Sign up",
-            url: "/",
+            name: "Sign in",
+            url: `/${AppUrl.SIGN_IN}`,
             disabled: false
         }
     ];

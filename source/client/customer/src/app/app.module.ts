@@ -6,10 +6,13 @@ import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavBarComponent} from './components/nav-bar/nav-bar.component';
 import {MainComponent} from './pages/main/main.component';
-import { ErrorComponent } from './pages/error/error.component';
-import { LoginComponent } from './pages/login/login.component';
+import {ErrorComponent} from './pages/error/error.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import {SignUpComponent} from './pages/main/sign-up/sign-up.component';
+import {SignInComponent} from './pages/main/sign-in/sign-in.component';
+import {BooksComponent} from './pages/main/books/books.component';
+import {ContactComponent} from './pages/main/contact/contact.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +20,10 @@ import {ReactiveFormsModule} from "@angular/forms";
         NavBarComponent,
         MainComponent,
         ErrorComponent,
-        LoginComponent
+        SignInComponent,
+        SignUpComponent,
+        BooksComponent,
+        ContactComponent
     ],
     imports: [
         BrowserModule,

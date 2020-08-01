@@ -4686,11 +4686,15 @@ table.grid td {
 }
 
 .bg-signup2 {
-    background-color: rgb(31, 178, 153);
+    background-color: #455a64;
+    background-image: url(src/assets/images/logo8.png);
+    background-position: center top;
     height: 100%;
     border-radius: 0;
     border-top-left-radius: .25rem;
     border-bottom-left-radius: .25rem;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .bg-signin2 {
