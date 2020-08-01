@@ -1,0 +1,84 @@
+<div class="card-authentication2 mt-4 mx-auto">
+    <div class="card-group">
+        <div class="card mb-0">
+            <div class="bg-signin2"></div>
+            <div class="card-img-overlay rounded-left my-5"></div>
+        </div>
+        <div class="card mb-0">
+            <div class="card-body">
+                <div class="card-content p-3" style="min-height: 70vh">
+                    <div class="animated fadeInDown faster text-center">
+                        <img src="../../../../assets/images/logo5.png" width="60px" height="60px" alt="login-logo">
+                    </div>
+                    <div class="card-title text-uppercase text-center py-3 font-weight-bold text-dark">Sign in</div>
+
+                    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" id="signInForm" class="animated fadeInUp faster">
+                        <div class="form-group">
+                            <div class="position-relative has-icon-left">
+                                <input formControlName="username"
+                                       [minlength]="appConstants.USERNAME_MIN_LENGTH"
+                                       [maxlength]="appConstants.USERNAME_MAX_LENGTH"
+                                       class="form-control"
+                                       [ngClass]="{'is-invalid': submitted && getForm.username.errors}"
+                                       placeholder="username"/>
+                                <div class="form-control-position text-dark">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div *ngIf="submitted && getForm.username.errors" class="invalid-feedback text-nowrap">
+                                    <div *ngIf="getForm.username.errors.required">
+                                        Username is required
+                                    </div>
+                                    <div *ngIf="getForm.username.errors.pattern">
+                                        Username has no special character except for _
+                                    </div>
+                                    <div *ngIf="getForm.username.errors.maxlength || getForm.username.errors.minlength">
+                                        Username has from {{appConstants.USERNAME_MIN_LENGTH}} to {{appConstants.USERNAME_MAX_LENGTH}} characters
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="position-relative has-icon-left">
+                                <input formControlName="password"
+                                       type="password"
+                                       [minlength]="appConstants.PASSWORD_MIN_LENGTH"
+                                       [maxlength]="appConstants.PASSWORD_MAX_LENGTH"
+                                       class="form-control"
+                                       [ngClass]="{'is-invalid': submitted && getForm.password.errors}"
+                                       placeholder="password"/>
+                                <div class="form-control-position text-dark">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div *ngIf="submitted && getForm.password.errors" class="invalid-feedback text-nowrap">
+                                    <div *ngIf="getForm.password.errors.required">
+                                        Password is required
+                                    </div>
+                                    <div *ngIf="getForm.password.errors.pattern">
+                                        Password only has alphabets, numbers, -, _, spaces
+                                    </div>
+                                    <div *ngIf="getForm.password.errors.maxlength || getForm.password.errors.minlength">
+                                        Password has from {{appConstants.PASSWORD_MIN_LENGTH}} to {{appConstants.PASSWORD_MAX_LENGTH}} characters
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mr-0 ml-0">
+                            <div class="form-group col-6">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="user-checkbox" checked="">
+                                    <label for="user-checkbox">Remember me</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary font-weight-bold w-100">Sign in</button>
+                        <div class="text-center pt-3">
+                            <hr>
+                            <p class="text-muted">Are you new? <a routerLink="/sign-up"> Sign up here</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
