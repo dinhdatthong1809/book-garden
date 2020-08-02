@@ -1,55 +1,29 @@
 package com.profteam.bookgarden.controller;
 
-import com.profteam.bookgarden.constants.AppConstants;
-import com.profteam.bookgarden.dom.Book;
-import com.profteam.bookgarden.dom.Bookshelf;
-import com.profteam.bookgarden.repository.IBookRepository;
-import com.profteam.bookgarden.repository.IBookShelfRepository;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
+import com.profteam.bookgarden.constants.MessageConstants;
+import com.profteam.bookgarden.service.CategoryService;
+import com.profteam.bookgarden.utils.CommonUtil;
+import com.profteam.bookgarden.utils.ResponseUtil;
 
 @RestController
-@RequestMapping(AppConstants.API_CATEGORY)
+@RequestMapping("/api/category")
 public class CategoryController {
-    
+
     @Autowired
-    private IBookShelfRepository bookShelfRepository;
-    
-    @Autowired
-    private IBookRepository bookRepository;
-    
-    @Autowired
-    private EntityManager entityManager;
-    
-    @GetMapping("demo")
-    @Transactional
-    public String test() {
-        Book book1 = bookRepository.getByIdAndBookshelfId(1, 1);
-        Bookshelf bookshelf1 = book1.getBookshelf();
-        
-        Book book2 = bookRepository.getByIdAndBookshelfId(3, 1);
-        Bookshelf bookshelf2 = book2.getBookshelf();
-    
-        entityManager.detach(bookshelf2);
-        
-        Bookshelf bookshelf3 = new Bookshelf();
-        bookshelf3.setId(1);
-        bookshelf3.setLocationName("test");
-        bookshelf3.setMaxStorage(7);
-        
-        bookShelfRepository.save(bookshelf3);
-        
-        return "test xong";
+    CategoryService categoryService;
+
+    @GetMapping("/findAll")
+    public ResponseEntity<Map<String, Object>> findAll() {
+        return new ResponseEntity<>(ResponseUtil.createResponse(categoryService.findAll(),
+                CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_SUCCESS)), HttpStatus.OK);
     }
-    
-    @Transactional
-    public void nested() {
-    
-    }
-    
 }

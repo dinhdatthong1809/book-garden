@@ -1,27 +1,25 @@
 package com.profteam.bookgarden.service;
 
-import com.profteam.bookgarden.dom.Category;
-import com.profteam.bookgarden.exception.EntityCustomNotFoundException;
-import com.profteam.bookgarden.repository.ICategoryRepository;
-import com.profteam.bookgarden.service.interfaces.ICategoryService;
+import java.util.List;
+
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import com.profteam.bookgarden.dto.CategoryDto;
+import com.profteam.bookgarden.mapper.CategoryMapper;
+import com.profteam.bookgarden.repository.CategoryRepository;
 
 @Service
-@Transactional(rollbackFor = Throwable.class)
-public class CategoryService implements ICategoryService {
-    
+public class CategoryService {
+
     @Autowired
-    private ICategoryRepository categoryRepository;
-    
-    @Override
-    public Category findById(int id) {
-        Category category = categoryRepository
-                            .findById(id)
-                            .orElseThrow(() -> new EntityCustomNotFoundException(id, Category.class));
-        
-        return category;
+    CategoryRepository categoryRepository;
+
+    private final CategoryMapper categoryMapper = Mappers.getMapper(CategoryMapper.class);
+
+    public List<CategoryDto> findAll() {
+        return categoryMapper.toListCategoryDto(categoryRepository.findAll());
     }
-    
+
 }

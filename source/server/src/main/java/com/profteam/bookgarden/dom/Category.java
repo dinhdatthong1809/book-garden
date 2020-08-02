@@ -1,44 +1,32 @@
+
 package com.profteam.bookgarden.dom;
 
-import com.profteam.bookgarden.dom.abstraction.AbstractEntity;
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.BatchSize;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-@Entity
-@BatchSize(size = 20)
+import lombok.Getter;
+import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@SuperBuilder
-public class Category extends AbstractEntity implements Serializable {
+@Entity
+@Table(name = "CATEGORY")
+public class Category {
 
-    @Column
-    @NotNull
-    @NotBlank
-    @Size(max = 50)
-    private String name;
+    @Id
+    @Column(columnDefinition = "varchar(50)")
+    private String id;
 
-    @Column
-    @Size(max = 1000)
-    private String description;
-    
-    @OneToMany(mappedBy = "bookCategoryId.category")
-    private List<BookCategory> bookCategories = new ArrayList<>();
+    private String categoryTitle;
+
+    private String categoryDescription;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Book> books;
 
 }

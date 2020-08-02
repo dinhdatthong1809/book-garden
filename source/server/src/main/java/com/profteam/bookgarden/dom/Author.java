@@ -1,61 +1,40 @@
 package com.profteam.bookgarden.dom;
 
-import com.profteam.bookgarden.dom.abstraction.AbstractEntity;
-import com.profteam.bookgarden.dom.validator.author.CheckAuthorDateOfDeath;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.BatchSize;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@Entity
-@BatchSize(size = 20)
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-@CheckAuthorDateOfDeath
+import lombok.Getter;
+import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@SuperBuilder
-public class Author extends AbstractEntity implements Serializable {
+@Entity
+@Table(name = "AUTHOR")
+public class Author {
 
-    @Column
-    @NotNull
-    @NotBlank
-    @Size(max = 50)
-    private String fullName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column
-    private LocalDate dateOfBirth;
+    private String fullname;
 
-    @Column
-    private LocalDate dateOfDeath;
+    private Date dateOfBirth;
 
-    @Column
-    @Size(max = 256)
+    private Date dateOfDeath;
+
     private String image;
 
-    @Column
-    @Size(max = 1000)
     private String introduce;
 
-    @Column
-    private LocalDate createdDate;
-    
-    @OneToMany(mappedBy = "bookAuthorId.author")
-    private List<BookAuthor> bookAuthors = new ArrayList<>();
+    private Date createdDate;
 
+    @ManyToMany(mappedBy = "authors")
+    List<Book> books;
 }

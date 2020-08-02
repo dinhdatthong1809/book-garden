@@ -1,14 +1,13 @@
+
 package com.profteam.bookgarden.dom;
 
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -17,26 +16,30 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "PUBLISHER")
-public class Publisher {
+@Table(name = "\"USER\"")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    private String name;
+    private String username;
 
-    private String phoneNumber;
+    private String password;
+
+    private String fullname;
+
+    private Date dateOfBirth;
 
     private String email;
 
-    private String address;
+    private String phoneNumber;
 
-    private String introduce;
+    private boolean sex;
+
+//    @Column(name = "isActive")
+//    private Boolean isActive;
 
     private Date createdDate;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")
-    private List<Book> books;
 
 }
