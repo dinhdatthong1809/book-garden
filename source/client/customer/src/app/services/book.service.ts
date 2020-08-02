@@ -5,13 +5,14 @@ import {Observable} from "rxjs";
 import {BookListDto} from "src/app/dto/response/book-list-dto";
 import {ApiUrl} from "src/app/constants/api-url";
 import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
+import {PaginationResponse} from "src/app/dto/abstract-response";
 
 @Injectable({
     providedIn: 'root'
 })
 export class BookService extends AbstractService {
 
-    findChunkWithTitleKeywordAndPriceAndCategory(bookListCriteriaDto: BookListCriteriaDto): Observable<BookListDto[]> {
+    findChunkWithTitleKeywordAndPriceAndCategory(bookListCriteriaDto: BookListCriteriaDto): Observable<PaginationResponse<BookListDto>> {
         return super.post<BookListCriteriaDto, PaginationResponse<BookListDto>>(ApiUrl.BOOK, bookListCriteriaDto)
                     .pipe(catchError(super.handleError));
     }
