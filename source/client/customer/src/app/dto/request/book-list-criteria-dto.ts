@@ -8,8 +8,12 @@ export class BookListCriteriaDto {
 
     category: string;
 
+    // page: number = 1;
+    //
+    // chunk: number = 5;
+
     page: number;
 
-    chunk: number;
+    pageSize: number = 5;
 
 }

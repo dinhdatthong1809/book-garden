@@ -12,6 +12,7 @@ import {AppComponent} from "src/app/app.component";
 const routes: Routes = [
     {path: AppUrl.APP, component: AppComponent, children: [
         {path: AppUrl.MAIN, component: MainComponent, children: [
+            {path: AppUrl.HOME, component: BooksComponent, pathMatch: "full"},
             {path: AppUrl.BOOKS, component: BooksComponent, pathMatch: "full"},
             {path: AppUrl.CONTACT, component: ContactComponent, pathMatch: "full"},
             {path: AppUrl.SIGN_IN, component: SignInComponent, pathMatch: "full"},

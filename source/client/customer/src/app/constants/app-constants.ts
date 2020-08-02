@@ -12,19 +12,24 @@ export class AppConstants {
         },
         members: {
             haondps07264: {
-                name: "Nguyễn Đại Hào"
+                name: "Nguyễn Đại Hào",
+                facebook: "https://www.facebook.com/DuckyLuckVN"
             },
             thanhllps08444: {
-                name: "Lê Long Thành"
+                name: "Lê Long Thành",
+                facebook: "https://www.facebook.com/yu.nhox"
             },
             tiendqps08547: {
-                name: "Đào Quang Tiến"
+                name: "Đào Quang Tiến",
+                facebook: "https://www.facebook.com/bac.cai.756"
             },
             bienpdps08445: {
-                name: "Phạm Duy Biên"
+                name: "Phạm Duy Biên",
+                facebook: "https://www.facebook.com/phamduybien94"
             },
             thongddps08464: {
-                name: "Đinh Đat Thông"
+                name: "Đinh Đat Thông",
+                facebook: "https://www.facebook.com/dinh.dat.thong"
             }
         }
     };

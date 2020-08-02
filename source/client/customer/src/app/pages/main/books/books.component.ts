@@ -16,8 +16,6 @@ export class BooksComponent implements OnInit {
 
     filterForm: FormGroup;
 
-    chunk: number = 5;
-
     page: number = 1;
 
     totalBook: number = 100;

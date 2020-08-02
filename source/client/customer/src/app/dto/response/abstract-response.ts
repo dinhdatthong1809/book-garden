@@ -1,15 +1,25 @@
-export class AbstractResponse {
+export class AbstractResponse<T> {
 
-    response: Response;
+    response: Response<T>;
 
 }
 
-class Response {
+class Response<T> {
+
+    resultData: T;
+
+    message: string;
 
     errorCode: number;
 
-    resultData: any;
+    errorData: any;
 
+}
 
+class PaginationResponse<T> {
+
+    list: T[];
+
+    size: number;
 
 }
