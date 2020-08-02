@@ -6,11 +6,7 @@ export class BookListCriteriaDto {
 
     priceTo: number;
 
-    category: string;
-
-    // page: number = 1;
-    //
-    // chunk: number = 5;
+    category: string = "";
 
     page: number;
 

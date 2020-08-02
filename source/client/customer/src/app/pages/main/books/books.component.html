@@ -11,8 +11,15 @@
                             <label for="filterTitleKeyword" class="font-weight-bold">Title keyword</label>
                             <input formControlName="titleKeyword"
                                    [(ngModel)]="bookListCriteriaDto.titleKeyword"
+                                   [maxlength]="appConstants.TITLE_KEYWORD_MAX_LENGTH"
+                                   [ngClass]="{'is-invalid': submitted && getForm.titleKeyword.errors}"
                                    class="form-control"
                                    id="filterTitleKeyword">
+                            <div *ngIf="submitted && getForm.titleKeyword.errors" class="invalid-feedback text-nowrap">
+                                <div *ngIf="getForm.titleKeyword.errors.maxlength">
+                                    Title keyword has maximum {{appConstants.TITLE_KEYWORD_MAX_LENGTH}} characters
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="filterPriceFrom" class="font-weight-bold">Price (VND)</label>
@@ -20,18 +27,32 @@
                                 <div class="col-sm-6 my-1">
                                     <input formControlName="priceFrom"
                                            [(ngModel)]="bookListCriteriaDto.priceFrom"
+                                           [min]="appConstants.PRICE_MIN"
+                                           [ngClass]="{'is-invalid': submitted && getForm.priceFrom.errors}"
                                            type="number"
                                            class="form-control"
                                            id="filterPriceFrom"
                                            placeholder="From">
+                                    <div *ngIf="submitted && getForm.priceFrom.errors" class="invalid-feedback text-nowrap">
+                                        <div *ngIf="getForm.priceFrom.errors.min">
+                                            Price's minimum value is {{appConstants.PRICE_MIN}}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6 my-1">
                                     <input formControlName="priceTo"
                                            [(ngModel)]="bookListCriteriaDto.priceTo"
+                                           [min]="appConstants.PRICE_MIN"
+                                           [ngClass]="{'is-invalid': submitted && getForm.priceTo.errors}"
                                            type="number"
                                            class="form-control"
                                            id="filterPriceTo"
                                            placeholder="To">
+                                    <div *ngIf="submitted && getForm.priceTo.errors" class="invalid-feedback text-nowrap">
+                                        <div *ngIf="getForm.priceTo.errors.min">
+                                            Price's minimum value is {{appConstants.PRICE_MIN}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +62,7 @@
                                     [(ngModel)]="bookListCriteriaDto.category"
                                     class="form-control"
                                     id="filterCategory">
-                                <option [ngValue]="null" selected>All</option>
+                                <option value="" selected>All</option>
                                 <option value="1">category1</option>
                                 <option value="2">category2</option>
                             </select>
@@ -79,8 +100,8 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-2 text-center">
-                                <img class="border-primary border" width="160px" height="210px" src="assets/mock/head-first-java.png" alt="Card image front">
+                            <div class="col-lg-2">
+                                <img class="border-primary border img-fluid h-100" width="160" height="500" src="assets/mock/head-first-java.png" alt="Card image front">
                             </div>
                             <div class="col-lg-10 mt-2 mt-lg-0 d-flex flex-column">
                                 <div class="row mt-2 mb-3">

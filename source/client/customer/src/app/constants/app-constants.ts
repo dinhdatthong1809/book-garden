@@ -1,3 +1,5 @@
+import {Validators} from "@angular/forms";
+
 export class AppConstants {
 
     static readonly APP_AUTHOR = {
@@ -47,5 +49,9 @@ export class AppConstants {
     static readonly EMAIL_REGEX: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     static readonly EMAIL_MIN_LENGTH: number = 3;
     static readonly EMAIL_MAX_LENGTH: number = 100;
+
+    static readonly TITLE_KEYWORD_MAX_LENGTH: number = 100;
+
+    static readonly PRICE_MIN: number = 0;
 
 }

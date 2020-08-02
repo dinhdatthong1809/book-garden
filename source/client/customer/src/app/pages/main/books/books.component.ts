@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {BookService} from "src/app/services/book.service";
 import {BookListDto} from "src/app/dto/response/book-list-dto";
 import {Observable} from "rxjs";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
+import {AppConstants} from "src/app/constants/app-constants";
 
 @Component({
     selector: 'app-books',
@@ -12,9 +13,13 @@ import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
 })
 export class BooksComponent implements OnInit {
 
+    appConstants = AppConstants;
+
     books: Observable<BookListDto[]>;
 
     filterForm: FormGroup;
+
+    submitted: boolean = false;
 
     page: number = 1;
 
@@ -41,15 +46,31 @@ export class BooksComponent implements OnInit {
 
     private initForm(): void {
         this.filterForm = this._formBuilder.group({
-            titleKeyword: [null],
-            priceFrom: [null],
-            priceTo: [null],
-            category: [null],
+            titleKeyword: [null, [
+                Validators.maxLength(AppConstants.TITLE_KEYWORD_MAX_LENGTH),
+            ]],
+            priceFrom: [null, [
+                Validators.min(AppConstants.PRICE_MIN),
+            ]],
+            priceTo: [null, [
+                Validators.min(AppConstants.PRICE_MIN),
+            ]],
+            category: [""],
         });
     }
 
     onSubmit(): void {
+        this.submitted = true;
+
+        if (this.filterForm.invalid) {
+            return;
+        }
+
         this.loadBookList();
+    }
+
+    get getForm() {
+        return this.filterForm.controls;
     }
 
     goToPage(page: number): void {
