@@ -2,13 +2,13 @@ package com.profteam.bookgarden.service;
 
 import java.util.Optional;
 
+import com.profteam.bookgarden.utils.PageUtil;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.profteam.bookgarden.dom.Book;
@@ -42,9 +42,6 @@ public class BookService {
     public SearchAndFilterBookResponseDto searchAndFilter(SearchAndFilterBookRequestDto request) {
         SearchAndFilterBookResponseDto response = new SearchAndFilterBookResponseDto();
 
-        String title = "%" + request.getTitle() + "%";
-        String categoryId = "%" + request.getCategoryId() + "%";
-
         double minPrice = request.getMinPrice();
         double maxPrice = request.getMaxPrice();
 
@@ -52,11 +49,10 @@ public class BookService {
             maxPrice = Long.MAX_VALUE;
         }
 
-        Sort sort = Sort.by(Direction.valueOf(request.getOrderBy().getOrderEnum().name()), request.getOrderBy().getField());
-        Pageable pageable = PageRequest.of(request.getPage(), request.getSize(), sort);
+        Sort sort = request.getOrderBy().getSort();
+        Pageable pageable = PageUtil.getPageable(request, sort);
 
-        Page<Book> pageBooks = bookRepository.findDistinctByTitleLikeAndCategoriesIdLikeAndPriceBetween(title, categoryId,
-                minPrice, maxPrice, pageable);
+        Page<Book> pageBooks = bookRepository.findDistinctByTitleContainsAndCategoriesIdContainsAndPriceBetween(request.getTitle(), request.getCategoryId(), minPrice, maxPrice, pageable);
 
         response.setList(bookMapper.toListBookDto(pageBooks.getContent()));
         response.setTotalElements(pageBooks.getTotalElements());

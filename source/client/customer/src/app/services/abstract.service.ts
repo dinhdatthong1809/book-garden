@@ -31,17 +31,14 @@ export class AbstractService {
     }
 
     post <REQUEST_TYPE, RESPONSE_TYPE> (url: string, body: REQUEST_TYPE): Observable<RESPONSE_TYPE>  {
-        this._alertService.loading();
         return this._http.post<RESPONSE_TYPE>(url, body);
     }
 
     put <REQUEST_TYPE, RESPONSE_TYPE> (url: string, body: REQUEST_TYPE): Observable<RESPONSE_TYPE>  {
-        this._alertService.loading();
         return this._http.put<RESPONSE_TYPE>(url, body);
     }
 
     delete <REQUEST_TYPE, RESPONSE_TYPE> (url: string, body: REQUEST_TYPE): Observable<RESPONSE_TYPE>  {
-        this._alertService.loading();
         let options = {
             headers: new HttpHeaders({
                 "Content-Type": "application/json"

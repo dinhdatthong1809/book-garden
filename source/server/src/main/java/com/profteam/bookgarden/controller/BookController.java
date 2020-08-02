@@ -35,14 +35,16 @@ public class BookController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> findById(@RequestParam String id) {
         return new ResponseEntity<>(ResponseUtil.createResponse(bookService.findById(id),
-                CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_SUCCESS)), HttpStatus.OK);
+                                    CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_SUCCESS)),
+                                    HttpStatus.OK);
     }
 
     
-    @PostMapping("/search")
+    @PostMapping("search")
     public ResponseEntity<Map<String, Object>> searchAndFillter(@Valid @RequestBody SearchAndFilterBookRequestDto request) {
         return new ResponseEntity<>(ResponseUtil.createResponse(bookService.searchAndFilter(request),
-                CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_SUCCESS)), HttpStatus.OK);
+                                    CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_SUCCESS)),
+                                    HttpStatus.OK);
     }
 
 }

@@ -12,7 +12,7 @@ import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
 export class BookService extends AbstractService {
 
     findChunkWithTitleKeywordAndPriceAndCategory(bookListCriteriaDto: BookListCriteriaDto): Observable<BookListDto[]> {
-        return super.get<BookListDto[]>(ApiUrl.BOOK, bookListCriteriaDto)
+        return super.post<BookListCriteriaDto, PaginationResponse<BookListDto>>(ApiUrl.BOOK, bookListCriteriaDto)
                     .pipe(catchError(super.handleError));
     }
 

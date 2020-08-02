@@ -1,15 +1,23 @@
+import {OrderByDto} from "src/app/dto/order-by-dto";
+
 export class BookListCriteriaDto {
 
-    titleKeyword: string;
+    title: string = "";
 
-    priceFrom: number;
+    authorId: string = "";
 
-    priceTo: number;
+    categoryId: string = "";
 
-    category: string = "";
+    publisherId: string = "";
 
-    page: number;
+    minPrice: number = 0;
 
-    pageSize: number = 5;
+    maxPrice: number = 0;
+
+    orderBy: OrderByDto = new OrderByDto();
+
+    page: number = 1;
+
+    size: number = 5;
 
 }

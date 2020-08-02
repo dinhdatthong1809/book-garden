@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
 import {AppConstants} from "src/app/constants/app-constants";
+import {getDataList, Response} from "src/app/dto/abstract-response";
 
 @Component({
     selector: 'app-books',
@@ -15,7 +16,7 @@ export class BooksComponent implements OnInit {
 
     appConstants = AppConstants;
 
-    books: Observable<BookListDto[]>;
+    books: BookListDto[];
 
     filterForm: FormGroup;
 
@@ -41,21 +42,24 @@ export class BooksComponent implements OnInit {
     }
 
     private loadBookList() {
-        this.books = this._bookService.findChunkWithTitleKeywordAndPriceAndCategory(this.bookListCriteriaDto);
+        this._bookService.findChunkWithTitleKeywordAndPriceAndCategory(this.bookListCriteriaDto)
+                         .subscribe((value: PaginationResponse<BookListDto>) => {
+                             this.books = getDataList<BookListDto>(value);
+                         });
     }
 
     private initForm(): void {
         this.filterForm = this._formBuilder.group({
-            titleKeyword: [null, [
+            title: [null, [
                 Validators.maxLength(AppConstants.TITLE_KEYWORD_MAX_LENGTH),
             ]],
-            priceFrom: [null, [
+            minPrice: [null, [
                 Validators.min(AppConstants.PRICE_MIN),
             ]],
-            priceTo: [null, [
+            maxPrice: [null, [
                 Validators.min(AppConstants.PRICE_MIN),
             ]],
-            category: [""],
+            categoryId: [""],
         });
     }
 

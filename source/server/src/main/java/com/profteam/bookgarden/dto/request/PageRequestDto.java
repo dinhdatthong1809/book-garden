@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PageRequestDto {
-
-    int page;
-
-    int size;
+    
+    private int page;
+    
+    private int size = 1;
 
 }
