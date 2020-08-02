@@ -1,109 +1,64 @@
+
 package com.profteam.bookgarden.dom;
 
-import com.profteam.bookgarden.dom.abstraction.AbstractEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
-
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@Entity
-@BatchSize(size = 20)
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@NoArgsConstructor
-@AllArgsConstructor
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
-public class Book extends AbstractEntity implements Serializable {
+@Entity
+@Table(name = "BOOK")
+public class Book {
     
-    @Column
-    @Size(max = 50)
-    private String code;
-    
-    @Column
-    @NotNull
-    @NotBlank
-    @Size(max = 100)
+    @Id
+    @Column(columnDefinition = "varchar(50)")
+    private String id;
+
     private String title;
-    
-    @Column
-    @Min(1)
-    private Integer pageNum;
-    
-    @Column
-    @Min(0)
-    private Integer amount;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publisher_id")
-    private Publisher publisher;
-    
-    @Column
-    @Min(0)
-    private Integer releaseYear;
-    
-    @Column
-    @Min(0)
-    private Double sellPrice;
-    
-    @Column
-    @Size(max = 256)
+
+    private int pageNum;
+
+    private int amount;
+
+    private int publicationYear;
+
+    private double price;
+
     private String image;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bookshelf_id")
-    private Bookshelf bookshelf;
-    
-    @Column
-    private Boolean rentable;
-    
-    @Column
-    private Boolean buyable;
-    
-    @Column
-    @Min(0)
-    private Double rentPrice;
-    
-    @Column
-    @Size(max = 256)
+
     private String description;
-    
-    @Column
-    @Size(max = 256)
+
     private String introduce;
-    
-    @Column
-    private LocalDate createdDate;
-    
-    @OneToMany(mappedBy = "bookCategoryId.book")
-    private List<BookCategory> bookCategories = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "bookAuthorId.book")
-    private List<BookAuthor> bookAuthors = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "bookPublisherId.book")
-    private List<BookPublisher> bookPublishers = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "storageDetailId.book")
-    private List<StorageDetail> storageDetails = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "orderRentDetailId.book")
-    List<OrderRentDetail> orderRentDetails = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "orderSellDetailId.book")
-    private List<OrderSellDetail> orderSellDetails = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "bookLostDetailId.book")
-    private List<BookLostDetail> bookLostDetails = new ArrayList<>();
+
+    private Date createdDate;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "BOOKS_CATEGORIES",
+            joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = { @JoinColumn(name = "category_id") })
+    private List<Category> categories;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "BOOKS_AUTHORS",
+            joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = { @JoinColumn(name = "author_id") })
+    private List<Author> authors;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisherId")
+    private Publisher publisher;
 
 }

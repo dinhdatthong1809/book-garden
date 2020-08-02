@@ -1,27 +1,29 @@
 package com.profteam.bookgarden.controller;
 
-import com.profteam.bookgarden.constants.AppConstants;
-import com.profteam.bookgarden.dto.CategoryDto;
-import com.profteam.bookgarden.service.interfaces.ICategoryService;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.profteam.bookgarden.constants.MessageConstants;
+import com.profteam.bookgarden.service.CategoryService;
+import com.profteam.bookgarden.utils.CommonUtil;
+import com.profteam.bookgarden.utils.ResponseUtil;
+
 @RestController
-@RequestMapping(AppConstants.API_CATEGORY)
+@RequestMapping("/api/category")
 public class CategoryController {
-    
+
     @Autowired
-    private ICategoryService categoryService;
-    
-    @GetMapping("{id}")
-    public ResponseEntity<CategoryDto> findById(@PathVariable int id) {
-        CategoryDto categoryDto = new CategoryDto(categoryService.findById(id));
-        
-        return ResponseEntity.ok(categoryDto);
+    CategoryService categoryService;
+
+    @GetMapping("/findAll")
+    public ResponseEntity<Map<String, Object>> findAll() {
+        return new ResponseEntity<>(ResponseUtil.createResponse(categoryService.findAll(),
+                CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_SUCCESS)), HttpStatus.OK);
     }
-    
 }
