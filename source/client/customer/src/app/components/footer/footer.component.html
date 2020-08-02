@@ -1,0 +1,46 @@
+<div class="font-play">
+    <div class="bg-white">
+        <div class="container-fluid">
+            <div class="pb-4 pt-4 row d-flex justify-content-center">
+                <div class="col-lg-12">
+                    <div class="mt-3 text-lg-center text-sm-left font-balooda">
+                        <h3>
+                            <img class="img-fluid" width="50" height="50" src="assets/images/logo4.png" alt="brand">
+                            <span class="text-primary"> PROF</span><span class="text-dark">TEAM</span>
+
+                        </h3>
+                        <img *ngFor="let item of appAuthor.members | keyvalue"
+                             class="rounded-circle border border-primary m-2"
+                             height="100"
+                             width="100"
+                             src="assets/images/avatars/{{item.key}}.jpg">
+                        <h4 class="text-dark mb-4 mt-4">Contact <span class="text-primary">information</span></h4>
+                        <div class="text-secondary">
+                            <p><i class="fas fa-map-marker-alt"></i> {{appAuthor.address}}</p>
+                            <p><i class="fas fa-phone"></i> {{appAuthor.phone}}</p>
+                            <p><i class="fas fa-envelope"></i> {{appAuthor.email}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-3 bg-dark">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-6 d-flex">
+                <p class="text-white mr-auto mb-auto">
+                    Copyright &copy; 2020. Developed by
+                    <a href="{{appAuthor.socialLinks['github']}}/book-garden" target="_blank">{{appAuthor.name}}</a>.
+                    All rights reseved
+                </p>
+            </div>
+            <div class="col-lg-6 d-flex">
+                <div class="ml-auto">
+                    <a *ngFor="let item of appAuthor.socialLinks | keyvalue" [href]="item.value" target="_blank" class="text-white bg-secondary btn-social btn-social-circle btn-outline-github m-1">
+                        <i [class]="socialIcons[item.key]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

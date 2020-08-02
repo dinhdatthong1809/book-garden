@@ -1,5 +1,34 @@
 export class AppConstants {
 
+    static readonly APP_AUTHOR = {
+        name: "Prof team",
+        address: "150, Thanh Da Street, HCM City, Vietnam",
+        email: "profteam@gmail.com",
+        phone: "(090) 6546 948",
+        socialLinks: {
+            facebook: "https://www.facebook.com/dinh.dat.thong",
+            github: "https://github.com/dinhdatthong1809",
+            instagram: "https://www.instagram.com/dinh.dat.thong"
+        },
+        members: {
+            haondps07264: {
+                name: "Nguyễn Đại Hào"
+            },
+            thanhllps08444: {
+                name: "Lê Long Thành"
+            },
+            tiendqps08547: {
+                name: "Đào Quang Tiến"
+            },
+            bienpdps08445: {
+                name: "Phạm Duy Biên"
+            },
+            thongddps08464: {
+                name: "Đinh Đat Thông"
+            }
+        }
+    };
+
     static readonly NUMBER_ONLY_REGEX: RegExp = /^(0|[1-9]\d*)?$/;
 
     static readonly USERNAME_REGEX: RegExp = /^[a-zA-Z0-9_]+$/;

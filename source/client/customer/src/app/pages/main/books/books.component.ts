@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {BookService} from "src/app/services/book.service";
-import {BookListDto} from "src/app/dto/book-list-dto";
+import {BookListDto} from "src/app/dto/response/book-list-dto";
 import {Observable} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {BookListCriteriaDto} from "src/app/dto/book-list-criteria-dto";
+import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
 
 @Component({
     selector: 'app-books',
