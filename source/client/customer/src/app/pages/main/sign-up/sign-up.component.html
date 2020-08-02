@@ -1,0 +1,101 @@
+<div class="card-authentication2 mt-4 mx-auto">
+    <div class="card-group animated fadeIn faster">
+        <div class="card mb-0">
+            <div class="bg-signup2"></div>
+            <div class="card-img-overlay rounded-left my-5"></div>
+        </div>
+        <div class="card mb-0">
+            <div class="card-body">
+                <div class="card-content p-3" style="min-height: 70vh">
+                    <div class="animated fadeInDown faster text-center">
+                        <img src="../../../../assets/images/icons/theme/note.png" width="100" height="100px" alt="login-logo">
+                    </div>
+                    <div class="card-title text-uppercase text-center py-3 font-weight-bold text-dark">Sign up</div>
+
+                    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" id="signUpForm" class="animated fadeInUp faster">
+                        <div class="form-group">
+                            <div class="position-relative has-icon-left">
+                                <input formControlName="username"
+                                       [minlength]="appConstants.USERNAME_MIN_LENGTH"
+                                       [maxlength]="appConstants.USERNAME_MAX_LENGTH"
+                                       class="form-control"
+                                       [ngClass]="{'is-invalid': submitted && getForm.username.errors}"
+                                       placeholder="Username"/>
+                                <div class="form-control-position text-dark">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div *ngIf="submitted && getForm.username.errors" class="invalid-feedback text-nowrap">
+                                    <div *ngIf="getForm.username.errors.required">
+                                        Username is required
+                                    </div>
+                                    <div *ngIf="getForm.username.errors.pattern">
+                                        Username has no special character except for _
+                                    </div>
+                                    <div *ngIf="getForm.username.errors.maxlength || getForm.username.errors.minlength">
+                                        Username has from {{appConstants.USERNAME_MIN_LENGTH}} to {{appConstants.USERNAME_MAX_LENGTH}} characters
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="position-relative has-icon-left">
+                                <input formControlName="email"
+                                       type="email"
+                                       [minlength]="appConstants.EMAIL_MIN_LENGTH"
+                                       [maxlength]="appConstants.EMAIL_MAX_LENGTH"
+                                       class="form-control"
+                                       [ngClass]="{'is-invalid': submitted && getForm.email.errors}"
+                                       placeholder="Email"/>
+                                <div class="form-control-position text-dark">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div *ngIf="submitted && getForm.email.errors" class="invalid-feedback text-nowrap">
+                                    <div *ngIf="getForm.email.errors.required">
+                                        Email is required
+                                    </div>
+                                    <div *ngIf="getForm.email.errors.pattern">
+                                        Email is not valid
+                                    </div>
+                                    <div *ngIf="getForm.email.errors.maxlength || getForm.email.errors.minlength">
+                                        Email has from {{appConstants.EMAIL_MIN_LENGTH}} to {{appConstants.EMAIL_MAX_LENGTH}} characters
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="position-relative has-icon-left">
+                                <input formControlName="password"
+                                       type="password"
+                                       [minlength]="appConstants.PASSWORD_MIN_LENGTH"
+                                       [maxlength]="appConstants.PASSWORD_MAX_LENGTH"
+                                       class="form-control"
+                                       [ngClass]="{'is-invalid': submitted && getForm.password.errors}"
+                                       placeholder="Password"/>
+                                <div class="form-control-position text-dark">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div *ngIf="submitted && getForm.password.errors" class="invalid-feedback text-nowrap">
+                                    <div *ngIf="getForm.password.errors.required">
+                                        Password is required
+                                    </div>
+                                    <div *ngIf="getForm.password.errors.pattern">
+                                        Password only has alphabets, numbers, -, _, spaces
+                                    </div>
+                                    <div *ngIf="getForm.password.errors.maxlength || getForm.password.errors.minlength">
+                                        Password has from {{appConstants.PASSWORD_MIN_LENGTH}} to {{appConstants.PASSWORD_MAX_LENGTH}} characters
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <button type="submit" class="btn btn-outline-dark font-weight-bold w-100">Sign up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

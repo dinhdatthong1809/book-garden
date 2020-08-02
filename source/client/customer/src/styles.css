@@ -1,0 +1,13 @@
+@import "assets/css/font.css";
+@import "assets/css/app-style.css";
+@import "assets/css/animate.min.css";
+@import "assets/css/bootstrap.custom.min.css";
+
+* {
+    transition: 0.3s;
+}
+
+body {
+    background: #f7f7ff;
+    color: #636363;
+}

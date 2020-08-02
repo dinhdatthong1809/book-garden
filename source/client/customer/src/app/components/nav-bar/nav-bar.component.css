@@ -1,0 +1,42 @@
+/* change the background color */
+.navbar-custom {
+    background-color: white;
+}
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: #263238;
+}
+
+/* change the link color and add padding for height */
+.navbar-custom .navbar-nav .nav-link {
+    color: #263238;
+    padding: 0.5rem 1rem;
+    transition: 0.3s;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #1fb299;
+}
+
+/* for dropdown only - change the color of dropdown */
+.navbar-custom .dropdown-menu {
+    background-color: #ff5500;
+}
+
+.navbar-custom .dropdown-item {
+    color: #ffffff;
+}
+
+.navbar-custom .dropdown-item:hover,
+.navbar-custom .dropdown-item:focus {
+    color: #333333;
+    background-color: rgba(255, 255, 255, .5);
+}
