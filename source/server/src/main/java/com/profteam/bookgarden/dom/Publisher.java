@@ -1,5 +1,6 @@
 package com.profteam.bookgarden.dom;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,6 @@ public class Publisher {
     private Date createdDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publisher")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
 }

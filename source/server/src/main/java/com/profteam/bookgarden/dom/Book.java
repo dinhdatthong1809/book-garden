@@ -1,6 +1,7 @@
 
 package com.profteam.bookgarden.dom;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -49,16 +51,19 @@ public class Book {
     @JoinTable(name = "BOOKS_CATEGORIES",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = { @JoinColumn(name = "category_id") })
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "BOOKS_AUTHORS",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = { @JoinColumn(name = "author_id") })
-    private List<Author> authors;
+    private List<Author> authors = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publisherId")
+    @JoinColumn(name = "publisher_id")
     private Publisher publisher;
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    private List<OrderDetail> orders = new ArrayList<>();
 
 }
