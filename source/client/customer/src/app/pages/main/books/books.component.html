@@ -1,4 +1,4 @@
-<div class="container-fluid animated fadeIn mt-4">
+<div class="container-fluid animated fadeIn mt-4 mb-5">
     <div class="row">
         <div class="col-lg-3">
             <div class="card h-100">
@@ -112,7 +112,7 @@
                                         <p class="card-text text-wrap mt-3">
                                             <b class="text-dark">Author</b>:
                                             <a *ngFor="let author of book.authors; let last = last;">
-<!--                                                {{author.fullName + (last ? "" : ", ")}}-->
+                                                {{(author.fullName ? (last ? "" : ", ") : "")}}
                                             </a>
                                         </p>
                                         <p class="card-text text-wrap mt-3">

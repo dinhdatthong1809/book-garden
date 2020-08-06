@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {BookService} from "src/app/services/book.service";
 import {BookListDto} from "src/app/dto/response/book-list-dto";
-import {Observable} from "rxjs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
 import {AppConstants} from "src/app/constants/app-constants";
-import {getDataList, Response} from "src/app/dto/abstract-response";
+import {getDataList, PaginationResponse} from "src/app/dto/abstract-response";
+import {SessionKeys} from "src/app/constants/session-keys";
 
 @Component({
     selector: 'app-books',
@@ -33,8 +33,8 @@ export class BooksComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadAsyncData();
         this.initForm();
+        this.loadAsyncData();
     }
 
     private loadAsyncData(): void {
@@ -42,6 +42,10 @@ export class BooksComponent implements OnInit {
     }
 
     private loadBookList() {
+        if (sessionStorage.getItem(SessionKeys.TITLE_KEYWORD) && !this.bookListCriteriaDto.title) {
+            this.bookListCriteriaDto.title = sessionStorage.getItem(SessionKeys.TITLE_KEYWORD);
+        }
+
         this._bookService.findChunkWithTitleKeywordAndPriceAndCategory(this.bookListCriteriaDto)
                          .subscribe((value: PaginationResponse<BookListDto>) => {
                              this.books = getDataList<BookListDto>(value);

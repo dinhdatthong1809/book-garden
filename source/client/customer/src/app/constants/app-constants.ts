@@ -50,6 +50,7 @@ export class AppConstants {
     static readonly EMAIL_MIN_LENGTH: number = 3;
     static readonly EMAIL_MAX_LENGTH: number = 100;
 
+    static readonly TITLE_KEYWORD_MIN_LENGTH: number = 0;
     static readonly TITLE_KEYWORD_MAX_LENGTH: number = 100;
 
     static readonly PRICE_MIN: number = 0;

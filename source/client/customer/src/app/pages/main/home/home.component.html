@@ -1,1 +1,85 @@
-<p>home works!</p>
+<section id="homeHall" class="full-screen pt-5 pb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
+
+                <!-- Image -->
+                <img src="assets/images/logo2.png" class="animated fadeInLeft img-fluid" alt="main">
+
+            </div>
+            <div class="col-12 col-md-7 col-lg-6 order-md-1">
+
+                <!-- Heading -->
+                <div id="brandName" class="animated fadeInDown delay-1s text-center font-weight-bold font-play">
+                    BOOK <span class="text-primary">GARDEN</span><br>
+                </div>
+
+                <!-- Forms -->
+                <form [formGroup]="filterForm" (ngSubmit)="onSubmit()" id="filterForm" class="animated fadeInDown delay-1s ">
+                    <div class="form-group">
+                        <div class="position-relative has-icon-left">
+                            <input formControlName="title"
+                                   [maxlength]="appConstants.TITLE_KEYWORD_MAX_LENGTH"
+                                   class="form-control border border-primary"
+                                   [ngClass]="{'is-invalid': submitted && getForm.title.errors}"
+                                   placeholder="KEYWORD"/>
+                            <div class="form-control-position text-secondary">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div *ngIf="submitted && getForm.title.errors" class="invalid-feedback text-nowrap">
+                                <div *ngIf="getForm.title.errors.maxlength">
+                                    Keyword has maximum {{appConstants.TITLE_KEYWORD_MAX_LENGTH}} characters
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button class="btn btn-primary shadow mr-2 text-white font-weight-bold">
+                            Search book by title
+                        </button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="homeAboutUs" class="full-screen pt-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-12 col-lg-12 text-center">
+
+                <!-- Heading -->
+                <h3 class="text-uppercase">About us</h3>
+
+                <!-- Text -->
+                <p class="">
+                    BookGarden is a paradise platform for students and nerds who want to gain more knowledge<br>
+                    We provides many kinds of books for learning, entertainment, ... .
+                </p>
+            </div>
+
+            <div class="row mt-5 p-3">
+                <div class="col-lg-6">
+                    We encourage that readers should keep the license of books, do not share or violate the intelligence property for individual purpose.
+                    <div *ngFor="let tile of aboutUsTiles" class="mt-5">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img class="m-2 img-fluid rounded-circle border border-primary shadow" width="100px" height="100px" src="assets/images/icons/theme/{{tile.icon}}">
+                            </div>
+                            <div class="col-md-10">
+                                <p class="h5">{{tile.title}}</p>
+                                {{tile.content}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 align-items-center">
+                    <img class="img-fluid" src="assets/images/logo7.png">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
