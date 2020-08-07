@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppConstants} from "src/app/constants/app-constants";
-import {EventEmitterService} from "src/app/services/event-emitter.service";
 import {Router} from "@angular/router";
 import {AppUrl} from "src/app/constants/app-url";
 import {SessionKeys} from "src/app/constants/session-keys";

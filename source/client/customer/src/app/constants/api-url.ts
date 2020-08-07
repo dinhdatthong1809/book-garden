@@ -1,5 +1,9 @@
 export class ApiUrl {
 
-    static readonly BOOK: string = "http://localhost:8088/api/book/search";
+    static readonly BOOK: string = "http://localhost:8088/api/book";
+    static readonly BOOK_FILTER: string = "http://localhost:8088/api/book/search";
+
+    static readonly CATEGORY: string = "http://localhost:8088/api/category";
+    static readonly CATEGORY_FIND_ALL: string = "http://localhost:8088/api/category/findAll";
 
 }

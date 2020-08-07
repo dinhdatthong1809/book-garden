@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AbstractService} from "./abstract.service";
 import {catchError} from "rxjs/operators";
 import {Observable} from "rxjs";
-import {BookListDto} from "src/app/dto/response/book-list-dto";
+import {BookDto} from "src/app/dto/response/book-dto";
 import {ApiUrl} from "src/app/constants/api-url";
 import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
 import {PaginationResponse} from "src/app/dto/abstract-response";
@@ -12,8 +12,8 @@ import {PaginationResponse} from "src/app/dto/abstract-response";
 })
 export class BookService extends AbstractService {
 
-    findChunkWithTitleKeywordAndPriceAndCategory(bookListCriteriaDto: BookListCriteriaDto): Observable<PaginationResponse<BookListDto>> {
-        return super.post<BookListCriteriaDto, PaginationResponse<BookListDto>>(ApiUrl.BOOK, bookListCriteriaDto)
+    findChunkWithTitleKeywordAndPriceAndCategory(bookListCriteriaDto: BookListCriteriaDto): Observable<PaginationResponse<BookDto>> {
+        return super.post<BookListCriteriaDto, PaginationResponse<BookDto>>(ApiUrl.BOOK_FILTER, bookListCriteriaDto)
                     .pipe(catchError(super.handleError));
     }
 

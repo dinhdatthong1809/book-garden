@@ -10,9 +10,9 @@ export class BookListCriteriaDto {
 
     publisherId: string = "";
 
-    minPrice: number = 0;
+    minPrice: number;
 
-    maxPrice: number = 0;
+    maxPrice: number;
 
     orderBy: OrderByDto = new OrderByDto();
 

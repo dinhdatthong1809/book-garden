@@ -1,6 +1,6 @@
 export class Response<T> {
     response: {
-        resultData: T;
+        resultData: T[];
         message: string;
         errorCode: number;
         errorData: any;
@@ -19,6 +19,10 @@ export class PaginationResponse<T> {
     };
 }
 
-export function getDataList<T>(paginationResponse: PaginationResponse<T>): T[] {
+export function getPaginatedData<T>(paginationResponse: PaginationResponse<T>): T[] {
     return paginationResponse.response.resultData.list;
+}
+
+export function getDataList<T>(paginationResponse: Response<T>): T[] {
+    return paginationResponse.response.resultData;
 }

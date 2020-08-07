@@ -63,8 +63,9 @@
                                     class="form-control"
                                     id="filterCategory">
                                 <option value="" selected>All</option>
-                                <option value="1">category1</option>
-                                <option value="2">category2</option>
+                                <option *ngFor="let category of categories" [ngValue]="category.id">
+                                    {{category.categoryTitle}}
+                                </option>
                             </select>
                         </div>
                         <br>

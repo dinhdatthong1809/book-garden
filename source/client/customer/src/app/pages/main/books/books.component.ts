@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BookService} from "src/app/services/book.service";
-import {BookListDto} from "src/app/dto/response/book-list-dto";
+import {BookDto} from "src/app/dto/response/book-dto";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
 import {AppConstants} from "src/app/constants/app-constants";
-import {getDataList, PaginationResponse} from "src/app/dto/abstract-response";
+import {getDataList, getPaginatedData, PaginationResponse, Response} from "src/app/dto/abstract-response";
 import {SessionKeys} from "src/app/constants/session-keys";
+import {CategoryService} from "src/app/services/category.service";
+import {CategoryDto} from "src/app/dto/response/category-dto";
 
 @Component({
     selector: 'app-books',
@@ -16,7 +18,9 @@ export class BooksComponent implements OnInit {
 
     appConstants = AppConstants;
 
-    books: BookListDto[];
+    books: BookDto[];
+
+    categories: CategoryDto[];
 
     filterForm: FormGroup;
 
@@ -24,11 +28,12 @@ export class BooksComponent implements OnInit {
 
     page: number = 1;
 
-    totalBook: number = 100;
+    totalBook: number;
 
     bookListCriteriaDto: BookListCriteriaDto = new BookListCriteriaDto();
 
     constructor(private _bookService: BookService,
+                private _categoryService: CategoryService,
                 private _formBuilder: FormBuilder) {
     }
 
@@ -39,17 +44,29 @@ export class BooksComponent implements OnInit {
 
     private loadAsyncData(): void {
         this.loadBookList();
+        this.loadAllCategories();
     }
 
     private loadBookList() {
-        if (sessionStorage.getItem(SessionKeys.TITLE_KEYWORD) && !this.bookListCriteriaDto.title) {
+        if (sessionStorage.getItem(SessionKeys.TITLE_KEYWORD)
+                && !this.bookListCriteriaDto.title
+                && this.submitted == false) {
             this.bookListCriteriaDto.title = sessionStorage.getItem(SessionKeys.TITLE_KEYWORD);
+            sessionStorage.setItem(SessionKeys.TITLE_KEYWORD, "")
         }
 
         this._bookService.findChunkWithTitleKeywordAndPriceAndCategory(this.bookListCriteriaDto)
-                         .subscribe((value: PaginationResponse<BookListDto>) => {
-                             this.books = getDataList<BookListDto>(value);
+                         .subscribe((value: PaginationResponse<BookDto>) => {
+                             this.books = getPaginatedData<BookDto>(value);
+                             this.totalBook = this.books.length;
                          });
+    }
+
+    private loadAllCategories() {
+        this._categoryService.findAll()
+                             .subscribe((value: Response<CategoryDto>) => {
+                                 this.categories = getDataList<CategoryDto>(value);
+                             });
     }
 
     private initForm(): void {

@@ -1,4 +1,4 @@
-export class BookListDto {
+export class BookDto {
     id: number;
     title: string;
     description: string;
