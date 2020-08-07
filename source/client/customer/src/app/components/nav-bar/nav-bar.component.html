@@ -10,11 +10,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav">
-            <li *ngFor="let item of leftItems" class="nav-item" routerLinkActive="active">
+            <li *ngFor="let item of leftItems; let last = last;" class="nav-item" routerLinkActive="active">
                 <a [routerLink]="item.url"
                    [ngClass]="{'disabled': item.disabled}"
                    class="nav-link text-uppercase"
                 >
+                    <i *ngIf="last" class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>
                     {{item.name}}
                 </a>
             </li>

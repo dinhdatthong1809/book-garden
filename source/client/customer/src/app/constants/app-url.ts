@@ -10,6 +10,8 @@ export class AppUrl {
 
             static readonly CONTACT: string = "contact";
 
+            static readonly YOUR_CART: string = "your-cart";
+
             static readonly SIGN_IN: string = "sign-in";
 
             static readonly SIGN_UP: string = "sign-up";

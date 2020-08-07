@@ -19,6 +19,11 @@ export class NavBarComponent implements OnInit {
             name: "Contact",
             url: `/${AppUrl.CONTACT}`,
             disabled: false
+        },
+        {
+            name: "Your cart",
+            url: `/${AppUrl.YOUR_CART}`,
+            disabled: false
         }
     ];
 
