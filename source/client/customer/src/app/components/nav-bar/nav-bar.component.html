@@ -12,7 +12,7 @@
         <ul class="navbar-nav">
             <li *ngFor="let item of leftItems; let last = last;" class="nav-item" routerLinkActive="active">
                 <a [routerLink]="item.url"
-                   [ngClass]="{'disabled': item.disabled}"
+                   [ngClass]="{'disabled': item.disableRouter}"
                    class="nav-link text-uppercase"
                 >
                     <i *ngIf="last" class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>
@@ -20,7 +20,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <ul *ngIf="!_authenticatedService.isAuthenticated()" class="navbar-nav ml-auto">
             <li *ngFor="let item of rightItems; let last = last;" class="nav-item" routerLinkActive="active">
                 <a [routerLink]="item.url"
                    [ngClass]="{'btn btn-primary text-white': last}"
@@ -28,6 +28,22 @@
                 >
                     {{item.name}}
                 </a>
+            </li>
+        </ul>
+        <ul *ngIf="_authenticatedService.isAuthenticated()" class="navbar-nav ml-auto">
+            <li *ngFor="let item of rightItemsSignIned; let last = last; let first = first;" class="nav-item" routerLinkActive="active">
+                <a *ngIf="!item.disableRouter" [routerLink]="item.url"
+                   [ngClass]="{'btn btn-primary text-white': last}"
+                   class="nav-link text-uppercase"
+                >
+                    {{item.name}}
+                </a>
+                <div *ngIf="item.disableRouter" (click)="signOut()" style="cursor: pointer"
+                   [ngClass]="{'btn btn-primary text-white': last}"
+                   class="nav-link text-uppercase"
+                >
+                    {{item.name}}
+                </div>
             </li>
         </ul>
     </div>

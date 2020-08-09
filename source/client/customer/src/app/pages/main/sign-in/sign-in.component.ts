@@ -1,6 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppConstants} from "src/app/constants/app-constants";
+import {AuthenticatedService} from "src/app/services/authenticated.service";
+import {SignInDto} from "src/app/dto/request/sign-in-dto";
+import {UserDto} from "src/app/dto/response/user-dto";
+import {AlertService} from "src/app/services/alert.service";
+import {getData, Response} from "src/app/dto/abstract-response";
+import {Router} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
     selector: 'app-sign-in',
@@ -15,7 +22,12 @@ export class SignInComponent implements OnInit {
 
     appConstants = AppConstants;
 
-    constructor(private _formBuilder: FormBuilder) {
+    constructor(private _formBuilder: FormBuilder,
+                private _alertService: AlertService,
+                private _location: Location,
+                private _router: Router,
+                private _authenticatedService: AuthenticatedService) {
+
     }
 
     ngOnInit(): void {
@@ -52,8 +64,15 @@ export class SignInComponent implements OnInit {
             return;
         }
 
-        console.log(this.getForm.username.value);
-        console.log(this.getForm.password.value);
+        let signInDto: SignInDto = <SignInDto> this.signInForm.value;
+
+        this._authenticatedService.signIn(signInDto)
+                                  .subscribe((response: Response<UserDto>) => {
+                                      let userDto = getData<UserDto>(response);
+                                      this._alertService.success(`Welcome back ${userDto.fullname}!`);
+                                      this._authenticatedService.saveUserToLocal(signInDto);
+                                      this._location.back();
+                                  });
     }
 
 }

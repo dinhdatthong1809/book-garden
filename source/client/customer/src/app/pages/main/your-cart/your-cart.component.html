@@ -11,7 +11,25 @@
                 <div class="card-header bg-primary">
                     <h4 class="text-white text-wrap">Check out</h4>
                 </div>
-                <div class="card-body">
+                <div *ngIf="!_authenticatedService.isAuthenticated()" class="card-body">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-6 text-center">
+                                <h2 class="font-weight-bold text-uppercase text-dark">
+                                    Total price: {{totalPrice | number:'1.0':'en-US'}} VND
+                                </h2>
+                                <img src="assets/images/logo.png" class="img-fluid">
+                            </div>
+                            <div class="col-lg-12 col-sm-6 text-center">
+
+                                <h3 class="text-dark">
+                                    Please <a class="text-decoration-none" routerLink="/sign-in">sign in</a> before check out
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="_authenticatedService.isAuthenticated()" class="card-body">
                     <form (ngSubmit)="onSubmit()" class="form-group">
                         <div class="form-group">
                             <label class="font-weight-bold">Id</label>
@@ -41,7 +59,7 @@
                             <label class="font-weight-bold">Phone</label>
                             <input class="form-control"
                                    readonly
-                                   [value]="user.phone">
+                                   [value]="user.phoneNumber">
                         </div>
                         <br>
                         <div class="font-weight-bold text-uppercase">

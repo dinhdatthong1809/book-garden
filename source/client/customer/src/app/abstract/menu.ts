@@ -4,7 +4,7 @@ export interface MenuItem {
 
     url: string;
 
-    disabled?: boolean;
+    disableRouter?: boolean;
 
 }
 

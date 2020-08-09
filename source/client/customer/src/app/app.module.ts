@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -17,6 +17,7 @@ import { HomeComponent } from './pages/main/home/home.component';
 import { YourCartComponent } from './pages/main/your-cart/your-cart.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
+import {ErrorHandlerService} from "src/app/services/error-handler.service";
 
 @NgModule({
     declarations: [
@@ -41,7 +42,9 @@ import {ToastrModule} from "ngx-toastr";
         BrowserAnimationsModule,
         ToastrModule.forRoot(),
     ],
-    providers: [],
+    providers: [
+        {provide: ErrorHandler, useClass: ErrorHandlerService},
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

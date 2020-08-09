@@ -36,7 +36,7 @@ export class ErrorHandlerService implements ErrorHandler {
                 return;
             }
 
-            this._alertService.error(error.error.message);
+            this._alertService.error(error.error.response.message);
             return;
         }
 

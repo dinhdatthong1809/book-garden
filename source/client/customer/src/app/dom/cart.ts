@@ -3,12 +3,12 @@ export class Cart {
 }
 
 export class CartItem {
-    id: string;
+    bookId: string;
     amount: number;
     price: number;
 
-    constructor(id: string, amount: number, price: number) {
-        this.id = id;
+    constructor(bookId: string, amount: number, price: number) {
+        this.bookId = bookId;
         this.amount = amount;
         this.price = price;
     }

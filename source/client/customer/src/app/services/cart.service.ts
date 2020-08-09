@@ -1,21 +1,21 @@
 import {Injectable} from '@angular/core';
 import {Cart, CartItem} from "src/app/dom/cart";
 import {LocalStorageKeys} from "src/app/constants/local-storage-keys";
+import {AbstractService} from "src/app/services/abstract.service";
+import {Observable} from "rxjs";
+import {ApiUrl} from "src/app/constants/api-url";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
     providedIn: 'root'
 })
-export class CartService {
+export class CartService extends AbstractService {
 
     private cart: Cart = this.getCart();
 
-    constructor() {
-
-    }
-
     add(id: string, price: number): void {
         for (let item of this.cart.items) {
-            if (item.id === id) {
+            if (item.bookId === id) {
                 item.amount++;
                 this.saveCart();
                 return;
@@ -28,7 +28,7 @@ export class CartService {
 
     remove(id: string): void {
         for (let i = 0; i < this.cart.items.length; i++) {
-            if (this.cart.items[i].id === id) {
+            if (this.cart.items[i].bookId === id) {
                 this.cart.items.splice(i, 1);
                 this.saveCart();
                 return;
@@ -52,6 +52,11 @@ export class CartService {
         }
 
         return new Cart();
+    }
+
+    checkout(cart: Cart): Observable<any> {
+        return super.post<Cart, any>(ApiUrl.USER_CHECK_OUT, cart, true)
+                    .pipe(catchError(super.handleError));
     }
 
 }

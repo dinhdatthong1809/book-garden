@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {AlertService} from "src/app/services/alert.service";
+import {SignInDto} from "src/app/dto/request/sign-in-dto";
+import {SessionStorageKeys} from "src/app/constants/session-storage-keys";
 
 @Injectable({
     providedIn: 'root'
@@ -30,8 +32,35 @@ export class AbstractService {
         return this._http.get<RESPONSE_TYPE>(url, {params: params});
     }
 
-    protected post <REQUEST_TYPE, RESPONSE_TYPE> (url: string, body: REQUEST_TYPE): Observable<RESPONSE_TYPE>  {
-        return this._http.post<RESPONSE_TYPE>(url, body);
+    authenticated = false;
+
+    authenticate(signInDto: SignInDto, callback) {
+        const headers = new HttpHeaders(signInDto ? {authorization: "Basic " + btoa(signInDto.username + ":" + signInDto.password)}
+                                                  : {});
+
+        this._http.get("user", {headers: headers}).subscribe(response => {
+            if (response['name']) {
+                this.authenticated = true;
+            } else {
+                this.authenticated = false;
+            }
+            return callback && callback();
+        });
+
+    }
+
+    protected post <REQUEST_TYPE, RESPONSE_TYPE> (url: string, body: REQUEST_TYPE, withCredentials?: boolean): Observable<RESPONSE_TYPE>  {
+        if (!withCredentials) {
+            return this._http.post<RESPONSE_TYPE>(url, body);
+        }
+
+        let signInDto: SignInDto = JSON.parse(sessionStorage.getItem(SessionStorageKeys.USER));
+
+        console.log(btoa(signInDto.username + ":" + signInDto.password))
+        const headers = new HttpHeaders(signInDto ? {authorization: "Basic " + btoa(signInDto.username + ":" + signInDto.password)}
+                                                  : {});
+
+        return this._http.post<RESPONSE_TYPE>(url, body, {headers: headers});
     }
 
     protected put <REQUEST_TYPE, RESPONSE_TYPE> (url: string, body: REQUEST_TYPE): Observable<RESPONSE_TYPE>  {
