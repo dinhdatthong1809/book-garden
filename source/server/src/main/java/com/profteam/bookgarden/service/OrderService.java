@@ -29,13 +29,13 @@ import com.profteam.bookgarden.utils.CommonUtil;
 public class OrderService {
 
     @Autowired
-    OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    OrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository orderDetailRepository;
 
     @Autowired
-    BookService bookService;
+    private BookService bookService;
 
     private final OrderMapper orderMapper = Mappers.getMapper(OrderMapper.class);
 
@@ -54,7 +54,7 @@ public class OrderService {
         return listOrderDto;
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Throwable.class)
     public String order(OrderRequestDto request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();
@@ -71,9 +71,7 @@ public class OrderService {
         order = orderRepository.save(order);
 
         List<OrderDetail> listOrderDetail = toListOrderDetail(request.getItems(), order);
-        listOrderDetail.forEach(orderDetail -> {
-            orderDetailRepository.save(orderDetail);
-        });
+        orderDetailRepository.saveAll(listOrderDetail);
 
         return CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_SUCCESS);
     }

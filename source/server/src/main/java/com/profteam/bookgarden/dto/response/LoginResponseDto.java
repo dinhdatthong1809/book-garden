@@ -2,6 +2,9 @@ package com.profteam.bookgarden.dto.response;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.profteam.bookgarden.constants.AppConstants;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +18,7 @@ public class LoginResponseDto {
 
     private String fullname;
 
+    @JsonFormat(pattern = AppConstants.DDMMYYYY)
     private Date dateOfBirth;
 
     private String email;

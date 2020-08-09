@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.profteam.bookgarden.dom.User;
+import com.profteam.bookgarden.dto.UserDto;
 import com.profteam.bookgarden.dto.request.LoginRequestDto;
 import com.profteam.bookgarden.dto.response.LoginResponseDto;
-import com.profteam.bookgarden.exception.InvalidLoginOrPasswordException;
 import com.profteam.bookgarden.mapper.UserMapper;
 import com.profteam.bookgarden.repository.UserRepository;
 
@@ -21,7 +21,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Value("${security.salt16Bytes}")
     private String salt16Bytes;
@@ -31,16 +31,15 @@ public class UserService {
     public LoginResponseDto login(LoginRequestDto requestDto) {
         Optional<User> userOpt = userRepository.findByUsernameAndPassword(requestDto.getUsername(),
                 encryptPassword(requestDto.getPassword()));
-
-        if (userOpt.isPresent()) {
-            return userMapper.userToLoginResponseDto(userOpt.get());
-        }
-
-        throw new InvalidLoginOrPasswordException();
+        return userMapper.userToLoginResponseDto(userOpt.orElse(null));
     }
 
     public Optional<User> findByUsernameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, encryptPassword(password));
+    }
+
+    public UserDto findByUsername(String username) {
+        return userMapper.userToUserDto(userRepository.findByUsername(username).orElse(null));
     }
 
     private String encryptPassword(String password) {
@@ -48,8 +47,4 @@ public class UserService {
         return new String(pass, StandardCharsets.UTF_8);
     }
 
-    public boolean verifyPassword(String password) {
-        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), password);
-        return result.verified;
-    }
 }
