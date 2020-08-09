@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.profteam.bookgarden.dom.User;
 import com.profteam.bookgarden.dto.request.LoginRequestDto;
 import com.profteam.bookgarden.dto.response.LoginResponseDto;
+import com.profteam.bookgarden.exception.InvalidLoginOrPasswordException;
 import com.profteam.bookgarden.mapper.UserMapper;
 import com.profteam.bookgarden.repository.UserRepository;
 
@@ -35,7 +36,7 @@ public class UserService {
             return userMapper.userToLoginResponseDto(userOpt.get());
         }
 
-        return null;
+        throw new InvalidLoginOrPasswordException();
     }
 
     public Optional<User> findByUsernameAndPassword(String username, String password) {
