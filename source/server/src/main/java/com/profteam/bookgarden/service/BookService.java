@@ -2,11 +2,9 @@ package com.profteam.bookgarden.service;
 
 import java.util.Optional;
 
-import com.profteam.bookgarden.utils.PageUtil;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,7 @@ import com.profteam.bookgarden.dto.response.SearchAndFilterBookResponseDto;
 import com.profteam.bookgarden.mapper.BookMapper;
 import com.profteam.bookgarden.repository.BookRepository;
 import com.profteam.bookgarden.repository.impl.CustomBookRepository;
+import com.profteam.bookgarden.utils.PageUtil;
 
 @Service
 public class BookService {
@@ -58,6 +57,17 @@ public class BookService {
         response.setTotalElements(pageBooks.getTotalElements());
 
         return response;
+    }
+
+    public double getBookPrice(String bookId) {
+        Optional<Book> bookOpt = bookRepository.findById(bookId);
+
+        if (bookOpt.isPresent()) {
+            return bookOpt.get().getPrice();
+        } else {
+            return 0;
+        }
+
     }
 
 }

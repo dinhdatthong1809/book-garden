@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.profteam.bookgarden.constants.MessageConstants;
 import com.profteam.bookgarden.dto.request.LoginRequestDto;
+import com.profteam.bookgarden.dto.request.OrderRequestDto;
 import com.profteam.bookgarden.service.OrderService;
 import com.profteam.bookgarden.service.UserService;
 import com.profteam.bookgarden.utils.CommonUtil;
@@ -31,13 +32,12 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@Valid @RequestBody LoginRequestDto request) {
-
         return new ResponseEntity<>(
-                ResponseUtil.createResponse(null, CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)),
+                ResponseUtil.createResponse(userService.login(request), CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)),
                 HttpStatus.OK);
     }
 
-    @PostMapping("/login2")
+    @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> login() {
         return new ResponseEntity<>(
                 ResponseUtil.createResponse(null, CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)),
@@ -47,6 +47,12 @@ public class UserController {
     @PostMapping("/order-history")
     public ResponseEntity<Map<String, Object>> getOrderHistory() {
         return new ResponseEntity<>(ResponseUtil.createResponse(orderService.getListOrderHistory(),
+                CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
+    }
+    
+    @PostMapping("/order")
+    public ResponseEntity<Map<String, Object>> order(@RequestBody OrderRequestDto request) {
+        return new ResponseEntity<>(ResponseUtil.createResponse(orderService.order(request),
                 CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
     }
 

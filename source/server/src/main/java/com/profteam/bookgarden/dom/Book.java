@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,10 +18,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "BOOK")
 public class Book {
@@ -47,13 +50,13 @@ public class Book {
 
     private Date createdDate;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "BOOKS_CATEGORIES",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = { @JoinColumn(name = "category_id") })
     private List<Category> categories = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "BOOKS_AUTHORS",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = { @JoinColumn(name = "author_id") })
@@ -63,7 +66,10 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
-    private List<OrderDetail> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
+    public Book(String id) {
+        this.id = id;
+    }
 }

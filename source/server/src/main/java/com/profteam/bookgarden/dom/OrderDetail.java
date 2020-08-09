@@ -3,6 +3,7 @@ package com.profteam.bookgarden.dom;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -19,17 +20,17 @@ import lombok.Setter;
 public class OrderDetail {
 
     @EmbeddedId
-    private Pk pk;
+    private Pk pk = new Pk();
 
     private int amount;
 
     private double price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("bookId")
     private Book book;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId("orderId")
     private Order order;
 
@@ -42,7 +43,7 @@ public class OrderDetail {
 
         private String bookId;
 
-        private String orderId;
+        private Long orderId;
 
     }
 
