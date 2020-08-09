@@ -19,9 +19,9 @@ public class BookDto {
 
     private String image;
 
-    private List<CategoryDto> categories;
+    private CategoryDto category;
 
-    private List<AuthorDto> authors;
+    private AuthorDto author;
 
     private PublisherDto publisher;
 

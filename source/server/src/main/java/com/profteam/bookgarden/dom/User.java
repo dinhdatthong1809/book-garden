@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -27,6 +28,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "\"USER\"")
 @EntityListeners(AuditingEntityListener.class)
+@Where(clause = "isActive = true")
 public class User {
 
     @Id
@@ -48,9 +50,6 @@ public class User {
     private boolean sex;
 
     private String address;
-
-//    @Column(name = "\"isActive\"")
-//    private Boolean isActive;
 
     @CreatedDate
     private Date createdDate;

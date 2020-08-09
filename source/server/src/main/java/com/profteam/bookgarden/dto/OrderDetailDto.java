@@ -13,7 +13,7 @@ public class OrderDetailDto {
 
     private double price;
 
-    @JsonIgnoreProperties(value = {"publisher", "authors", "categories", "image", "price", "description"})
+    @JsonIgnoreProperties(value = {"publisher", "author", "category", "image", "price", "description"})
     private BookDto book;
 
 }
