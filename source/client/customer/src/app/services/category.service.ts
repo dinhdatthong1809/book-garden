@@ -11,8 +11,8 @@ import {CategoryDto} from "src/app/dto/response/category-dto";
 })
 export class CategoryService extends AbstractService {
 
-    findAll(): Observable<Response<CategoryDto>> {
-        return super.get<Response<CategoryDto>>(ApiUrl.CATEGORY_FIND_ALL)
+    findAll(): Observable<Response<CategoryDto[]>> {
+        return super.get<Response<CategoryDto[]>>(ApiUrl.CATEGORY_FIND_ALL)
                     .pipe(catchError(super.handleError));
     }
 

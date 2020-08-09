@@ -12,10 +12,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SignUpComponent} from './pages/main/sign-up/sign-up.component';
 import {SignInComponent} from './pages/main/sign-in/sign-in.component';
 import {BooksComponent} from './pages/main/books/books.component';
-import {ContactComponent} from './pages/main/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/main/home/home.component';
 import { YourCartComponent } from './pages/main/your-cart/your-cart.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
     declarations: [
@@ -26,7 +27,6 @@ import { YourCartComponent } from './pages/main/your-cart/your-cart.component';
         SignInComponent,
         SignUpComponent,
         BooksComponent,
-        ContactComponent,
         FooterComponent,
         HomeComponent,
         YourCartComponent
@@ -37,7 +37,9 @@ import { YourCartComponent } from './pages/main/your-cart/your-cart.component';
         HttpClientModule,
         ReactiveFormsModule,
         NgbModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
     ],
     providers: [],
     bootstrap: [AppComponent]
