@@ -1,3 +1,108 @@
-<section class="full-screen">
-    <p>your-cart works!</p>
-</section>
+<div class="container-fluid animated fadeIn mt-4 mb-5 full-screen">
+    <div class="row" *ngIf="bookInCart.length === 0">
+        <div class="col-12 text-center">
+            <h1 class="text-secondary">Your cart is empty</h1>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="bookInCart.length !== 0">
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary">
+                    <h4 class="text-white text-wrap">Check out</h4>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="onSubmit()" class="form-group">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Id</label>
+                            <input class="form-control"
+                                   readonly
+                                   [value]="user.id">
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Name</label>
+                            <input class="form-control"
+                                   readonly
+                                   [value]="user.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Address</label>
+                            <input class="form-control"
+                                   readonly
+                                   [value]="user.address">
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Email</label>
+                            <input class="form-control"
+                                   readonly
+                                   [value]="user.email">
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold">Phone</label>
+                            <input class="form-control"
+                                   readonly
+                                   [value]="user.phone">
+                        </div>
+                        <br>
+                        <div class="font-weight-bold text-uppercase">
+                            Total price: {{totalPrice | number:'1.0':'en-US'}} VND
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary font-weight-bold">
+                            <i class="fas fa-money-check-alt"></i> Check out
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 mt-lg-0 mt-sm-3">
+            <div class="card h-100">
+                <div class="card-header bg-primary">
+                    <h4 class="text-white text-wrap">In cart</h4>
+                </div>
+                <div class="card-body bg-white">
+                    <div *ngFor="let item of bookInCart">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-2 text-center">
+                                        <img class="border-primary border img-fluid h-100" width="120" src="assets/mock/head-first-java.png" alt="Card image front">
+                                    </div>
+                                    <div class="col-lg-10 mt-2 mt-lg-0 d-flex flex-column">
+                                        <div class="row mt-2 mb-3">
+                                            <div class="col-lg-12 text-left">
+                                                <p class="card-text text-dark">
+                                                    <i class="fas fa-book"></i>
+                                                    <strong> {{item.book.title}}</strong>
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fas fa-user"></i>
+                                                    <strong class="text-dark"> Author</strong>: {{item.book.authors}}
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fas fa-tag"></i>
+                                                    <strong class="text-dark"> Price</strong>: {{item.book.price | number:'1.0':'en-US'}} VND
+                                                </p>
+                                                <p class="card-text">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                    <strong class="text-dark"> Amount</strong>: {{item.amount}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-auto ml-auto">
+                                            <div class="col-lg-12">
+                                                <button class="btn btn-danger text-white font-weight-bold" (click)="removeFromCart(item.book)">
+                                                    <i class="fas fa-minus-circle"></i> Remove
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

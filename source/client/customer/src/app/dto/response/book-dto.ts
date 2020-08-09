@@ -1,11 +1,11 @@
 export class BookDto {
-    id: number;
+    id: string;
     title: string;
     description: string;
     price: number;
     image: string;
     categories: Categories[];
-    authors: Authors[];
+    authors: Authors;
     publisher: Publisher;
 }
 

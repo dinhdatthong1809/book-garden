@@ -101,37 +101,37 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-2 text-center">
                                 <img class="border-primary border img-fluid h-100" width="160" height="500" src="assets/mock/head-first-java.png" alt="Card image front">
                             </div>
                             <div class="col-lg-10 mt-2 mt-lg-0 d-flex flex-column">
                                 <div class="row mt-2 mb-3">
                                     <div class="col-lg-12 text-left">
                                         <p class="card-text">
-                                            <b class="text-dark">Price</b>: {{book.price | number:'1.0':'en-US'}} VND
+                                            <strong class="text-dark">Price</strong>: {{book.price | number:'1.0':'en-US'}} VND
                                         </p>
                                         <p class="card-text text-wrap mt-3">
-                                            <b class="text-dark">Author</b>:
+                                            <strong class="text-dark">Author</strong>:
                                             <a *ngFor="let author of book.authors; let last = last;">
                                                 {{(author.fullName ? (last ? "" : ", ") : "")}}
                                             </a>
                                         </p>
                                         <p class="card-text text-wrap mt-3">
-                                            <b class="text-dark">Category</b>:
+                                            <strong class="text-dark">Category</strong>:
                                             <a *ngFor="let category of book.categories; let last = last;">
                                                 {{category.categoryTitle + (last ? "" : ", ")}}
                                             </a>
                                         </p>
                                         <p class="card-text text-truncate">
-                                            <b class="text-dark">Description</b>: {{book.description}}
+                                            <strong class="text-dark">Description</strong>: {{book.description}}
                                         </p>
                                     </div>
                                 </div>
                                 <div class="row mt-auto ml-auto">
                                     <div class="col-lg-12">
-                                        <a class="btn btn-primary text-white font-weight-bold">
+                                        <button class="btn btn-primary text-white font-weight-bold" (click)="addToCart(book)">
                                             <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i> Add to cart
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

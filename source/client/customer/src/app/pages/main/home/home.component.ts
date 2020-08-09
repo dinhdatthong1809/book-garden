@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppConstants} from "src/app/constants/app-constants";
 import {Router} from "@angular/router";
 import {AppUrl} from "src/app/constants/app-url";
-import {SessionKeys} from "src/app/constants/session-keys";
+import {LocalStorageKeys} from "src/app/constants/local-storage-keys";
 
 @Component({
     selector: 'app-home',
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
             return;
         }
 
-        sessionStorage.setItem(SessionKeys.TITLE_KEYWORD, title);
+        localStorage.setItem(LocalStorageKeys.TITLE_KEYWORD, title);
         this._router.navigateByUrl(`${AppUrl.BOOKS}`);
     }
 
