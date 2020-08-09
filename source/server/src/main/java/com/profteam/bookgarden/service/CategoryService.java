@@ -14,7 +14,7 @@ import com.profteam.bookgarden.repository.CategoryRepository;
 public class CategoryService {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     private final CategoryMapper categoryMapper = Mappers.getMapper(CategoryMapper.class);
 

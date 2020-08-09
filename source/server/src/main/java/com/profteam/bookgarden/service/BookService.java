@@ -15,17 +15,13 @@ import com.profteam.bookgarden.dto.request.SearchAndFilterBookRequestDto;
 import com.profteam.bookgarden.dto.response.SearchAndFilterBookResponseDto;
 import com.profteam.bookgarden.mapper.BookMapper;
 import com.profteam.bookgarden.repository.BookRepository;
-import com.profteam.bookgarden.repository.impl.CustomBookRepository;
 import com.profteam.bookgarden.utils.PageUtil;
 
 @Service
 public class BookService {
 
     @Autowired
-    BookRepository bookRepository;
-
-    @Autowired
-    CustomBookRepository customBookRepository;
+    private BookRepository bookRepository;
 
     private final BookMapper bookMapper = Mappers.getMapper(BookMapper.class);
 
@@ -33,9 +29,9 @@ public class BookService {
         Optional<Book> bookOpt = bookRepository.findById(id);
         if (bookOpt.isPresent()) {
             return bookMapper.toBookDto(bookOpt.get());
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     public SearchAndFilterBookResponseDto searchAndFilter(SearchAndFilterBookRequestDto request) {

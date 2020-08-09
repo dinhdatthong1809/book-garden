@@ -25,7 +25,7 @@ import com.profteam.bookgarden.utils.ResponseUtil;
 public class BookController {
 
     @Autowired
-    BookService bookService;
+    private BookService bookService;
 
 //    @PostMapping
 //    public List<BookDto> getListBestSeller(@Valid @RequestBody ListBestSellerRequestDto request) {

@@ -6,12 +6,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +26,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "\"USER\"")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -42,9 +47,12 @@ public class User {
 
     private boolean sex;
 
-//    @Column(name = "isActive")
+    private String address;
+
+//    @Column(name = "\"isActive\"")
 //    private Boolean isActive;
 
+    @CreatedDate
     private Date createdDate;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

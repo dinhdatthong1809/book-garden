@@ -19,7 +19,7 @@ import com.profteam.bookgarden.utils.ResponseUtil;
 public class CategoryController {
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     @GetMapping("/findAll")
     public ResponseEntity<Map<String, Object>> findAll() {

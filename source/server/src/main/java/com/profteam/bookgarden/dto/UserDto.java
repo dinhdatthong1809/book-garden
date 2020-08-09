@@ -1,7 +1,6 @@
 package com.profteam.bookgarden.dto;
 
 import java.util.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.profteam.bookgarden.constants.AppConstants;
@@ -11,15 +10,19 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderDto {
+public class UserDto {
 
-    private long id;
+    private Long id;
+
+    private String fullname;
 
     @JsonFormat(pattern = AppConstants.DDMMYYYY)
-    private Date dateCreated;
+    private Date dateOfBirth;
 
-    private List<OrderDetailDto> orderDetails;
+    private String email;
 
-    private double totalAmount;
+    private String phoneNumber;
+
+    private String address;
 
 }
