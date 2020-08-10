@@ -4,17 +4,17 @@ export class BookDto {
     description: string;
     price: number;
     image: string;
-    categories: Categories[];
-    authors: Authors;
+    category: Category;
+    author: Author;
     publisher: Publisher;
 }
 
-class Categories {
+class Category {
     id: string;
     categoryTitle: string;
 }
 
-class Authors {
+class Author {
     id: number;
     fullName: string;
 }

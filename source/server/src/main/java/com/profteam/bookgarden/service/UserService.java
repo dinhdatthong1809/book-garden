@@ -3,6 +3,7 @@ package com.profteam.bookgarden.service;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+import com.profteam.bookgarden.exception.InvalidUsernameOrPasswordException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,9 +30,9 @@ public class UserService {
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     public LoginResponseDto login(LoginRequestDto requestDto) {
-        Optional<User> userOpt = userRepository.findByUsernameAndPassword(requestDto.getUsername(),
-                encryptPassword(requestDto.getPassword()));
-        return userMapper.userToLoginResponseDto(userOpt.orElse(null));
+        User userOpt = userRepository.findByUsernameAndPassword(requestDto.getUsername(), encryptPassword(requestDto.getPassword()))
+                                     .orElseThrow(InvalidUsernameOrPasswordException::new);
+        return userMapper.userToLoginResponseDto(userOpt);
     }
 
     public Optional<User> findByUsernameAndPassword(String username, String password) {

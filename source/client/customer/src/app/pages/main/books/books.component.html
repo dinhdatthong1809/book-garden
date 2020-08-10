@@ -111,16 +111,10 @@
                                             <strong class="text-dark">Price</strong>: {{book.price | number:'1.0':'en-US'}} VND
                                         </p>
                                         <p class="card-text text-wrap mt-3">
-                                            <strong class="text-dark">Author</strong>:
-                                            <a *ngFor="let author of book.authors; let last = last;">
-                                                {{(author.fullName ? (last ? "" : ", ") : "")}}
-                                            </a>
+                                            <strong class="text-dark">Author</strong>: {{book.author.fullName}}
                                         </p>
                                         <p class="card-text text-wrap mt-3">
-                                            <strong class="text-dark">Category</strong>:
-                                            <a *ngFor="let category of book.categories; let last = last;">
-                                                {{category.categoryTitle + (last ? "" : ", ")}}
-                                            </a>
+                                            <strong class="text-dark">Category</strong>: {{book.category.categoryTitle}}
                                         </p>
                                         <p class="card-text text-truncate">
                                             <strong class="text-dark">Description</strong>: {{book.description}}

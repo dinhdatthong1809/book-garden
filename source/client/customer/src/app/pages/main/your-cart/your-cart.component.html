@@ -9,7 +9,9 @@
         <div class="col-lg-4">
             <div class="card h-100">
                 <div class="card-header bg-primary">
-                    <h4 class="text-white text-wrap">Check out</h4>
+                    <h4 class="text-white text-wrap">
+                        <i class="fas fa-money-bill"></i> Check out
+                    </h4>
                 </div>
                 <div *ngIf="!_authenticatedService.isAuthenticated()" class="card-body">
                     <div class="d-flex justify-content-center align-items-center h-100">
@@ -76,7 +78,9 @@
         <div class="col-lg-8 mt-lg-0 mt-sm-3">
             <div class="card h-100">
                 <div class="card-header bg-primary">
-                    <h4 class="text-white text-wrap">In cart</h4>
+                    <h4 class="text-white text-wrap">
+                        <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i> Your cart
+                    </h4>
                 </div>
                 <div class="card-body bg-white">
                     <div *ngFor="let item of bookInCart">
@@ -95,7 +99,7 @@
                                                 </p>
                                                 <p class="card-text">
                                                     <i class="fas fa-user"></i>
-                                                    <strong class="text-dark"> Author</strong>: {{item.book.authors}}
+                                                    <strong class="text-dark"> Author</strong>: {{item.book.author.fullName}}
                                                 </p>
                                                 <p class="card-text">
                                                     <i class="fas fa-tag"></i>
