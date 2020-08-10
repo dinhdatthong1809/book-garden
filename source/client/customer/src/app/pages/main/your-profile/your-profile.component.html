@@ -1,0 +1,194 @@
+<div class="container animated fadeIn mt-4 mb-5 full-screen">
+    <div class="font-weight-bold">
+        <div class="text-uppercase text-center">
+            <p class="h4 text-dark">
+                <img src="assets/images/icons/theme/man.png">Your profile
+            </p>
+        </div>
+        <div class="">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="profile-card-3 h-100">
+                        <div class="card h-100">
+                            <div class="user-fullimage">
+                                <img onerror="this.src='assets/images/avatars/default.jpg'"
+                                     src="assets/images/avatars/{{user.photo}}" class="card-img-top">
+                                <div class="details py-2" style="background-color: rgba(52, 58, 64, 0.5)">
+                                    <h5 class="mb-1 text-white ml-3">{{user.fullName}}</h5>
+                                    <h6 class="text-white ml-3">{{user.email}}</h6>
+                                </div>
+                            </div>
+                            <div class="card-body text-center">
+                                <hr>
+                                <a class="btn btn-primary shadow-primary btn-sm btn-round m-1 text-white font-weight-bold">Choose avatar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
+                                <li class="nav-item">
+                                    <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active">
+                                        <i class="far fa-edit"></i> <span class="hidden-xs">Edit profile</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void();" data-target="#general" data-toggle="pill" class="nav-link">
+                                        <i class="far fa-user"></i> <span class="hidden-xs">Your orders</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="profile">
+                                    <form class="mt-5" name="formAccount" submit="submitForm()">
+                                        <div class="form-group row">
+                                            <label class="col-md-5 col-form-label">Username</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div style="width: 40px" class="input-group-text border border-secondary text-dark bg-primary">
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input readonly pattern="^[a-zA-Z0-9_]+$" minlength=3 maxlength=40 class="form-control border border-secondary" name="username" model="account.username">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-5 col-form-label">Old Password</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div style="width: 40px" class="input-group-text border border-secondary text-dark bg-primary">
+                                                            <i class="fas fa-lock"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input readonly pattern="^[a-zA-Z0-9_]+$" minlength=3 maxlength=40 class="form-control border border-secondary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-5 col-form-label">New password</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div style="width: 40px" class="input-group-text border border-secondary text-dark bg-primary">
+                                                            <i class="fas fa-lock"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input readonly pattern="^[a-zA-Z0-9_]+$" minlength=3 maxlength=40 class="form-control border border-secondary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-5 col-form-label">Full name</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div style="width: 40px" class="input-group-text border border-secondary text-dark bg-primary">
+                                                            <i class="fas fa-sticky-note"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input required pattern="^[a-zA-ZÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểệỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$" minlength=5 maxlength=40 class="form-control border border-secondary" name="fullName" model="account.fullName">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-5 col-form-label">Email</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div style="width: 40px" class="input-group-text border border-secondary text-dark bg-primary">
+                                                            <i class="fas fa-envelope"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input readonly="state == UPDATE_STATE" required pattern="^[a-zA-Z][a-zA-Z0-9_\.]{5,50}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$" type="email" maxlength=75 class="form-control border border-secondary" name="email" model="account.email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-5 col-form-label">PHONE NUMBER</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div style="width: 40px" class="input-group-text border border-secondary text-dark bg-primary">
+                                                            <i class="fas fa-phone"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input required pattern="^[0-9]+$" minlength=10 maxlength=10 class="form-control border border-secondary" name="phoneNumber" model="account.phoneNumber">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-5 col-form-label">ADDRESS</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div style="width: 40px" class="input-group-text border border-secondary text-dark bg-primary">
+                                                            <i class="fas fa-map-marker"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input required pattern="^[0-9]+$" minlength=10 maxlength=10 class="form-control border border-secondary" name="phoneNumber" model="account.phoneNumber">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label"></label>
+                                            <div class="col-sm-8 d-flex">
+                                                <div class="ml-auto">
+                                                    <div click="resetForm()" style="cursor: pointer;" class="btn btn-secondary text-light border border-secondary mr-2 font-weight-bold">
+                                                        <i class="fas fa-redo-alt"></i> Reset
+                                                    </div>
+                                                    <button class="btn btn-primary text-white border border-primary font-weight-bold" type="submit"><i class="fas fa-star"></i> Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="general">
+                                    <div class="row mt-5">
+                                        <div class="col-12">
+                                            <div *ngFor="let order of orders" class="card card-secondary shadow-none mb-5">
+                                                <button class="d-flex justify-content-between bg-light btn btn-light text-dark font-weight-bold"
+                                                        type="button"
+                                                        data-toggle="collapse"
+                                                        [attr.data-target]="'#collapse' + order.id"
+                                                        [attr.aria-controls]="'collapse' + order.id">
+                                                    <div class="mx-2 my-1">
+                                                        Code: {{order.id}}
+                                                    </div>
+                                                    <div class="mx-2 my-1">
+                                                        {{order.dateCreated}}
+                                                    </div>
+                                                    <div class="mx-2 my-1">
+                                                        {{order.totalAmount | number:'1.0':'en-US'}} VND
+                                                    </div>
+                                                </button>
+
+                                                <div class="card-body collapse" [id]="'collapse' + order.id">
+                                                    <div *ngFor="let orderDetail of order.orderDetails" class="d-flex justify-content-between">
+                                                        <div class="mx-2 my-1">
+                                                            {{"x" + orderDetail.amount}}
+                                                        </div>
+                                                        <div class="mx-2 my-1">
+                                                            {{orderDetail.book.title}}
+                                                        </div>
+                                                        <div class="mx-2 my-1">
+                                                            {{orderDetail.price | number:'1.0':'en-US'}} VND
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

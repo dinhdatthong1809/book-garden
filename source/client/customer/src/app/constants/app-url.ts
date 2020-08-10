@@ -16,7 +16,9 @@ export class AppUrl {
 
             static readonly SIGN_OUT: string = "sign-up";
 
-            static readonly YOUR_PROFILE: string = "profile";
+            static readonly YOUR_PROFILE: string = "your-profile";
+
+            static readonly YOUR_ORDER_HISTORY: string = "your-order-history";
 
         static readonly ERROR: string = "error";
 

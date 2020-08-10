@@ -9,6 +9,8 @@ import {BooksComponent} from "src/app/pages/main/books/books.component";
 import {AppComponent} from "src/app/app.component";
 import {HomeComponent} from "src/app/pages/main/home/home.component";
 import {YourCartComponent} from "src/app/pages/main/your-cart/your-cart.component";
+import {YourProfileComponent} from "src/app/pages/main/your-profile/your-profile.component";
+import {YourOrderHistoryComponent} from "src/app/pages/main/your-order-history/your-order-history.component";
 
 const routes: Routes = [
     {path: AppUrl.APP, component: AppComponent, children: [
@@ -18,6 +20,8 @@ const routes: Routes = [
             {path: AppUrl.YOUR_CART, component: YourCartComponent, pathMatch: "full"},
             {path: AppUrl.SIGN_IN, component: SignInComponent, pathMatch: "full"},
             {path: AppUrl.SIGN_UP, component: SignUpComponent, pathMatch: "full"},
+            {path: AppUrl.YOUR_PROFILE, component: YourProfileComponent, pathMatch: "full"},
+            {path: AppUrl.YOUR_ORDER_HISTORY, component: YourOrderHistoryComponent, pathMatch: "full"},
         ]},
         {path: AppUrl.ERROR, component: ErrorComponent},
         {path: "**", redirectTo: AppUrl.MAIN, pathMatch: "full"}
