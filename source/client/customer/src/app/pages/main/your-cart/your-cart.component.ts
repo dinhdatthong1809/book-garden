@@ -77,9 +77,8 @@ export class YourCartComponent implements OnInit {
         }
 
         this.calculateTotalPrice();
-        let alertMessage = `Thank you for using our service<br>
-                            Your total is <strong>${this.totalPrice} VND</strong><br>
-                            We will contact you soon, please stay alerted`;
+        let alertMessage = `Your total is <strong>${Number(this.totalPrice).toLocaleString('en-US')} VND</strong><br>
+                            Would you like to create an order now?`;
 
         this._alertService.ask(alertMessage)
                           .then((result: SweetAlertResult) => {
@@ -87,10 +86,12 @@ export class YourCartComponent implements OnInit {
                                   this._cartService.checkout(this.cart)
                                                    .subscribe(value => {
                                                        console.log(value)
+                                                       this.clearCart();
+                                                       this.loadCart();
+                                                       this._alertService.success("Thank you for using our service<br>" +
+                                                                                  "Please check your <a href='/your-profile'>order history</a><br>" +
+                                                                                  "We will contact you soon");
                                                    });
-
-                                  // this.clearCart();
-                                  // this.loadCart();
                               }
                           });
     }

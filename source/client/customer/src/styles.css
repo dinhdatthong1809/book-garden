@@ -5,7 +5,7 @@
 @import '~ngx-toastr/toastr';
 
 * {
-    transition: 0.3s;
+    transition: 0.3s !important;
 }
 
 body {
