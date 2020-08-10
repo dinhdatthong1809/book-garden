@@ -9,6 +9,6 @@ public class AuthorDto {
 
     private int id;
 
-    private String fullName;
+    private String fullname;
 
 }

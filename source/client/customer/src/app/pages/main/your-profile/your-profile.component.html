@@ -170,13 +170,13 @@
                                                 <div class="card-body collapse" [id]="'collapse' + order.id">
                                                     <div *ngFor="let orderDetail of order.orderDetails" class="d-flex justify-content-between">
                                                         <div class="mx-2 my-1">
-                                                            {{"x" + orderDetail.amount}}
-                                                        </div>
-                                                        <div class="mx-2 my-1">
                                                             {{orderDetail.book.title}}
                                                         </div>
                                                         <div class="mx-2 my-1">
-                                                            {{orderDetail.price | number:'1.0':'en-US'}} VND
+<!--                                                            {{"x" + orderDetail.amount}}-->
+                                                        </div>
+                                                        <div class="mx-2 my-1">
+                                                            {{orderDetail.amount + " x " + (orderDetail.price | number:'1.0':'en-US')}} VND
                                                         </div>
                                                     </div>
                                                 </div>

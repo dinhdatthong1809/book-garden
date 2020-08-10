@@ -16,7 +16,7 @@ class Category {
 
 class Author {
     id: number;
-    fullName: string;
+    fullname: string;
 }
 
 class Publisher {
