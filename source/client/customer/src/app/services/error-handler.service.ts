@@ -40,7 +40,7 @@ export class ErrorHandlerService implements ErrorHandler {
             return;
         }
 
-        this._alertService.error(error.response.message);
+        this._alertService.error(error);
         console.log(error)
         // window.location.href = `/${AppUrl.ERROR}`;
     }
