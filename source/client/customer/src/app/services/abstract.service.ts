@@ -36,7 +36,7 @@ export class AbstractService {
             return this._http.post<RESPONSE_TYPE>(url, body);
         }
 
-        let signInDto: SignInDto = JSON.parse(sessionStorage.getItem(SessionStorageKeys.USER));
+        let signInDto: SignInDto = sessionStorage.getItem(SessionStorageKeys.USER) ? JSON.parse(sessionStorage.getItem(SessionStorageKeys.USER)) : body;
 
         const headers = new HttpHeaders(signInDto ? {authorization: "Basic " + btoa(signInDto.username + ":" + signInDto.password)}
                                                   : undefined);

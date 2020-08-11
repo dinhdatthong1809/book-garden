@@ -121,7 +121,7 @@ export class YourCartComponent implements OnInit {
                                                    .subscribe(value => {
                                                        this.clearCart();
                                                        this._alertService.success("Thank you for using our service<br>" +
-                                                                                  "Please check your <a href='/your-profile'>order history</a><br>" +
+                                                                                  "Please check your <strong><a class='text-decoration-none' href='/your-profile'>order history</a></strong><br>" +
                                                                                   "We will contact you soon");
                                                    });
                               }

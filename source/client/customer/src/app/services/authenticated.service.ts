@@ -14,7 +14,7 @@ import {SessionStorageKeys} from "src/app/constants/session-storage-keys";
 export class AuthenticatedService extends AbstractService {
 
     saveUserToLocal(signInDto: SignInDto): void {
-        sessionStorage.setItem(SessionStorageKeys.USER, JSON.stringify(signInDto));
+        localStorage.setItem(SessionStorageKeys.USER, JSON.stringify(signInDto));
     }
 
     signIn(signInDto: SignInDto): Observable<Response<UserDto>> {
@@ -23,11 +23,11 @@ export class AuthenticatedService extends AbstractService {
     }
 
     signOut(): void {
-        sessionStorage.removeItem(SessionStorageKeys.USER);
+        localStorage.removeItem(SessionStorageKeys.USER);
     }
 
     isAuthenticated(): boolean {
-        if (sessionStorage.getItem(SessionStorageKeys.USER)) {
+        if (localStorage.getItem(SessionStorageKeys.USER)) {
             return true;
         }
 
