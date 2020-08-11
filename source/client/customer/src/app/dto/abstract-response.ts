@@ -23,6 +23,10 @@ export function getPaginatedData<T>(paginationResponse: PaginationResponse<T>): 
     return paginationResponse.response.resultData.list;
 }
 
+export function getPaginatedTotalElements<T>(paginationResponse: PaginationResponse<T>): number {
+    return paginationResponse.response.resultData.totalElements;
+}
+
 export function getData<T>(response: Response<T>): T {
     return response.response.resultData;
 }

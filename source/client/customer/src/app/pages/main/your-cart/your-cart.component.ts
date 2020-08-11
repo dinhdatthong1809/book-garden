@@ -9,6 +9,11 @@ import {AlertService} from "src/app/services/alert.service";
 import {SweetAlertResult} from "sweetalert2";
 import {FormBuilder} from "@angular/forms";
 import {AuthenticatedService} from "src/app/services/authenticated.service";
+import {AppConstants} from "src/app/constants/app-constants";
+import {catchError} from "rxjs/operators";
+import {throwError} from "rxjs";
+import * as HttpStatus from 'http-status-codes';
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
     selector: 'app-your-cart',
@@ -22,6 +27,8 @@ export class YourCartComponent implements OnInit {
     bookInCart: BookInCart[] = [];
 
     totalPrice: number = 0;
+
+    appConstants = AppConstants;
 
     user = {
         id: 1,
@@ -48,8 +55,18 @@ export class YourCartComponent implements OnInit {
         this.cart = this._cartService.getCart();
         this.bookInCart = [];
 
+        let deletedBookIds = [];
+
         this.cart.items.forEach((item: CartItem) => {
             this._bookService.findOne(item.bookId)
+                             .pipe(catchError((error: HttpErrorResponse) => {
+                                 if (error.status === HttpStatus.NOT_FOUND) {
+                                     deletedBookIds.push(item.bookId);
+                                     error.error.response.message = `The book with id: ${deletedBookIds} was deleted by our admins`;
+                                     this._cartService.remove(item.bookId);
+                                     return throwError(error.error);
+                                 }
+                             }))
                              .subscribe((response: Response<BookDto>) => {
                                  let bookInCart: BookInCart = new BookInCart();
                                  bookInCart.book = getData<BookDto>(response);
@@ -70,9 +87,26 @@ export class YourCartComponent implements OnInit {
                           });
     }
 
+    validateCart(): boolean {
+        for (let i = 0; i < this.bookInCart.length; i++) {
+            if (this.bookInCart[i].amount > AppConstants.CART_CAPACITY_PER_ITEM_MAX) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     onSubmit(): void {
         if (this.cart.items.length === 0) {
             this._alertService.warn("Your cart is empty");
+            return;
+        }
+
+        if (this.cart.items.length > AppConstants.CART_CAPACITY_MAX
+                || !this.validateCart()) {
+            this._alertService.error("The cart was corrupted, so it will be clear, sorry");
+            this.clearCart();
             return;
         }
 
@@ -85,9 +119,7 @@ export class YourCartComponent implements OnInit {
                               if (result.value) {
                                   this._cartService.checkout(this.cart)
                                                    .subscribe(value => {
-                                                       console.log(value)
                                                        this.clearCart();
-                                                       this.loadCart();
                                                        this._alertService.success("Thank you for using our service<br>" +
                                                                                   "Please check your <a href='/your-profile'>order history</a><br>" +
                                                                                   "We will contact you soon");
@@ -98,13 +130,42 @@ export class YourCartComponent implements OnInit {
 
     clearCart(): void {
         this._cartService.clear();
+        this.loadCart();
     }
 
-    calculateTotalPrice() {
-        this.totalPrice = 0;
-
+    calculateTotalPrice(): void {
+        let result = 0;
         for (let item of this.bookInCart) {
-            this.totalPrice += item.book.price * item.amount;
+            result += item.book.price * item.amount;
+        }
+
+        this.totalPrice = result;
+    }
+
+    updateAmount(event: any, id: string): void {
+        let newAmount = event.target.value;
+
+        if (newAmount < 1) {
+            event.target.value = 1;
+            newAmount = 1;
+        }
+
+        if (newAmount > AppConstants.CART_CAPACITY_PER_ITEM_MAX) {
+            event.target.value = AppConstants.CART_CAPACITY_PER_ITEM_MAX;
+            newAmount = AppConstants.CART_CAPACITY_PER_ITEM_MAX;
+        }
+
+        this._cartService.updateAmount(id, newAmount);
+        this.updateAmountForBookInCart(id, newAmount);
+    }
+
+    updateAmountForBookInCart(id: string, newAmount: number): void {
+        for (let i = 0; i < this.bookInCart.length; i++) {
+            if (this.bookInCart[i].book.id === id) {
+                this.bookInCart[i].amount = newAmount;
+                this.calculateTotalPrice();
+                return;
+            }
         }
     }
 

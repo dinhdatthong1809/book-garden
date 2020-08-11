@@ -4,7 +4,7 @@ import {BookDto} from "src/app/dto/response/book-dto";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BookListCriteriaDto} from "src/app/dto/request/book-list-criteria-dto";
 import {AppConstants} from "src/app/constants/app-constants";
-import {getData, getPaginatedData, PaginationResponse, Response} from "src/app/dto/abstract-response";
+import {getData, getPaginatedData, getPaginatedTotalElements, PaginationResponse, Response} from "src/app/dto/abstract-response";
 import {LocalStorageKeys} from "src/app/constants/local-storage-keys";
 import {CategoryService} from "src/app/services/category.service";
 import {CategoryDto} from "src/app/dto/response/category-dto";
@@ -30,7 +30,9 @@ export class BooksComponent implements OnInit {
 
     page: number = 1;
 
-    totalBook: number;
+    totalBook: number = 0;
+
+    pageSizes: number[] = [5, 10, 15];
 
     bookListCriteriaDto: BookListCriteriaDto = new BookListCriteriaDto();
 
@@ -51,7 +53,7 @@ export class BooksComponent implements OnInit {
         this.loadAllCategories();
     }
 
-    private loadBookList() {
+    private loadBookList(): void {
         if (localStorage.getItem(LocalStorageKeys.TITLE_KEYWORD)
                 && !this.bookListCriteriaDto.title
                 && this.submitted == false) {
@@ -60,9 +62,9 @@ export class BooksComponent implements OnInit {
         }
 
         this._bookService.findChunkWithTitleKeywordAndPriceAndCategory(this.bookListCriteriaDto)
-                         .subscribe((value: PaginationResponse<BookDto[]>) => {
-                             this.books = getPaginatedData<BookDto[]>(value);
-                             this.totalBook = this.books.length;
+                         .subscribe((paginationResponse: PaginationResponse<BookDto[]>) => {
+                             this.books = getPaginatedData<BookDto[]>(paginationResponse);
+                             this.totalBook = getPaginatedTotalElements(paginationResponse);
                          });
     }
 
@@ -103,16 +105,27 @@ export class BooksComponent implements OnInit {
     }
 
     goToPage(page: number): void {
-        this.page = page;
-        this.filterInChunkAndPage();
-    }
-
-    filterInChunkAndPage(): void {
-
+        this.bookListCriteriaDto.page = page;
+        this.loadAsyncData();
     }
 
     addToCart(book: BookDto): void {
+        if (this._cartService.reachMaxItem(book.id)) {
+            this._toastrService.warning(`You can only buy ${AppConstants.CART_CAPACITY_PER_ITEM_MAX} per type of book`);
+            return;
+        }
+
+        if (this._cartService.reachMax() && !this._cartService.contains(book.id)) {
+            this._toastrService.warning(`You can not add more than ${AppConstants.CART_CAPACITY_MAX} types of book in cart`);
+            return;
+        }
+
         this._cartService.add(book.id, book.price);
-        this._toastrService.success('Added to your cart');
+        this._toastrService.success("Added to your cart");
     }
+
+    changePageSize(): void {
+        this.loadAsyncData();
+    }
+
 }

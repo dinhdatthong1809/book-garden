@@ -1,5 +1,5 @@
 <div class="container-fluid animated fadeIn mt-4 mb-5 full-screen">
-    <div class="row" *ngIf="bookInCart.length === 0">
+    <div *ngIf="bookInCart.length === 0">
         <div class="col-12 text-center">
             <h1 class="text-secondary">Your cart is empty</h1>
         </div>
@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col-lg-12 col-sm-6 text-center">
                                 <h2 class="font-weight-bold text-uppercase text-dark">
-                                    Total price: {{totalPrice | number:'1.0':'en-US'}} VND
+                                    Total: <span class="text-danger">{{totalPrice | number:'1.0':'en-US'}} VND</span>
                                 </h2>
                                 <img src="assets/images/logo.png" class="img-fluid">
                             </div>
@@ -32,6 +32,9 @@
                     </div>
                 </div>
                 <div *ngIf="_authenticatedService.isAuthenticated()" class="card-body">
+                    <div class="text-center">
+                        <img src="assets/images/logo.png" class="img-fluid">
+                    </div>
                     <form (ngSubmit)="onSubmit()" class="form-group">
                         <div class="form-group">
                             <label class="font-weight-bold">Id</label>
@@ -64,9 +67,9 @@
                                    [value]="user.phoneNumber">
                         </div>
                         <br>
-                        <div class="font-weight-bold text-uppercase">
-                            Total price: {{totalPrice | number:'1.0':'en-US'}} VND
-                        </div>
+                        <h3 class="font-weight-bold text-uppercase">
+                            Total: <span class="text-danger">{{totalPrice | number:'1.0':'en-US'}} VND</span>
+                        </h3>
                         <br>
                         <button type="submit" class="btn btn-primary font-weight-bold">
                             <i class="fas fa-money-check-alt"></i> Check out
@@ -84,11 +87,11 @@
                 </div>
                 <div class="card-body bg-white">
                     <div *ngFor="let item of bookInCart">
-                        <div class="card">
+                        <div class="card shadow-none rounded">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 text-center">
-                                        <img class="border-primary border img-fluid h-100" width="120" src="assets/mock/head-first-java.png" alt="Card image front">
+                                        <img class="border-primary border img-fluid h-100" width="150" src="assets/mock/head-first-java.png" alt="Card image front">
                                     </div>
                                     <div class="col-lg-10 mt-2 mt-lg-0 d-flex flex-column">
                                         <div class="row mt-2 mb-3">
@@ -103,11 +106,16 @@
                                                 </p>
                                                 <p class="card-text">
                                                     <i class="fas fa-tag"></i>
-                                                    <strong class="text-dark"> Price</strong>: {{item.book.price | number:'1.0':'en-US'}} VND
+                                                    <strong class="text-dark"> Unit price</strong>: {{item.book.price | number:'1.0':'en-US'}} VND
                                                 </p>
-                                                <p class="card-text">
-                                                    <i class="fas fa-shopping-basket"></i>
-                                                    <strong class="text-dark"> Amount</strong>: {{item.amount}}
+                                                <p class="card-text form-inline">
+                                                    <i class="fas fa-shopping-basket mr-1"></i>
+                                                    <strong class="text-dark"> Amount</strong>:
+                                                    <input type="number"
+                                                           min="1"
+                                                           class="form-control-sm form-control ml-2"
+                                                           [max]="appConstants.CART_CAPACITY_PER_ITEM_MAX"
+                                                           [value]="item.amount" (blur)="updateAmount($event, item.book.id)">
                                                 </p>
                                             </div>
                                         </div>

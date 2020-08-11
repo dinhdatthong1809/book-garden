@@ -31,6 +31,10 @@ export class SignInComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (this._authenticatedService.isAuthenticated()) {
+            this._router.navigateByUrl("/");
+        }
+
         this.initForm();
     }
 

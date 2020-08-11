@@ -38,6 +38,9 @@ export class AppConstants {
 
     static readonly NUMBER_ONLY_REGEX: RegExp = /^(0|[1-9]\d*)?$/;
 
+    static readonly CART_CAPACITY_MAX: number = 10;
+    static readonly CART_CAPACITY_PER_ITEM_MAX: number = 7;
+
     static readonly USERNAME_REGEX: RegExp = /^[a-zA-Z0-9_]+$/;
     static readonly USERNAME_MIN_LENGTH: number = 3;
     static readonly USERNAME_MAX_LENGTH: number = 40;

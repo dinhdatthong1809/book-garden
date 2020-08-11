@@ -5,6 +5,7 @@ import {AbstractService} from "src/app/services/abstract.service";
 import {Observable} from "rxjs";
 import {ApiUrl} from "src/app/constants/api-url";
 import {catchError} from "rxjs/operators";
+import {AppConstants} from "src/app/constants/app-constants";
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,29 @@ import {catchError} from "rxjs/operators";
 export class CartService extends AbstractService {
 
     private cart: Cart = this.getCart();
+
+    contains(id: string): CartItem {
+        for (let item of this.cart.items) {
+            if (item.bookId === id) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    reachMax(): boolean {
+        return this.cart.items.length >= AppConstants.CART_CAPACITY_MAX;
+    }
+
+    reachMaxItem(id: string): boolean {
+        let cartItem = this.contains(id);
+        if (!cartItem) {
+            return false;
+        }
+
+        return cartItem.amount >= AppConstants.CART_CAPACITY_PER_ITEM_MAX;
+    }
 
     add(id: string, price: number): void {
         for (let item of this.cart.items) {
@@ -57,6 +81,16 @@ export class CartService extends AbstractService {
     checkout(cart: Cart): Observable<any> {
         return super.post<Cart, any>(ApiUrl.USER_CHECK_OUT, cart, true)
                     .pipe(catchError(super.handleError));
+    }
+
+    updateAmount(id: string, amount: number): void {
+        for (let i = 0; i < this.cart.items.length; i++) {
+            if (this.cart.items[i].bookId === id) {
+                this.cart.items[i].amount = amount;
+                this.saveCart();
+                return;
+            }
+        }
     }
 
 }

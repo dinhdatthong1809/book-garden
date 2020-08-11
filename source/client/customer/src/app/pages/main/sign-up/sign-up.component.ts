@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppConstants} from "src/app/constants/app-constants";
+import {Router} from "@angular/router";
+import {AuthenticatedService} from "src/app/services/authenticated.service";
 
 @Component({
     selector: 'app-sign-up',
@@ -15,10 +17,16 @@ export class SignUpComponent implements OnInit {
 
     appConstants = AppConstants;
 
-    constructor(private _formBuilder: FormBuilder) {
+    constructor(private _formBuilder: FormBuilder,
+                private _router: Router,
+                private _authenticatedService: AuthenticatedService) {
     }
 
     ngOnInit(): void {
+        if (this._authenticatedService.isAuthenticated()) {
+            this._router.navigateByUrl("/");
+        }
+
         this.initForm();
     }
 

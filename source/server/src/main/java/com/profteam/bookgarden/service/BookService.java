@@ -2,6 +2,7 @@ package com.profteam.bookgarden.service;
 
 import java.util.Optional;
 
+import com.profteam.bookgarden.exception.BookNotFoundException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public class BookService {
         if (bookOpt.isPresent()) {
             return bookMapper.toBookDto(bookOpt.get());
         } else {
-            return null;
+            throw new BookNotFoundException(id);
         }
     }
 

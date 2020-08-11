@@ -19,7 +19,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import {ErrorHandlerService} from "src/app/services/error-handler.service";
 import { YourProfileComponent } from './pages/main/your-profile/your-profile.component';
-import { YourOrderHistoryComponent } from './pages/main/your-order-history/your-order-history.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +33,6 @@ import { YourOrderHistoryComponent } from './pages/main/your-order-history/your-
         HomeComponent,
         YourCartComponent,
         YourProfileComponent,
-        YourOrderHistoryComponent
     ],
     imports: [
         BrowserModule,

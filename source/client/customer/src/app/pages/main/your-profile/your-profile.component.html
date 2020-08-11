@@ -30,18 +30,53 @@
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
                                 <li class="nav-item">
-                                    <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active">
-                                        <i class="far fa-edit"></i> <span class="hidden-xs">Edit profile</span>
+                                    <a href="javascript:void();" data-target="#general" data-toggle="pill" class="nav-link active">
+                                        <i class="far fa-user"></i> <span class="hidden-xs">Your orders</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:void();" data-target="#general" data-toggle="pill" class="nav-link">
-                                        <i class="far fa-user"></i> <span class="hidden-xs">Your orders</span>
+                                    <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link">
+                                        <i class="far fa-edit"></i> <span class="hidden-xs">Edit profile</span>
                                     </a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="profile">
+                                <div class="tab-pane active" id="general">
+                                    <div class="row mt-5">
+                                        <div class="col-12">
+                                            <div *ngFor="let order of orders" class="card card-secondary shadow-none mb-5">
+                                                <button class="d-flex justify-content-between bg-light btn btn-light text-dark font-weight-bold"
+                                                        type="button"
+                                                        data-toggle="collapse"
+                                                        [attr.data-target]="'#collapse' + order.id"
+                                                        [attr.aria-controls]="'collapse' + order.id">
+                                                    <div class="mx-2 my-1">
+                                                        Code: {{order.id}}-{{order.dateCreated}}
+                                                    </div>
+                                                    <div class="mx-2 my-1">
+                                                    </div>
+                                                    <div class="mx-2 my-1">
+                                                        {{order.totalAmount | number:'1.0':'en-US'}} VND
+                                                    </div>
+                                                </button>
+
+                                                <div class="card-body collapse" [id]="'collapse' + order.id">
+                                                    <div *ngFor="let orderDetail of order.orderDetails" class="d-flex justify-content-between">
+                                                        <div class="mx-2 my-1">
+                                                            {{orderDetail.book.title}}
+                                                        </div>
+                                                        <div class="mx-2 my-1">
+                                                        </div>
+                                                        <div class="mx-2 my-1">
+                                                            {{orderDetail.amount + " x " + (orderDetail.price | number:'1.0':'en-US')}} VND
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="profile">
                                     <form class="mt-5" name="formAccount" submit="submitForm()">
                                         <div class="form-group row">
                                             <label class="col-md-5 col-form-label">Username</label>
@@ -146,43 +181,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="tab-pane" id="general">
-                                    <div class="row mt-5">
-                                        <div class="col-12">
-                                            <div *ngFor="let order of orders" class="card card-secondary shadow-none mb-5">
-                                                <button class="d-flex justify-content-between bg-light btn btn-light text-dark font-weight-bold"
-                                                        type="button"
-                                                        data-toggle="collapse"
-                                                        [attr.data-target]="'#collapse' + order.id"
-                                                        [attr.aria-controls]="'collapse' + order.id">
-                                                    <div class="mx-2 my-1">
-                                                        Code: {{order.id}}
-                                                    </div>
-                                                    <div class="mx-2 my-1">
-                                                        {{order.dateCreated}}
-                                                    </div>
-                                                    <div class="mx-2 my-1">
-                                                        {{order.totalAmount | number:'1.0':'en-US'}} VND
-                                                    </div>
-                                                </button>
-
-                                                <div class="card-body collapse" [id]="'collapse' + order.id">
-                                                    <div *ngFor="let orderDetail of order.orderDetails" class="d-flex justify-content-between">
-                                                        <div class="mx-2 my-1">
-                                                            {{orderDetail.book.title}}
-                                                        </div>
-                                                        <div class="mx-2 my-1">
-<!--                                                            {{"x" + orderDetail.amount}}-->
-                                                        </div>
-                                                        <div class="mx-2 my-1">
-                                                            {{orderDetail.amount + " x " + (orderDetail.price | number:'1.0':'en-US')}} VND
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
