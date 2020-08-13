@@ -106,7 +106,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-2 text-center">
-                                <img class="border-primary border img-fluid h-100" width="160" height="500" src="assets/mock/head-first-java.png" alt="Card image front">
+                                <img class="border-primary border img-fluid h-100"
+                                     width="160"
+                                     height="500"
+                                     onerror="this.src='assets/images/no-image.png';"
+                                     src="https://storage.googleapis.com/book-garden.appspot.com/book/{{book.image}}"
+                                     alt="Card image front">
                             </div>
                             <div class="col-lg-10 mt-2 mt-lg-0 d-flex flex-column">
                                 <div class="row mt-2 mb-3">
