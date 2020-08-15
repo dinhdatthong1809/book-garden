@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit {
                     Validators.minLength(AppConstants.PASSWORD_MIN_LENGTH),
                     Validators.maxLength(AppConstants.PASSWORD_MAX_LENGTH),
                 ]],
-                passwordConfirm: ["", [
+                confirmPassword: ["", [
                     Validators.required,
                     Validators.pattern(AppConstants.PASSWORD_REGEX),
                     Validators.minLength(AppConstants.PASSWORD_MIN_LENGTH),
@@ -67,7 +67,7 @@ export class SignUpComponent implements OnInit {
     onSubmit(): void {
         this.submitted = true;
 
-        if (this.getForm.password.value !== this.getForm.passwordConfirm.value) {
+        if (this.getForm.password.value !== this.getForm.confirmPassword.value) {
             this._alertService.error("Password fields are not the same");
             return;
         }
