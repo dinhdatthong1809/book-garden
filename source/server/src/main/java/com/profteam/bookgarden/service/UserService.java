@@ -47,6 +47,7 @@ public class UserService {
         }
         requestDto.setPassword(encryptPassword(requestDto.getPassword()));
         User newUser = userMapper.registerRequestDtoToUser(requestDto);
+        newUser.setIsactive(true);
         User userOpt = userRepository.save(newUser);
 
         return userMapper.registerRequestDtoToUser(userOpt);

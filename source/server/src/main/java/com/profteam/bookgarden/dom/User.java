@@ -48,6 +48,8 @@ public class User {
 
     private boolean sex;
 
+    private boolean isactive;
+
     private String address;
 
     @CreatedDate
