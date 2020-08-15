@@ -45,9 +45,18 @@ export class AppConstants {
     static readonly USERNAME_MIN_LENGTH: number = 3;
     static readonly USERNAME_MAX_LENGTH: number = 40;
 
+    static readonly FULLNAME_MIN_LENGTH: number = 1;
+    static readonly FULLNAME_MAX_LENGTH: number = 75;
+
     static readonly PASSWORD_REGEX: RegExp = /^[a-zA-Z0-9\s\u002D\u005F]+$/;
     static readonly PASSWORD_MIN_LENGTH: number = 3;
     static readonly PASSWORD_MAX_LENGTH: number = 40;
+
+    static readonly ADDRESS_MIN_LENGTH: number = 3;
+    static readonly ADDRESS_MAX_LENGTH: number = 100;
+
+    static readonly PHONE_NUMBER_MIN_LENGTH: number = 10;
+    static readonly PHONE_NUMBER_MAX_LENGTH: number = 13;
 
     static readonly EMAIL_REGEX: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     static readonly EMAIL_MIN_LENGTH: number = 3;
