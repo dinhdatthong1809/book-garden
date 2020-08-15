@@ -7,6 +7,7 @@ import {SignInDto} from "src/app/dto/request/sign-in-dto";
 import {UserDto} from "src/app/dto/response/user-dto";
 import {Response} from "src/app/dto/abstract-response";
 import {SessionStorageKeys} from "src/app/constants/session-storage-keys";
+import {SignUpDto} from "src/app/dto/request/sign-up-dto";
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +16,11 @@ export class AuthenticatedService extends AbstractService {
 
     saveUserToLocal(signInDto: SignInDto): void {
         localStorage.setItem(SessionStorageKeys.USER, JSON.stringify(signInDto));
+    }
+
+    signUp(signUpDto: SignUpDto): Observable<Response<UserDto>> {
+        return super.post<SignUpDto, Response<UserDto>>(ApiUrl.USER_SIGN_UP, signUpDto)
+                    .pipe(catchError(super.handleError));
     }
 
     signIn(signInDto: SignInDto): Observable<Response<UserDto>> {

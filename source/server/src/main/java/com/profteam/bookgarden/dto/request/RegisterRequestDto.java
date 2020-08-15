@@ -18,4 +18,5 @@ public class RegisterRequestDto {
 
     @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private String confirmPassword;
+    
 }

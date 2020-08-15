@@ -13,7 +13,7 @@ export class YourProfileComponent implements OnInit {
     user = {
         photo: "photo",
         fullName: "fullName",
-        email: "email",
+        passwordConfirm: "email",
         mark: "mark"
     }
 

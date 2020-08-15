@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppConstants} from "src/app/constants/app-constants";
 import {Router} from "@angular/router";
 import {AuthenticatedService} from "src/app/services/authenticated.service";
+import {AlertService} from "src/app/services/alert.service";
 
 @Component({
     selector: 'app-sign-up',
@@ -19,6 +20,7 @@ export class SignUpComponent implements OnInit {
 
     constructor(private _formBuilder: FormBuilder,
                 private _router: Router,
+                private _alertService: AlertService,
                 private _authenticatedService: AuthenticatedService) {
     }
 
@@ -45,11 +47,11 @@ export class SignUpComponent implements OnInit {
                     Validators.minLength(AppConstants.PASSWORD_MIN_LENGTH),
                     Validators.maxLength(AppConstants.PASSWORD_MAX_LENGTH),
                 ]],
-                email: ["", [
+                passwordConfirm: ["", [
                     Validators.required,
-                    Validators.pattern(AppConstants.EMAIL_REGEX),
-                    Validators.minLength(AppConstants.EMAIL_MIN_LENGTH),
-                    Validators.maxLength(AppConstants.EMAIL_MAX_LENGTH),
+                    Validators.pattern(AppConstants.PASSWORD_REGEX),
+                    Validators.minLength(AppConstants.PASSWORD_MIN_LENGTH),
+                    Validators.maxLength(AppConstants.PASSWORD_MAX_LENGTH),
                 ]]
             }
         );
@@ -62,10 +64,16 @@ export class SignUpComponent implements OnInit {
     onSubmit(): void {
         this.submitted = true;
 
+        if (this.getForm.password !== this.getForm.passwordConfirm) {
+            this._alertService.error("Password fields are not the same");
+            return;
+        }
+
         if (this.signUpForm.invalid) {
             return;
         }
 
+        this._authenticatedService.s
         console.log(this.getForm.username.value);
         console.log(this.getForm.password.value);
     }

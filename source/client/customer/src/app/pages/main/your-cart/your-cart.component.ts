@@ -35,7 +35,7 @@ export class YourCartComponent implements OnInit {
         name: "Thong",
         address: "150, Thanh Da Street, HCM City, Vietnam",
         dayOfBirth: "18-09-1997",
-        email: "thong1809@gmail.com",
+        passwordConfirm: "thong1809@gmail.com",
         phoneNumber: "0906546948",
     }
 
