@@ -1,4 +1,4 @@
-package com.profteam.bookgarden.validator.notnull;
+package com.profteam.bookgarden.validator.number;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -17,15 +17,21 @@ import javax.validation.Payload;
 
 import com.profteam.bookgarden.constants.Constants;
 
+/**
+ * The annotation Number to check number valid.
+ *
+ */
 @Documented
-@Constraint(validatedBy = { NotNullValidator.class, ObjNotNullValidator.class })
-@Target({ METHOD, FIELD, PARAMETER })
+@Constraint(validatedBy = { NumberValidator.class })
+@Target({ METHOD, FIELD })
 @Retention(RUNTIME)
-public @interface NotNull {
+public @interface Number {
 
     String message() default Constants.CONST_STR_BLANK;
 
     String itemName() default Constants.CONST_STR_BLANK;
+
+    NumberEnum type() default NumberEnum.SIGNED_INTEGER;
 
     Class<?>[] groups() default {};
 
@@ -35,6 +41,6 @@ public @interface NotNull {
     @Retention(RUNTIME)
     @Documented
     @interface List {
-        NotNull[] value();
+        Number[] value();
     }
 }

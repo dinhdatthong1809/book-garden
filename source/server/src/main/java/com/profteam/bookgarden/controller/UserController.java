@@ -17,6 +17,7 @@ import com.profteam.bookgarden.constants.MessageConstants;
 import com.profteam.bookgarden.dto.request.LoginRequestDto;
 import com.profteam.bookgarden.dto.request.OrderRequestDto;
 import com.profteam.bookgarden.dto.request.RegisterRequestDto;
+import com.profteam.bookgarden.dto.request.UpdateUserInfoRequestDto;
 import com.profteam.bookgarden.service.OrderService;
 import com.profteam.bookgarden.service.UserService;
 import com.profteam.bookgarden.utils.CommonUtil;
@@ -41,7 +42,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody RegisterRequestDto request) {
         return new ResponseEntity<>(
-                ResponseUtil.createResponse(null, CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)),
+                ResponseUtil.createResponse(userService.register(request), CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)),
                 HttpStatus.OK);
     }
 
@@ -60,6 +61,12 @@ public class UserController {
     @PostMapping("/order")
     public ResponseEntity<Map<String, Object>> order(@RequestBody OrderRequestDto request) {
         return new ResponseEntity<>(ResponseUtil.createResponse(orderService.order(request),
+                CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
+    }
+
+    @PostMapping("/update-info")
+    public ResponseEntity<Map<String, Object>> order(@RequestBody UpdateUserInfoRequestDto request) {
+        return new ResponseEntity<>(ResponseUtil.createResponse(userService.updateInfo(request),
                 CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
     }
 

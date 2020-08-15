@@ -26,6 +26,7 @@ import com.profteam.bookgarden.repository.OrderRepository;
 import com.profteam.bookgarden.utils.CommonUtil;
 
 @Service
+@Transactional(rollbackFor = Throwable.class)
 public class OrderService {
 
     @Autowired
@@ -54,7 +55,6 @@ public class OrderService {
         return listOrderDto;
     }
 
-    @Transactional(rollbackFor = Throwable.class)
     public String order(OrderRequestDto request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userId = (Long) authentication.getPrincipal();

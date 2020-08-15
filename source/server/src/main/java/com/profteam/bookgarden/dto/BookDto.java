@@ -1,7 +1,5 @@
 package com.profteam.bookgarden.dto;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +15,8 @@ public class BookDto {
 
     private Double price;
 
+    private byte[] bookImage;
+    
     private String image;
 
     private CategoryDto category;

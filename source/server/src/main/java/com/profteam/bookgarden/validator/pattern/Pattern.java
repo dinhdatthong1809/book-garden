@@ -1,4 +1,4 @@
-package com.profteam.bookgarden.validator.notnull;
+package com.profteam.bookgarden.validator.pattern;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -18,14 +18,16 @@ import javax.validation.Payload;
 import com.profteam.bookgarden.constants.Constants;
 
 @Documented
-@Constraint(validatedBy = { NotNullValidator.class, ObjNotNullValidator.class })
+@Constraint(validatedBy = { PatternValidator.class })
 @Target({ METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
-public @interface NotNull {
+public @interface Pattern {
 
     String message() default Constants.CONST_STR_BLANK;
 
     String itemName() default Constants.CONST_STR_BLANK;
+
+    String pattern() default Constants.CONST_STR_BLANK;
 
     Class<?>[] groups() default {};
 
@@ -35,6 +37,7 @@ public @interface NotNull {
     @Retention(RUNTIME)
     @Documented
     @interface List {
-        NotNull[] value();
+        Pattern[] value();
     }
+
 }

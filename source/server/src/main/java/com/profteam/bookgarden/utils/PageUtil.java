@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 public class PageUtil {
     
     public static Pageable getPageable(PageRequestDto request, Sort sort) {
-        return PageRequest.of(request.getPage() - 1, request.getSize(), sort);
+        return PageRequest.of(Integer.parseInt(request.getPage()) - 1, Integer.parseInt(request.getSize()), sort);
     }
     
 }

@@ -1,5 +1,6 @@
 package com.profteam.bookgarden.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -33,7 +34,7 @@ public class BookController {
 //    }
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> findById(@RequestParam String id) {
+    public ResponseEntity<Map<String, Object>> findById(@RequestParam String id) throws IOException {
         return new ResponseEntity<>(ResponseUtil.createResponse(bookService.findById(id),
                                     CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_SUCCESS)),
                                     HttpStatus.OK);

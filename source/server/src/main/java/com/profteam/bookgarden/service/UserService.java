@@ -4,8 +4,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import com.profteam.bookgarden.dto.request.RegisterRequestDto;
+import com.profteam.bookgarden.dto.request.UpdateUserInfoRequestDto;
 import com.profteam.bookgarden.dto.response.RegisterResponseDto;
 import com.profteam.bookgarden.exception.InvalidUsernameOrPasswordException;
+import com.profteam.bookgarden.exception.UsernameExistException;
+
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,12 +39,17 @@ public class UserService {
                                      .orElseThrow(InvalidUsernameOrPasswordException::new);
         return userMapper.userToLoginResponseDto(userOpt);
     }
-    
+
     public RegisterResponseDto register(RegisterRequestDto requestDto) {
+        Optional<User> userExist = userRepository.findByUsername(requestDto.getUsername());
+        if (userExist.isPresent()) {
+            throw new UsernameExistException();
+        }
+
         User newUser = userMapper.registerRequestDtoToUser(requestDto);
         User userOpt = userRepository.save(newUser);
-        
-        return userMapper.userToLoginResponseDto(userOpt);
+
+        return userMapper.registerRequestDtoToUser(userOpt);
     }
 
     public Optional<User> findByUsernameAndPassword(String username, String password) {
@@ -55,6 +63,11 @@ public class UserService {
     private String encryptPassword(String password) {
         byte[] pass = BCrypt.withDefaults().hash(6, salt16Bytes.getBytes(), password.getBytes(StandardCharsets.UTF_8));
         return new String(pass, StandardCharsets.UTF_8);
+    }
+
+    public Object updateInfo(UpdateUserInfoRequestDto request) {
+
+        return null;
     }
 
 }
