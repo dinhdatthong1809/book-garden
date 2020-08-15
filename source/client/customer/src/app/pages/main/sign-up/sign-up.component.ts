@@ -4,6 +4,7 @@ import {AppConstants} from "src/app/constants/app-constants";
 import {Router} from "@angular/router";
 import {AuthenticatedService} from "src/app/services/authenticated.service";
 import {AlertService} from "src/app/services/alert.service";
+import {SignUpDto} from "src/app/dto/request/sign-up-dto";
 
 @Component({
     selector: 'app-sign-up',
@@ -64,7 +65,7 @@ export class SignUpComponent implements OnInit {
     onSubmit(): void {
         this.submitted = true;
 
-        if (this.getForm.password !== this.getForm.passwordConfirm) {
+        if (this.getForm.password.value !== this.getForm.passwordConfirm.value) {
             this._alertService.error("Password fields are not the same");
             return;
         }
@@ -73,9 +74,9 @@ export class SignUpComponent implements OnInit {
             return;
         }
 
-        this._authenticatedService.s
-        console.log(this.getForm.username.value);
-        console.log(this.getForm.password.value);
+        let signUpDto: SignUpDto = <SignUpDto> this.signUpForm.value;
+        console.log(signUpDto);
+        this._authenticatedService.signUp(signUpDto)
     }
 
 }

@@ -72,19 +72,19 @@
                                            [minlength]="appConstants.PASSWORD_MIN_LENGTH"
                                            [maxlength]="appConstants.PASSWORD_MAX_LENGTH"
                                            class="form-control"
-                                           [ngClass]="{'is-invalid': submitted && getForm.password.errors}"
+                                           [ngClass]="{'is-invalid': submitted && getForm.passwordConfirm.errors}"
                                            placeholder="Password confirm"/>
                                     <div class="form-control-position text-dark">
                                         <i class="fas fa-lock"></i>
                                     </div>
-                                    <div *ngIf="submitted && getForm.password.errors" class="invalid-feedback text-nowrap">
-                                        <div *ngIf="getForm.password.errors.required">
+                                    <div *ngIf="submitted && getForm.passwordConfirm.errors" class="invalid-feedback text-nowrap">
+                                        <div *ngIf="getForm.passwordConfirm.errors.required">
                                             Password is required
                                         </div>
-                                        <div *ngIf="getForm.password.errors.pattern">
+                                        <div *ngIf="getForm.passwordConfirm.errors.pattern">
                                             Password only has alphabets, numbers, -, _, spaces
                                         </div>
-                                        <div *ngIf="getForm.password.errors.maxlength || getForm.password.errors.minlength">
+                                        <div *ngIf="getForm.passwordConfirm.errors.maxlength || getForm.passwordConfirm.errors.minlength">
                                             Password has from {{appConstants.PASSWORD_MIN_LENGTH}} to {{appConstants.PASSWORD_MAX_LENGTH}} characters
                                         </div>
                                     </div>
