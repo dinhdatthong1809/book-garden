@@ -36,7 +36,7 @@ export class AppConstants {
         }
     };
 
-    static readonly NUMBER_ONLY_REGEX: RegExp = /^(0|[1-9]\d*)?$/;
+    static readonly NUMBER_ONLY_REGEX: RegExp = /^\d+$/;
 
     static readonly CART_CAPACITY_MAX: number = 10;
     static readonly CART_CAPACITY_PER_ITEM_MAX: number = 7;
