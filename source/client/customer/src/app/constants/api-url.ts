@@ -1,16 +1,19 @@
 export class ApiUrl {
 
-    static readonly BOOK: string = "http://localhost:8088/api/book";
-    static readonly BOOK_FILTER: string = "http://localhost:8088/api/book/search";
+    // static readonly HOST: string = "http://localhost:8088/";
+    static readonly HOST: string = "http://54.179.160.205/";
 
-    static readonly CATEGORY: string = "http://localhost:8088/api/category";
-    static readonly CATEGORY_FIND_ALL: string = "http://localhost:8088/api/category/findAll";
+    static readonly BOOK: string = `${ApiUrl.HOST}api/book`;
+    static readonly BOOK_FILTER: string = `${ApiUrl.HOST}api/book/search`;
 
-    static readonly USER: string = "http://localhost:8088/api/user";
-    static readonly USER_SIGN_UP: string = "http://localhost:8088/api/user/register";
-    static readonly USER_FIND_BY_USERNAME: string = "http://localhost:8088/api/user/find-by-username";
-    static readonly USER_SIGN_IN: string = "http://localhost:8088/api/user/login";
-    static readonly USER_CHECK_OUT: string = "http://localhost:8088/api/user/order";
-    static readonly USER_ORDER: string = "http://localhost:8088/api/user/order-history";
+    static readonly CATEGORY: string = `${ApiUrl.HOST}api/category`;
+    static readonly CATEGORY_FIND_ALL: string = `${ApiUrl.HOST}api/category/findAll`;
+
+    static readonly USER: string = `${ApiUrl.HOST}api/user`;
+    static readonly USER_SIGN_UP: string = `${ApiUrl.HOST}api/user/register`;
+    static readonly USER_FIND_BY_USERNAME: string = `${ApiUrl.HOST}api/user/find-by-username`;
+    static readonly USER_SIGN_IN: string = `${ApiUrl.HOST}api/user/login`;
+    static readonly USER_CHECK_OUT: string = `${ApiUrl.HOST}api/user/order`;
+    static readonly USER_ORDER: string = `${ApiUrl.HOST}api/user/order-history`;
 
 }

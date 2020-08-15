@@ -68,8 +68,8 @@ export class SignInComponent implements OnInit {
             return;
         }
 
+        this._alertService.loading();
         let signInDto: SignInDto = <SignInDto> this.signInForm.value;
-
         this._authenticatedService.signIn(signInDto)
                                   .subscribe((response: Response<UserDto>) => {
                                       let userDto = getData<UserDto>(response);
