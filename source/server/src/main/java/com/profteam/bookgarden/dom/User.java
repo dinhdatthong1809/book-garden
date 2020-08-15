@@ -28,7 +28,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "\"USER\"")
 @EntityListeners(AuditingEntityListener.class)
-@Where(clause = "isActive = true")
 public class User {
 
     @Id
