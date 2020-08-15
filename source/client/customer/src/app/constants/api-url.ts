@@ -8,6 +8,7 @@ export class ApiUrl {
 
     static readonly USER: string = "http://localhost:8088/api/user";
     static readonly USER_SIGN_UP: string = "http://localhost:8088/api/user/register";
+    static readonly USER_FIND_BY_USERNAME: string = "http://localhost:8088/api/user/find-by-username";
     static readonly USER_SIGN_IN: string = "http://localhost:8088/api/user/login";
     static readonly USER_CHECK_OUT: string = "http://localhost:8088/api/user/order";
     static readonly USER_ORDER: string = "http://localhost:8088/api/user/order-history";

@@ -14,6 +14,7 @@ import {catchError} from "rxjs/operators";
 import {throwError} from "rxjs";
 import * as HttpStatus from 'http-status-codes';
 import {HttpErrorResponse} from "@angular/common/http";
+import {UserDto} from "src/app/dto/response/user-dto";
 
 @Component({
     selector: 'app-your-cart',
@@ -30,14 +31,7 @@ export class YourCartComponent implements OnInit {
 
     appConstants = AppConstants;
 
-    user = {
-        id: 1,
-        name: "Thong",
-        address: "150, Thanh Da Street, HCM City, Vietnam",
-        dayOfBirth: "18-09-1997",
-        email: "thong1809@gmail.com",
-        phoneNumber: "0906546948",
-    }
+    user: UserDto;
 
     constructor(private _cartService: CartService,
                 private _alertService: AlertService,
@@ -48,7 +42,18 @@ export class YourCartComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loadAsyncData();
+    }
+
+    loadAsyncData(): void {
+        this.loadUser();
         this.loadCart();
+    }
+
+    loadUser(): void {
+        this._authenticatedService.getCurrentUser().subscribe((response: Response<UserDto>) => {
+            this.user = getData<UserDto>(response);
+        });
     }
 
     loadCart(): void {
@@ -82,7 +87,7 @@ export class YourCartComponent implements OnInit {
                           .then((result: SweetAlertResult) => {
                               if (result.value) {
                                   this._cartService.remove(book.id);
-                                  this.loadCart();
+                                  this.loadAsyncData();
                               }
                           });
     }
@@ -130,7 +135,7 @@ export class YourCartComponent implements OnInit {
 
     clearCart(): void {
         this._cartService.clear();
-        this.loadCart();
+        this.loadAsyncData();
     }
 
     calculateTotalPrice(): void {
