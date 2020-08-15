@@ -40,10 +40,14 @@ export class AuthenticatedService extends AbstractService {
         return false;
     }
 
-    getUserData(): void {
-        // if (sessionStorage.getItem(SessionStorageKeys.USER)) {
-        //     return true;
-        // }
+    getCurrentUser(): Observable<Response<UserDto>> {
+        let username = "";
+        if (this.isAuthenticated()) {
+            username = JSON.parse(localStorage.getItem(SessionStorageKeys.USER)).username;
+        }
+
+        return super.get<Response<UserDto>>(ApiUrl.USER_FIND_BY_USERNAME, {username: username})
+                    .pipe(catchError(super.handleError));
     }
 
 }
