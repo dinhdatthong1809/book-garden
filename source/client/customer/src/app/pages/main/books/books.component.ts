@@ -20,7 +20,7 @@ export class BooksComponent implements OnInit {
 
     appConstants = AppConstants;
 
-    books: BookDto[];
+    books: BookDto[] = [];
 
     categories: CategoryDto[];
 

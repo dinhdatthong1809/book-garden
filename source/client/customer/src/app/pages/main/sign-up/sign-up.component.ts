@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {AuthenticatedService} from "src/app/services/authenticated.service";
 import {AlertService} from "src/app/services/alert.service";
 import {SignUpDto} from "src/app/dto/request/sign-up-dto";
+import {UserDto} from "src/app/dto/response/user-dto";
+import {Response} from "src/app/dto/abstract-response";
 
 @Component({
     selector: 'app-sign-up',
@@ -75,8 +77,10 @@ export class SignUpComponent implements OnInit {
         }
 
         let signUpDto: SignUpDto = <SignUpDto> this.signUpForm.value;
-        console.log(signUpDto);
         this._authenticatedService.signUp(signUpDto)
+                                  .subscribe((response: Response<UserDto>) => {
+                                      this._alertService.success(`Welcome to Book Garden!<br>You can sign in <a href="/sign-in">here</a>`)
+                                  })
     }
 
 }
