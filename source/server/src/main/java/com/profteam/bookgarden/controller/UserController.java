@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @PostMapping("/update-info")
-    public ResponseEntity<Map<String, Object>> order(@RequestBody UpdateUserInfoRequestDto request) {
+    public ResponseEntity<Map<String, Object>> updateInfo(@RequestBody UpdateUserInfoRequestDto request) {
         return new ResponseEntity<>(ResponseUtil.createResponse(userService.updateInfo(request),
                 CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
     }

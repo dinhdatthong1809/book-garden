@@ -13,6 +13,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.profteam.bookgarden.dom.User;
 import com.profteam.bookgarden.dto.UserDto;
@@ -24,6 +25,7 @@ import com.profteam.bookgarden.repository.UserRepository;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 @Service
+@Transactional(rollbackFor = Throwable.class)
 public class UserService {
 
     @Autowired
@@ -40,7 +42,7 @@ public class UserService {
         return userMapper.userToLoginResponseDto(userOpt);
     }
 
-    public RegisterResponseDto register(RegisterRequestDto requestDto) {
+    public UserDto register(RegisterRequestDto requestDto) {
         Optional<User> userExist = userRepository.findByUsername(requestDto.getUsername());
         if (userExist.isPresent()) {
             throw new UsernameExistException();
@@ -48,9 +50,9 @@ public class UserService {
         requestDto.setPassword(encryptPassword(requestDto.getPassword()));
         User newUser = userMapper.registerRequestDtoToUser(requestDto);
         newUser.setIsactive(true);
-        User userOpt = userRepository.save(newUser);
+        User user = userRepository.save(newUser);
 
-        return userMapper.registerRequestDtoToUser(userOpt);
+        return userMapper.userToUserDto(user);
     }
 
     public Optional<User> findByUsernameAndPassword(String username, String password) {
@@ -67,7 +69,7 @@ public class UserService {
     }
 
     public Object updateInfo(UpdateUserInfoRequestDto request) {
-
+        User user = userMapper.updateUserInfoToUser(request);
         return null;
     }
 
