@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {AuthenticatedService} from "src/app/services/authenticated.service";
 import {AlertService} from "src/app/services/alert.service";
 import {SignUpDto} from "src/app/dto/request/sign-up-dto";
+import {UserDto} from "src/app/dto/response/user-dto";
+import {Response} from "src/app/dto/abstract-response";
 
 @Component({
     selector: 'app-sign-up',
@@ -48,7 +50,7 @@ export class SignUpComponent implements OnInit {
                     Validators.minLength(AppConstants.PASSWORD_MIN_LENGTH),
                     Validators.maxLength(AppConstants.PASSWORD_MAX_LENGTH),
                 ]],
-                passwordConfirm: ["", [
+                confirmPassword: ["", [
                     Validators.required,
                     Validators.pattern(AppConstants.PASSWORD_REGEX),
                     Validators.minLength(AppConstants.PASSWORD_MIN_LENGTH),
@@ -65,7 +67,7 @@ export class SignUpComponent implements OnInit {
     onSubmit(): void {
         this.submitted = true;
 
-        if (this.getForm.password.value !== this.getForm.passwordConfirm.value) {
+        if (this.getForm.password.value !== this.getForm.confirmPassword.value) {
             this._alertService.error("Password fields are not the same");
             return;
         }
@@ -75,8 +77,10 @@ export class SignUpComponent implements OnInit {
         }
 
         let signUpDto: SignUpDto = <SignUpDto> this.signUpForm.value;
-        console.log(signUpDto);
         this._authenticatedService.signUp(signUpDto)
+                                  .subscribe((response: Response<UserDto>) => {
+                                      this._alertService.success(`Welcome to Book Garden!<br>You can sign in <a href="/sign-in">here</a>`)
+                                  })
     }
 
 }

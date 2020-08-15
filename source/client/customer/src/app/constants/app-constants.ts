@@ -5,7 +5,7 @@ export class AppConstants {
     static readonly APP_AUTHOR = {
         name: "Prof team",
         address: "150, Thanh Da Street, HCM City, Vietnam",
-        passwordConfirm: "profteam@gmail.com",
+        email: "profteam@gmail.com",
         phone: "(090) 6546 948",
         socialLinks: {
             facebook: "https://www.facebook.com/dinh.dat.thong",
