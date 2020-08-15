@@ -45,7 +45,7 @@ public class UserService {
         if (userExist.isPresent()) {
             throw new UsernameExistException();
         }
-
+        requestDto.setPassword(encryptPassword(requestDto.getPassword()));
         User newUser = userMapper.registerRequestDtoToUser(requestDto);
         User userOpt = userRepository.save(newUser);
 
