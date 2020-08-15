@@ -51,9 +51,11 @@ export class YourCartComponent implements OnInit {
     }
 
     loadUser(): void {
-        this._authenticatedService.getCurrentUser().subscribe((response: Response<UserDto>) => {
-            this.user = getData<UserDto>(response);
-        });
+        if (this._authenticatedService.isAuthenticated()) {
+            this._authenticatedService.getCurrentUser().subscribe((response: Response<UserDto>) => {
+                this.user = getData<UserDto>(response);
+            });
+        }
     }
 
     loadCart(): void {

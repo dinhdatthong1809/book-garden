@@ -93,6 +93,77 @@
 
                             <br/>
 
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                    <input formControlName="fullname"
+                                           [minlength]="appConstants.FULLNAME_MIN_LENGTH"
+                                           [maxlength]="appConstants.FULLNAME_MAX_LENGTH"
+                                           class="form-control"
+                                           [ngClass]="{'is-invalid': submitted && getForm.fullname.errors}"
+                                           placeholder="Full name"/>
+                                    <div class="form-control-position text-dark">
+                                        <i class="fas fa-file-signature"></i>
+                                    </div>
+                                    <div *ngIf="submitted && getForm.fullname.errors" class="invalid-feedback text-nowrap">
+                                        <div *ngIf="getForm.fullname.errors.required">
+                                            Full name is required
+                                        </div>
+                                        <div *ngIf="getForm.fullname.errors.maxlength || getForm.fullname.errors.minlength">
+                                            Full name has from {{appConstants.FULLNAME_MIN_LENGTH}} to {{appConstants.FULLNAME_MAX_LENGTH}} characters
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                    <input formControlName="address"
+                                           [minlength]="appConstants.ADDRESS_MIN_LENGTH"
+                                           [maxlength]="appConstants.ADDRESS_MAX_LENGTH"
+                                           class="form-control"
+                                           [ngClass]="{'is-invalid': submitted && getForm.address.errors}"
+                                           placeholder="Address"/>
+                                    <div class="form-control-position text-dark">
+                                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                    </div>
+                                    <div *ngIf="submitted && getForm.address.errors" class="invalid-feedback text-nowrap">
+                                        <div *ngIf="getForm.address.errors.required">
+                                            Address is required
+                                        </div>
+                                        <div *ngIf="getForm.address.errors.maxlength || getForm.address.errors.minlength">
+                                            Address has from {{appConstants.ADDRESS_MIN_LENGTH}} to {{appConstants.ADDRESS_MAX_LENGTH}} characters
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                    <input formControlName="phoneNumber"
+                                           [minlength]="appConstants.PHONE_NUMBER_MIN_LENGTH"
+                                           [maxlength]="appConstants.PHONE_NUMBER_MAX_LENGTH"
+                                           class="form-control"
+                                           [ngClass]="{'is-invalid': submitted && getForm.phoneNumber.errors}"
+                                           placeholder="Phone number"/>
+                                    <div class="form-control-position text-dark">
+                                        <i class="fas fa-phone" aria-hidden="true"></i>
+                                    </div>
+                                    <div *ngIf="submitted && getForm.phoneNumber.errors" class="invalid-feedback text-nowrap">
+                                        <div *ngIf="getForm.phoneNumber.errors.required">
+                                            Phone number is required
+                                        </div>
+                                        <div *ngIf="getForm.phoneNumber.errors.pattern">
+                                            Phone number has only numbers
+                                        </div>
+                                        <div *ngIf="getForm.phoneNumber.errors.maxlength || getForm.phoneNumber.errors.minlength">
+                                            Phone number has from {{appConstants.PHONE_NUMBER_MIN_LENGTH}} to {{appConstants.PHONE_NUMBER_MAX_LENGTH}} characters
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
                             <button type="submit" class="btn btn-outline-dark font-weight-bold w-100">Sign up</button>
                         </form>
                     </div>

@@ -55,7 +55,24 @@ export class SignUpComponent implements OnInit {
                     Validators.pattern(AppConstants.PASSWORD_REGEX),
                     Validators.minLength(AppConstants.PASSWORD_MIN_LENGTH),
                     Validators.maxLength(AppConstants.PASSWORD_MAX_LENGTH),
-                ]]
+                ]],
+
+                fullname: ["", [
+                    Validators.required,
+                    Validators.minLength(AppConstants.FULLNAME_MIN_LENGTH),
+                    Validators.maxLength(AppConstants.FULLNAME_MAX_LENGTH),
+                ]],
+                address: ["", [
+                    Validators.required,
+                    Validators.minLength(AppConstants.ADDRESS_MIN_LENGTH),
+                    Validators.maxLength(AppConstants.ADDRESS_MAX_LENGTH),
+                ]],
+                phoneNumber: ["", [
+                    Validators.required,
+                    Validators.pattern(AppConstants.NUMBER_ONLY_REGEX),
+                    Validators.minLength(AppConstants.PHONE_NUMBER_MIN_LENGTH),
+                    Validators.maxLength(AppConstants.PHONE_NUMBER_MAX_LENGTH),
+                ]],
             }
         );
     }
@@ -80,7 +97,7 @@ export class SignUpComponent implements OnInit {
         this._authenticatedService.signUp(signUpDto)
                                   .subscribe((response: Response<UserDto>) => {
                                       this._alertService.success(`Welcome to Book Garden!<br>You can sign in <a href="/sign-in">here</a>`)
-                                  })
+                                  });
     }
 
 }
