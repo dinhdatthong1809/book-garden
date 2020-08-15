@@ -8,4 +8,6 @@ public class Constants {
 
     public static final String CONST_RESPONSE                                          = "response";
 
+    public static final String CONST_STR_PATTERN                                       = "pattern";
+
 }
