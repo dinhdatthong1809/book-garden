@@ -1,7 +1,7 @@
 export class ApiUrl {
 
     // static readonly HOST: string = "http://localhost:8088/";
-    static readonly HOST: string = "https://54.179.160.205/";
+    static readonly HOST: string = "http://54.179.160.205/";
 
     static readonly BOOK: string = `${ApiUrl.HOST}api/book`;
     static readonly BOOK_FILTER: string = `${ApiUrl.HOST}api/book/search`;
