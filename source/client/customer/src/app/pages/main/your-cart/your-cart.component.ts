@@ -69,9 +69,9 @@ export class YourCartComponent implements OnInit {
                              .pipe(catchError((error: HttpErrorResponse) => {
                                  if (error.status === HttpStatus.NOT_FOUND) {
                                      deletedBookIds.push(item.bookId);
-                                     error.error.response.message = `The book with id: ${deletedBookIds} was deleted by our admins`;
                                      this._cartService.remove(item.bookId);
-                                     return throwError(error);
+                                     this._alertService.warn(`The book with id: ${deletedBookIds} was deleted by our admins`);
+                                     return throwError(null);
                                  }
                              }))
                              .subscribe((response: Response<BookDto>) => {
