@@ -3,13 +3,14 @@ import {AlertService} from "src/app/services/alert.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AppUrl} from "src/app/constants/app-url";
 import * as HttpStatus from "http-status-codes";
+import {Router} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ErrorHandlerService implements ErrorHandler {
 
-    constructor(private _alertService: AlertService) {
+    constructor(private _alertService: AlertService, private _router: Router) {
 
     }
 
@@ -27,12 +28,13 @@ export class ErrorHandlerService implements ErrorHandler {
 
             // lost connection to server app
             if (error.status === 0) {
-                window.location.href = `/${AppUrl.ERROR}`;
+                this._router.navigateByUrl(`/${AppUrl.ERROR}`);
+                console.log(error);
                 return;
             }
-
             if (error.status === HttpStatus.NOT_FOUND) {
-                window.location.href = `/${AppUrl.ERROR}`;
+                this._router.navigateByUrl(`/${AppUrl.ERROR}`);
+                console.log(error);
                 return;
             }
 
@@ -41,7 +43,7 @@ export class ErrorHandlerService implements ErrorHandler {
         }
 
         this._alertService.error(error);
-        console.log(error)
+        console.log(error);
         // window.location.href = `/${AppUrl.ERROR}`;
     }
 

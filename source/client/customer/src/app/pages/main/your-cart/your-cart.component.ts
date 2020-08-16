@@ -31,7 +31,7 @@ export class YourCartComponent implements OnInit {
 
     appConstants = AppConstants;
 
-    user: UserDto;
+    user: UserDto = new UserDto();
 
     constructor(private _cartService: CartService,
                 private _alertService: AlertService,
@@ -71,7 +71,7 @@ export class YourCartComponent implements OnInit {
                                      deletedBookIds.push(item.bookId);
                                      error.error.response.message = `The book with id: ${deletedBookIds} was deleted by our admins`;
                                      this._cartService.remove(item.bookId);
-                                     return throwError(error.error);
+                                     return throwError(error);
                                  }
                              }))
                              .subscribe((response: Response<BookDto>) => {
