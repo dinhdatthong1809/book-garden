@@ -4,6 +4,7 @@ import {AppUrl} from "src/app/constants/app-url";
 import {AuthenticatedService} from "src/app/services/authenticated.service";
 import {AlertService} from "src/app/services/alert.service";
 import {SweetAlertResult} from "sweetalert2";
+import {CartService} from "src/app/services/cart.service";
 
 @Component({
     selector: 'app-nav-bar',
@@ -52,6 +53,7 @@ export class NavBarComponent implements OnInit {
     ];
 
     constructor(public _authenticatedService: AuthenticatedService,
+                private _cartService: CartService,
                 private _alertService: AlertService) {
 
     }
@@ -68,6 +70,10 @@ export class NavBarComponent implements OnInit {
                                   window.location.href = `/${AppUrl.HOME}`;
                               }
                           });
+    }
+
+    getCartLength(): number {
+        return this._cartService.getCartLength();
     }
 
 }

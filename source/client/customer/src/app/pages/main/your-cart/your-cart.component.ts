@@ -23,7 +23,7 @@ import {UserDto} from "src/app/dto/response/user-dto";
 })
 export class YourCartComponent implements OnInit {
 
-    cart: Cart;
+    cart: Cart = new Cart();
 
     bookInCart: BookInCart[] = [];
 
@@ -174,6 +174,18 @@ export class YourCartComponent implements OnInit {
                 return;
             }
         }
+    }
+
+    getBookImg(image: string): string {
+        if (!image) {
+            return `assets/images/no-image.png`;
+        }
+
+        return `https://storage.googleapis.com/book-garden.appspot.com/book/` + image;
+    }
+
+    getCartLength(): number {
+        return this._cartService.getCartLength();
     }
 
 }

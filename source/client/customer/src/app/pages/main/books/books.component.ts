@@ -128,4 +128,12 @@ export class BooksComponent implements OnInit {
         this.loadAsyncData();
     }
 
+    getBookImg(image: string): string {
+        if (!image) {
+            return `assets/images/no-image.png`;
+        }
+
+        return `https://storage.googleapis.com/book-garden.appspot.com/book/` + image;
+    }
+
 }

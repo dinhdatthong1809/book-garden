@@ -1,5 +1,5 @@
 <div class="container-fluid animated fadeIn mt-4 mb-5 full-screen">
-    <div *ngIf="bookInCart.length === 0">
+    <div *ngIf="getCartLength() === 0">
         <div class="col-12 text-center">
             <h1 class="text-secondary">Your cart is empty</h1>
         </div>
@@ -83,6 +83,7 @@
                 <div class="card-header bg-primary">
                     <h4 class="text-white text-wrap">
                         <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i> Your cart
+                        <span class="badge badge-danger text-white badge-pill">{{bookInCart.length}}</span>
                     </h4>
                 </div>
                 <div class="card-body bg-white">
@@ -91,10 +92,10 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 text-center">
-                                        <img class="border-primary border img-fluid"
-                                             width="150"
+                                        <img class="border-primary border img-fluid h-100"
+                                             width="160"
                                              onerror="this.src='assets/images/no-image.png';"
-                                             src="https://storage.googleapis.com/book-garden.appspot.com/book/{{item.book.image}}"
+                                             [src]="getBookImg(item.book.image)"
                                              alt="Card image front">
                                     </div>
                                     <div class="col-lg-10 mt-2 mt-lg-0 d-flex flex-column">

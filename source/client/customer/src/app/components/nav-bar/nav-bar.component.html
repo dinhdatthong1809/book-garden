@@ -15,8 +15,10 @@
                    [ngClass]="{'disabled': item.disableRouter}"
                    class="nav-link text-uppercase"
                 >
-                    <i *ngIf="last" class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>
                     {{item.name}}
+                    <i *ngIf="last" class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>
+
+                    <span *ngIf="last && getCartLength() > 0" class="badge badge-danger text-white badge-pill font-kodchasan">{{getCartLength()}}</span>
                 </a>
             </li>
         </ul>

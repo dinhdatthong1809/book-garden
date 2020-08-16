@@ -78,6 +78,10 @@ export class CartService extends AbstractService {
         return new Cart();
     }
 
+    getCartLength(): number {
+        return this.getCart().items.length;
+    }
+
     checkout(cart: Cart): Observable<any> {
         return super.post<Cart, any>(ApiUrl.USER_CHECK_OUT, cart, true)
                     .pipe(catchError(super.handleError));
