@@ -17,8 +17,10 @@ import com.profteam.bookgarden.dto.response.SearchAndFilterBookResponseDto;
 import com.profteam.bookgarden.mapper.BookMapper;
 import com.profteam.bookgarden.repository.BookRepository;
 import com.profteam.bookgarden.utils.PageUtil;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(rollbackFor = Throwable.class)
 public class BookService {
 
     @Autowired

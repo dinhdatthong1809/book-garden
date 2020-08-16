@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.zalando.problem.DefaultProblem;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.profteam.bookgarden.dto.ResponseDto;
 
 @Component
+@Transactional(rollbackFor = Throwable.class)
 public class LoggingService {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoggingService.class);
