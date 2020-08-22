@@ -2,6 +2,7 @@ package com.profteam.bookgarden.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.profteam.bookgarden.constants.Constants;
 import com.profteam.bookgarden.constants.MessageConstants;
 import com.profteam.bookgarden.dom.Book;
 import com.profteam.bookgarden.dom.Order;
@@ -18,9 +20,12 @@ import com.profteam.bookgarden.dom.User;
 import com.profteam.bookgarden.dto.OrderDto;
 import com.profteam.bookgarden.dto.request.OrderDetailRequestDto;
 import com.profteam.bookgarden.dto.request.OrderRequestDto;
+import com.profteam.bookgarden.enums.OrderStatusEnum;
+import com.profteam.bookgarden.exception.BookNotEnoughExeption;
 import com.profteam.bookgarden.exception.BookNotFoundException;
 import com.profteam.bookgarden.exception.BookPriceNotCorrectException;
 import com.profteam.bookgarden.mapper.OrderMapper;
+import com.profteam.bookgarden.repository.BookRepository;
 import com.profteam.bookgarden.repository.OrderDetailRepository;
 import com.profteam.bookgarden.repository.OrderRepository;
 import com.profteam.bookgarden.utils.CommonUtil;
@@ -34,9 +39,9 @@ public class OrderService {
 
     @Autowired
     private OrderDetailRepository orderDetailRepository;
-
+    
     @Autowired
-    private BookService bookService;
+    private BookRepository bookRepository;
 
     private final OrderMapper orderMapper = Mappers.getMapper(OrderMapper.class);
 
@@ -60,14 +65,13 @@ public class OrderService {
         Long userId = (Long) authentication.getPrincipal();
         
         request.getItems().forEach(orderDetailRequest -> {
-            if (!checkBookPrice(orderDetailRequest)) {
-                throw new BookPriceNotCorrectException(orderDetailRequest.getBookId());
-            }
+            validateBook(orderDetailRequest);
         });
 
         Order order = new Order();
         order.setUser(new User(userId));
-        order.setAdminId(101);
+        order.setStatus(OrderStatusEnum.OPEN.getStatus());
+        order.setAdminId(Constants.ADMIN_ORDER_ID);
         order = orderRepository.save(order);
 
         List<OrderDetail> listOrderDetail = toListOrderDetail(request.getItems(), order);
@@ -91,17 +95,24 @@ public class OrderService {
         return orderDetail;
     }
 
-    private boolean checkBookPrice(OrderDetailRequestDto orderDetailRequestDto) {
-        double bookPrice = bookService.getBookPrice(orderDetailRequestDto.getBookId());
-        if (bookPrice == 0) {
+    private void validateBook(OrderDetailRequestDto orderDetailRequestDto) {
+        Optional<Book> bookOpt = bookRepository.findById(orderDetailRequestDto.getBookId());
+        // Check book exist
+        if (!bookOpt.isPresent()) {
             throw new BookNotFoundException(orderDetailRequestDto.getBookId());
-        } else {
-            if (bookPrice == orderDetailRequestDto.getPrice()) {
-                return true;
-            } else {
-                return false;
-            }
+        }
+        
+        Book book = bookOpt.get();
+        // Check book amount
+        if (book.getAmount() < orderDetailRequestDto.getAmount()) {
+            throw new BookNotEnoughExeption(book.getTitle());
+        }
+
+        // Check book price
+        if (book.getPrice() != orderDetailRequestDto.getPrice()) {
+            throw new BookPriceNotCorrectException(orderDetailRequestDto.getBookId());
         }
     }
 
 }
+

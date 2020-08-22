@@ -19,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CommonUtil {
 
     public static String getMessageWithCode(String messageCode) {
-
         InputStream utf8in = CommonUtil.class.getClassLoader().getResourceAsStream("i18n/messages.properties");
         Reader reader;
         try {

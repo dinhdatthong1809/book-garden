@@ -13,9 +13,11 @@ public class BookDto {
 
     private String description;
 
-    private Double price;
+    private int pageNum;
 
-    private byte[] bookImage;
+    private int amount;
+
+    private Double price;
     
     private String image;
 

@@ -58,15 +58,4 @@ public class BookService {
         return response;
     }
 
-    public double getBookPrice(String bookId) {
-        Optional<Book> bookOpt = bookRepository.findById(bookId);
-
-        if (bookOpt.isPresent()) {
-            return bookOpt.get().getPrice();
-        } else {
-            return 0;
-        }
-
-    }
-
 }

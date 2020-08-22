@@ -22,4 +22,6 @@ public class OrderDto {
 
     private double totalAmount;
 
+    private String status;
+
 }
