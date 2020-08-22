@@ -4,9 +4,9 @@ export class BookDto {
     description: string;
     price: number;
     image: string;
-    category: Category;
-    author: Author;
-    publisher: Publisher;
+    category: Category = new Category();
+    author: Author = new Author();
+    publisher: Publisher = new Publisher();
 }
 
 class Category {

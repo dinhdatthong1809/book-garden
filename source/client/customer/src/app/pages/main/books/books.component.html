@@ -100,18 +100,24 @@
             <div *ngFor="let book of books">
                 <div class="card">
                     <div class="card-header text-lg-left text-center bg-white">
-                        <h4 class="text-primary text-wrap">{{book.title}}</h4>
+                        <h4 class="text-primary text-wrap">
+                            <a class="text-decoration-none" routerLink="/book/{{book.id}}">
+                                {{book.title}}
+                            </a>
+                        </h4>
                     </div>
 
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-2 text-center">
-                                <img class="border-primary border img-fluid h-100"
-                                     width="160"
-                                     height="500"
-                                     onerror="this.src='assets/images/no-image.png';"
-                                     [src]="getBookImg(book.image)"
-                                     alt="Card image front">
+                                <a routerLink="/book/{{book.id}}">
+                                    <img class="border-primary border img-fluid h-100"
+                                         width="160"
+                                         height="500"
+                                         onerror="this.src='assets/images/no-image.png';"
+                                         [src]="getBookImg(book.image)"
+                                         alt="Card image front">
+                                </a>
                             </div>
                             <div class="col-lg-10 mt-2 mt-lg-0 d-flex flex-column">
                                 <div class="row mt-2 mb-3">

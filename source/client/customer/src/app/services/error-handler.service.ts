@@ -28,13 +28,13 @@ export class ErrorHandlerService implements ErrorHandler {
 
             // lost connection to server app
             if (error.status === 0) {
-                this._router.navigateByUrl(`/${AppUrl.ERROR}`);
                 console.log(error);
+                this._alertService.error("Lost connect to server!");
                 return;
             }
             if (error.status === HttpStatus.NOT_FOUND) {
-                this._router.navigateByUrl(`/${AppUrl.ERROR}`);
                 console.log(error);
+                this._alertService.error(error.error.response.message);
                 return;
             }
 

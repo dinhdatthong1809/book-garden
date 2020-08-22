@@ -1,5 +1,3 @@
-import {Validators} from "@angular/forms";
-
 export class AppConstants {
 
     static readonly APP_AUTHOR = {
@@ -66,5 +64,8 @@ export class AppConstants {
     static readonly TITLE_KEYWORD_MAX_LENGTH: number = 100;
 
     static readonly PRICE_MIN: number = 0;
+
+    static readonly BOOK_IMG_STORAGE: string = `https://storage.googleapis.com/book-garden.appspot.com/book/`;
+    static readonly BOOK_IMG_DEFAULT: string = `assets/images/no-image.png`;
 
 }

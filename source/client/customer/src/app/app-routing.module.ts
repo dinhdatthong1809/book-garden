@@ -10,12 +10,14 @@ import {AppComponent} from "src/app/app.component";
 import {HomeComponent} from "src/app/pages/main/home/home.component";
 import {YourCartComponent} from "src/app/pages/main/your-cart/your-cart.component";
 import {YourProfileComponent} from "src/app/pages/main/your-profile/your-profile.component";
+import {BookDetailComponent} from "src/app/pages/main/book-detail/book-detail.component";
 
 const routes: Routes = [
     {path: AppUrl.APP, component: AppComponent, children: [
         {path: AppUrl.MAIN, component: MainComponent, children: [
             {path: AppUrl.HOME, component: HomeComponent, pathMatch: "full"},
             {path: AppUrl.BOOKS, component: BooksComponent, pathMatch: "full"},
+            {path: AppUrl.BOOK_DETAIL, component: BookDetailComponent, pathMatch: "full"},
             {path: AppUrl.YOUR_CART, component: YourCartComponent, pathMatch: "full"},
             {path: AppUrl.SIGN_IN, component: SignInComponent, pathMatch: "full"},
             {path: AppUrl.SIGN_UP, component: SignUpComponent, pathMatch: "full"},

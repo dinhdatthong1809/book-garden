@@ -19,6 +19,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import {ErrorHandlerService} from "src/app/services/error-handler.service";
 import { YourProfileComponent } from './pages/main/your-profile/your-profile.component';
+import { BookDetailComponent } from './pages/main/book-detail/book-detail.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { YourProfileComponent } from './pages/main/your-profile/your-profile.com
         HomeComponent,
         YourCartComponent,
         YourProfileComponent,
+        BookDetailComponent,
     ],
     imports: [
         BrowserModule,

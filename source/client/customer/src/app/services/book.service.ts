@@ -18,8 +18,12 @@ export class BookService extends AbstractService {
     }
 
     findOne(id: String): Observable<Response<BookDto>> {
+        return super.get<Response<BookDto>>(ApiUrl.BOOK, {id: id});
+    }
+
+    findDetail(id: String): Observable<Response<BookDto>> {
         return super.get<Response<BookDto>>(ApiUrl.BOOK, {id: id})
-                    // .pipe(catchError(super.handleError));
+                    .pipe(catchError(super.handleError));
     }
 
 }

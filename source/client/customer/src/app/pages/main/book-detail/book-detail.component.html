@@ -1,0 +1,78 @@
+<div class="container-fluid animated fadeIn mt-4 mb-5 full-screen">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 h-100 text-center">
+                <img class="border-light border img-fluid shadow shadow-sm h-100"
+                     onerror="this.src='assets/images/no-image.png';"
+                     [src]="getBookImg(book.image)"
+                     alt="Card image front">
+            </div>
+            <div class="col-lg-7 mt-lg-0 mt-sm-3">
+                <h1 class="font-weight-bold">{{book.title}}</h1>
+                <div class="row mt-4">
+                    <div class="col-2 text-center">
+                        <img src="assets/mock/author-avatar.jpg"
+                             width="80"
+                             height="80"
+                             class="rounded-circle border border-white shadow shadow-sm"
+                             alt="Author avatar">
+                    </div>
+                    <div class="col-8 d-flex align-items-center">
+                        <h4>{{book.author.fullname}}</h4>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="row">
+                    <div class="col-12">
+                        <i *ngFor="let star of [].constructor(3)"
+                           class="fas fa-star mr-2 text-warning">
+                        </i>
+                        <i *ngFor="let star of [].constructor(2)"
+                           class="fas fa-star mr-2 text-secondary">
+                        </i>
+                    </div>
+                </div>
+
+                <br>
+                <p>{{book.description}} asdadaadadadad asdadaadadadaadadadad asdadaadadadaadadadad asdadaadadadaadadadad asdadaadadadaadadadad asdadaadadadaadadadad asdadaadadadaadadadad asdadaadadadaadadadad asdadaadadadaadadadad asdadaadadadadasdadaadadadadasdadaadadadadasdadaadadadaddadaadadadad asdadaadadadaddadaadadadad asdadaadadadaddadaadadadad asdadaadadadaddadaadadadad asdadaadadadaddadaadadadad asdadaadadadad</p>
+                <br>
+
+                <div class="row mt-2">
+                    <h5 class="col-3">
+                        <strong class="text-uppercase">Price</strong>
+                    </h5>
+                    <h5 class="col-9">
+                        {{book.price | number:'1.0':'en-US'}} VND
+                    </h5>
+                </div>
+                <div class="row mt-2">
+                    <h5 class="col-3">
+                        <strong class="text-uppercase">Publisher</strong>
+                    </h5>
+                    <h5 class="col-9">
+                        {{book.publisher.name}}
+                    </h5>
+                </div>
+                <div class="row mt-2">
+                    <h5 class="col-3">
+                        <strong class="text-uppercase">Category</strong>
+                    </h5>
+                    <h5 class="col-9">
+                        {{book.category.categoryTitle}}
+                    </h5>
+                </div>
+
+                <br>
+
+                <div>
+                    <div class="btn btn-lg btn-primary btn-round shadow-primary font-weight-bold">
+                        Add to cart
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

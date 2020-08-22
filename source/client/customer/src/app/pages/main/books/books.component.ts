@@ -10,6 +10,7 @@ import {CategoryService} from "src/app/services/category.service";
 import {CategoryDto} from "src/app/dto/response/category-dto";
 import {CartService} from "src/app/services/cart.service";
 import {ToastrService} from "ngx-toastr";
+import {ImgService} from "src/app/services/img.service";
 
 @Component({
     selector: 'app-books',
@@ -40,7 +41,8 @@ export class BooksComponent implements OnInit {
                 private _categoryService: CategoryService,
                 private _cartService: CartService,
                 private _toastrService: ToastrService,
-                private _formBuilder: FormBuilder) {
+                private _formBuilder: FormBuilder,
+                private _imgService: ImgService) {
     }
 
     ngOnInit(): void {
@@ -129,11 +131,7 @@ export class BooksComponent implements OnInit {
     }
 
     getBookImg(image: string): string {
-        if (!image) {
-            return `assets/images/no-image.png`;
-        }
-
-        return `https://storage.googleapis.com/book-garden.appspot.com/book/` + image;
+        return this._imgService.getBookImg(image);
     }
 
 }

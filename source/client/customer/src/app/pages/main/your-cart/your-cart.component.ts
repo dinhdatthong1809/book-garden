@@ -15,6 +15,7 @@ import {throwError} from "rxjs";
 import * as HttpStatus from 'http-status-codes';
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserDto} from "src/app/dto/response/user-dto";
+import {ImgService} from "src/app/services/img.service";
 
 @Component({
     selector: 'app-your-cart',
@@ -37,7 +38,8 @@ export class YourCartComponent implements OnInit {
                 private _alertService: AlertService,
                 private _formBuilder: FormBuilder,
                 public _authenticatedService: AuthenticatedService,
-                private _bookService: BookService) {
+                private _bookService: BookService,
+                private _imgService: ImgService) {
 
     }
 
@@ -177,11 +179,7 @@ export class YourCartComponent implements OnInit {
     }
 
     getBookImg(image: string): string {
-        if (!image) {
-            return `assets/images/no-image.png`;
-        }
-
-        return `https://storage.googleapis.com/book-garden.appspot.com/book/` + image;
+        return this._imgService.getBookImg(image);
     }
 
     getCartLength(): number {
