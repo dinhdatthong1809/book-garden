@@ -103,7 +103,9 @@
                                             <div class="col-lg-12 text-left">
                                                 <p class="card-text text-dark">
                                                     <i class="fas fa-book"></i>
-                                                    <strong> {{item.book.title}}</strong>
+                                                    <a class="text-decoration-none" routerLink="/book/{{item.book.id}}">
+                                                        <strong> {{item.book.title}}</strong>
+                                                    </a>
                                                 </p>
                                                 <p class="card-text">
                                                     <i class="fas fa-user"></i>

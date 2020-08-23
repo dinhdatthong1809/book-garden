@@ -7,6 +7,7 @@ import {AppConstants} from "src/app/constants/app-constants";
 export class ImgService {
 
     constructor() {
+
     }
 
     getBookImg(image: string): string {
@@ -15,6 +16,14 @@ export class ImgService {
         }
 
         return AppConstants.BOOK_IMG_STORAGE + image;
+    }
+
+    getUserImg(image: string): string {
+        if (!image) {
+            return AppConstants.USER_IMG_DEFAULT;
+        }
+
+        return AppConstants.USER_IMG_STORAGE + image;
     }
 
 }

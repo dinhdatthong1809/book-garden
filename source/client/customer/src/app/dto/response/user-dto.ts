@@ -6,4 +6,5 @@ export class UserDto {
     email: string;
     phoneNumber: string;
     address: string;
+    photo: string;
 }

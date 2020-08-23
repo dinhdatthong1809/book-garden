@@ -14,7 +14,7 @@
                                 <img onerror="this.src='assets/images/avatars/default.jpg'"
                                      src="assets/images/avatars/{{user.photo}}" class="card-img-top">
                                 <div class="details py-2" style="background-color: rgba(52, 58, 64, 0.5)">
-                                    <h5 class="mb-1 text-white ml-3">{{user.fullName}}</h5>
+                                    <h5 class="mb-1 text-white ml-3 font-weight-bold">{{user.fullname}}</h5>
                                     <h6 class="text-white ml-3">{{user.email}}</h6>
                                 </div>
                             </div>
@@ -52,6 +52,7 @@
                                                         [attr.aria-controls]="'collapse' + order.id">
                                                     <div class="mx-2 my-1">
                                                         Code: {{order.id}}-{{order.dateCreated}}
+                                                        <div class="badge badge-success">{{order.status}}</div>
                                                     </div>
                                                     <div class="mx-2 my-1">
                                                     </div>
@@ -63,7 +64,9 @@
                                                 <div class="card-body collapse" [id]="'collapse' + order.id">
                                                     <div *ngFor="let orderDetail of order.orderDetails" class="d-flex justify-content-between">
                                                         <div class="mx-2 my-1">
-                                                            {{orderDetail.book.title}}
+                                                            <a class="text-decoration-none" routerLink="/book/{{orderDetail.book.id}}">
+                                                                {{orderDetail.book.title}}
+                                                            </a>
                                                         </div>
                                                         <div class="mx-2 my-1">
                                                         </div>
