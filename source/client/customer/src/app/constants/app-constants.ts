@@ -67,5 +67,7 @@ export class AppConstants {
 
     static readonly BOOK_IMG_STORAGE: string = `https://storage.googleapis.com/book-garden.appspot.com/book/`;
     static readonly BOOK_IMG_DEFAULT: string = `assets/images/no-image.png`;
+    static readonly USER_IMG_STORAGE: string = `https://storage.googleapis.com/book-garden.appspot.com/book/`;
+    static readonly USER_IMG_DEFAULT: string = `assets/images/avatars/default.jpg`;
 
 }

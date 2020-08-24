@@ -1,14 +1,15 @@
 export class UserOrderDto {
-    id: number;
     dateCreated: string;
-    orderDetails: OrderDetailsDto[];
+    id: number;
+    orderDetails: OrderDetailsDto[] = [];
+    status: string;
     totalAmount: number;
 }
 
 class OrderDetailsDto {
     amount: number;
     price: number;
-    book: OrderBookDto
+    book: OrderBookDto = new OrderBookDto();
 }
 
 class OrderBookDto {
