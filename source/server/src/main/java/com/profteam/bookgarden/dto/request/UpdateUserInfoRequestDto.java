@@ -2,6 +2,7 @@ package com.profteam.bookgarden.dto.request;
 
 import java.util.Date;
 
+import com.profteam.bookgarden.constants.MessageConstants;
 import com.profteam.bookgarden.validator.notnull.NotNull;
 
 import lombok.Getter;
@@ -11,31 +12,31 @@ import lombok.Setter;
 @Setter
 public class UpdateUserInfoRequestDto {
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private Long id;
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private String username;
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private String password;
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private String fullname;
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private Date dateOfBirth;
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private String email;
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private String phoneNumber;
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private boolean sex;
 
-    @NotNull
+    @NotNull(message = "{" + MessageConstants.CONST_MESSAGE_NOT_NULL + "}")
     private String address;
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.profteam.bookgarden.constants.MessageConstants;
 import com.profteam.bookgarden.dto.request.LoginRequestDto;
 import com.profteam.bookgarden.dto.request.OrderRequestDto;
+import com.profteam.bookgarden.dto.request.PageRequestDto;
 import com.profteam.bookgarden.dto.request.RegisterRequestDto;
 import com.profteam.bookgarden.dto.request.UpdateUserInfoRequestDto;
 import com.profteam.bookgarden.service.OrderService;
@@ -53,22 +54,28 @@ public class UserController {
                 CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
     }
 
+    @PostMapping("/update-info")
+    public ResponseEntity<Map<String, Object>> updateInfo(@Valid @RequestBody UpdateUserInfoRequestDto request) {
+        return new ResponseEntity<>(ResponseUtil.createResponse(userService.updateInfo(request),
+                CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
+    }
+
     @PostMapping("/order-history")
-    public ResponseEntity<Map<String, Object>> getOrderHistory() {
-        return new ResponseEntity<>(ResponseUtil.createResponse(orderService.getListOrderHistory(),
+    public ResponseEntity<Map<String, Object>> getOrderHistory(@Valid @RequestBody PageRequestDto pageRequest) {
+        return new ResponseEntity<>(ResponseUtil.createResponse(orderService.getListOrderHistory(pageRequest),
                 CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
     }
 
     @PostMapping("/order")
-    public ResponseEntity<Map<String, Object>> order(@RequestBody OrderRequestDto request) {
+    public ResponseEntity<Map<String, Object>> order(@Valid @RequestBody OrderRequestDto request) {
         return new ResponseEntity<>(ResponseUtil.createResponse(orderService.order(request),
                 CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
     }
-
-    @PostMapping("/update-info")
-    public ResponseEntity<Map<String, Object>> updateInfo(@RequestBody UpdateUserInfoRequestDto request) {
-        return new ResponseEntity<>(ResponseUtil.createResponse(userService.updateInfo(request),
-                CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
-    }
+    
+	@PostMapping("/cancel-order")
+	public ResponseEntity<Map<String, Object>> cancelOrder(@RequestParam(required = true) Long orderId) {
+		return new ResponseEntity<>(ResponseUtil.createResponse(orderService.cancelOrder(orderId),
+				CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
+	}
 
 }

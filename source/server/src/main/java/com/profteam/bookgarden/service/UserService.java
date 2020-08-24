@@ -3,12 +3,6 @@ package com.profteam.bookgarden.service;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-import com.profteam.bookgarden.dto.request.RegisterRequestDto;
-import com.profteam.bookgarden.dto.request.UpdateUserInfoRequestDto;
-import com.profteam.bookgarden.dto.response.RegisterResponseDto;
-import com.profteam.bookgarden.exception.InvalidUsernameOrPasswordException;
-import com.profteam.bookgarden.exception.UsernameExistException;
-
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.profteam.bookgarden.dom.User;
 import com.profteam.bookgarden.dto.UserDto;
 import com.profteam.bookgarden.dto.request.LoginRequestDto;
+import com.profteam.bookgarden.dto.request.RegisterRequestDto;
+import com.profteam.bookgarden.dto.request.UpdateUserInfoRequestDto;
 import com.profteam.bookgarden.dto.response.LoginResponseDto;
+import com.profteam.bookgarden.exception.InvalidUsernameOrPasswordException;
+import com.profteam.bookgarden.exception.UsernameExistException;
 import com.profteam.bookgarden.mapper.UserMapper;
 import com.profteam.bookgarden.repository.UserRepository;
 
@@ -68,9 +66,9 @@ public class UserService {
         return new String(pass, StandardCharsets.UTF_8);
     }
 
-    public Object updateInfo(UpdateUserInfoRequestDto request) {
-        User user = userMapper.updateUserInfoToUser(request);
-        return null;
-    }
+	public UserDto updateInfo(UpdateUserInfoRequestDto request) {
+		User user = userMapper.updateUserInfoToUser(request);
+		return userMapper.userToUserDto(user);
+	}
 
 }
