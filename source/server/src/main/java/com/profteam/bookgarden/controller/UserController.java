@@ -73,7 +73,7 @@ public class UserController {
     }
     
 	@PostMapping("/cancel-order")
-	public ResponseEntity<Map<String, Object>> cancelOrder(@RequestParam(required = true) Long orderId) {
+	public ResponseEntity<Map<String, Object>> cancelOrder(@RequestParam Long orderId) {
 		return new ResponseEntity<>(ResponseUtil.createResponse(orderService.cancelOrder(orderId),
 				CommonUtil.getMessageWithCode(MessageConstants.CONST_MESSAGE_NORMAL)), HttpStatus.OK);
 	}

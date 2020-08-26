@@ -15,5 +15,6 @@ export class ApiUrl {
     static readonly USER_SIGN_IN: string = `${ApiUrl.HOST}api/user/login`;
     static readonly USER_CHECK_OUT: string = `${ApiUrl.HOST}api/user/order`;
     static readonly USER_ORDER: string = `${ApiUrl.HOST}api/user/order-history`;
+    static readonly USER_ORDER_CANCEL: string = `${ApiUrl.HOST}api/user/cancel-order`;
 
 }

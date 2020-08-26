@@ -17,4 +17,9 @@ export class OrderService extends AbstractService {
                     .pipe(catchError(super.handleError));
     }
 
+    cancelOrder(orderId: number): Observable<Response<string>> {
+        return super.post<any, Response<string>>(`${ApiUrl.USER_ORDER_CANCEL}?orderId=${orderId}`, undefined, true)
+                    .pipe(catchError(super.handleError));
+    }
+
 }

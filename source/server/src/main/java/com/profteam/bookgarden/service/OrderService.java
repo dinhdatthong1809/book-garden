@@ -56,7 +56,7 @@ public class OrderService {
 		OrderHistoryResponseDto response = new OrderHistoryResponseDto();
 
 		Pageable pageable = PageUtil.getPageable(pageRequest);
-		Page<Order> pageOrder = orderRepository.findByUserId(userId, pageable);
+		Page<Order> pageOrder = orderRepository.findByUserIdOrderByDateCreatedDesc(userId, pageable);
 
 		List<OrderDto> listOrderDto = orderMapper.toListOrderDto(pageOrder.getContent());
 		listOrderDto.stream().forEach(orderDto -> {

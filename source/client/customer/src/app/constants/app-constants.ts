@@ -70,4 +70,10 @@ export class AppConstants {
     static readonly USER_IMG_STORAGE: string = `https://storage.googleapis.com/book-garden.appspot.com/book/`;
     static readonly USER_IMG_DEFAULT: string = `assets/images/avatars/default.jpg`;
 
+    static readonly ORDER_STATUS_OPEN: string = `Order placed`;
+    static readonly ORDER_STATUS_IN_PROGRESS: string = `Processing`;
+    static readonly ORDER_STATUS_IN_SHIPPING: string = `Shipping`;
+    static readonly ORDER_STATUS_DONE: string = `Completed`;
+    static readonly ORDER_STATUS_REJECT: string = `Cancelled`;
+
 }

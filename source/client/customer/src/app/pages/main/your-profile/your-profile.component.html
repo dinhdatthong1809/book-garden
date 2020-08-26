@@ -60,7 +60,16 @@
                                                         [attr.aria-controls]="'collapse' + order.id">
                                                     <div class="mx-2 my-1">
                                                         Code: {{order.id}}-{{order.dateCreated}}
-                                                        <div class="badge badge-success">{{order.status}}</div>
+                                                        <div class="badge"
+                                                             [ngClass]="{
+                                                                'badge-success': order.status === 'Order placed',
+                                                                'badge-secondary': order.status === 'Processing',
+                                                                'badge-info': order.status === 'Shipping',
+                                                                'badge-dark': order.status === 'Completed',
+                                                                'badge-danger': order.status === 'Cancelled'
+                                                             }">
+                                                            {{order.status}}
+                                                        </div>
                                                     </div>
                                                     <div class="mx-2 my-1">
                                                     </div>
@@ -70,18 +79,23 @@
                                                 </button>
 
                                                 <div class="card-body collapse" [id]="'collapse' + order.id">
-                                                    <div *ngFor="let orderDetail of order.orderDetails" class="d-flex justify-content-between">
-                                                        <div class="mx-2 my-1">
+                                                    <div *ngFor="let orderDetail of order.orderDetails" class="row border-bottom">
+                                                        <div class="col-6 my-1">
                                                             <a class="text-decoration-none" routerLink="/book/{{orderDetail.book.id}}">
                                                                 {{orderDetail.book.title}}
                                                             </a>
                                                         </div>
-                                                        <div class="mx-2 my-1">
-                                                        </div>
-                                                        <div class="mx-2 my-1">
+                                                        <div class="col-6 my-1 text-right text-secondary">
                                                             {{orderDetail.amount + " x " + (orderDetail.price | number:'1.0':'en-US')}} VND
                                                         </div>
                                                     </div>
+                                                    <ng-container *ngIf="order.status === 'Order placed'">
+                                                        <div class="mt-3">
+                                                            <div class="btn btn-sm btn-danger font-weight-bold" (click)="cancelOrder(order)">
+                                                                Cancel
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
                                                 </div>
                                             </div>
                                         </div>

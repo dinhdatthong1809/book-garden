@@ -7,6 +7,10 @@ import {UserDto} from "src/app/dto/response/user-dto";
 import {ImgService} from "src/app/services/img.service";
 import {OrderListCriteriaDto} from "src/app/dto/request/order-list-criteria-dto";
 import {BookDto} from "src/app/dto/response/book-dto";
+import {AlertService} from "src/app/services/alert.service";
+import {SweetAlertResult} from "sweetalert2";
+import {AppUrl} from "src/app/constants/app-url";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-your-profile',
@@ -27,6 +31,8 @@ export class YourProfileComponent implements OnInit {
 
     constructor(private _orderService: OrderService,
                 private _authenticatedService: AuthenticatedService,
+                private _alertService: AlertService,
+                private _toastrService: ToastrService,
                 private _imgService: ImgService) {
 
     }
@@ -44,8 +50,6 @@ export class YourProfileComponent implements OnInit {
         this._orderService.findAllByUser(this.orderListCriteriaDto)
                           .subscribe((paginationResponse: PaginationResponse<UserOrderDto[]>) => {
                               this.orders = getPaginatedData<UserOrderDto[]>(paginationResponse);
-                              console.log(paginationResponse)
-                              console.log(this.orders)
                               this.totalOrder = getPaginatedTotalElements(paginationResponse);
                           });
     }
@@ -56,6 +60,20 @@ export class YourProfileComponent implements OnInit {
                 this.user = getData<UserDto>(response);
             });
         }
+    }
+
+    cancelOrder(order: UserOrderDto) {
+        this._alertService.ask(`Do you want to cancel order <strong>${order.id}-${order.dateCreated}</strong>?`)
+                          .then((result: SweetAlertResult) => {
+                              if (result.value) {
+                                  this._orderService.cancelOrder(order.id)
+                                                    .subscribe(value => {
+                                                        this._toastrService.info("Your order has been cancelled.");
+                                                        this.loadAsyncData();
+                                                    });
+                              }
+                          });
+
     }
 
     getUserImg(image: string): string {
