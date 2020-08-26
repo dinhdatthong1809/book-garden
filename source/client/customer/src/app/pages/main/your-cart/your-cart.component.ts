@@ -126,7 +126,7 @@ export class YourCartComponent implements OnInit {
         this._alertService.ask(alertMessage)
                           .then((result: SweetAlertResult) => {
                               if (result.value) {
-                                  this._cartService.checkout(this.cart)
+                                  this._cartService.checkout(this._cartService.getCart())
                                                    .subscribe(value => {
                                                        this.clearCart();
                                                        this._alertService.success("Thank you for using our service<br>" +

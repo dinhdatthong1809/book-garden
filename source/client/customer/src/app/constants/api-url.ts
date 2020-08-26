@@ -1,7 +1,7 @@
 export class ApiUrl {
 
-    // static readonly HOST: string = "http://localhost:8088/";
-    static readonly HOST: string = "http://bookstorebackend-env.eba-66zgmwcv.ap-southeast-1.elasticbeanstalk.com/";
+    static readonly HOST: string = "http://localhost:5000/";
+    // static readonly HOST: string = "http://bookstorebackend-env.eba-66zgmwcv.ap-southeast-1.elasticbeanstalk.com/";
 
     static readonly BOOK: string = `${ApiUrl.HOST}api/book`;
     static readonly BOOK_FILTER: string = `${ApiUrl.HOST}api/book/search`;
