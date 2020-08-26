@@ -14,7 +14,7 @@ export class BookListCriteriaDto {
 
     maxPrice: number;
 
-    orderBy: OrderByDto = new OrderByDto();
+    orderBy: OrderByDto = new OrderByDto("title", "ASC");
 
     page: number = 1;
 

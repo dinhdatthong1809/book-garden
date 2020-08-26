@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class OrderHistoryResponseDto {
 
-	List<OrderDto> listOrder;
+	List<OrderDto> list;
 
 	long totalElements;
 

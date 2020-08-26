@@ -65,7 +65,7 @@ public class OrderService {
 			orderDto.setTotalAmount(totalAmount);
 		});
 
-		response.setListOrder(listOrderDto);
+		response.setList(listOrderDto);
 		response.setTotalElements(pageOrder.getTotalElements());
 		return response;
 	}

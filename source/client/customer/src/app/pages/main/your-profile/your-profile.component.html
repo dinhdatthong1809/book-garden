@@ -44,6 +44,14 @@
                                 <div class="tab-pane active" id="general">
                                     <div class="row mt-5">
                                         <div class="col-12">
+                                            <ngb-pagination [collectionSize]="totalOrder"
+                                                            [(page)]="page"
+                                                            [pageSize]="orderListCriteriaDto.size"
+                                                            [maxSize]="5"
+                                                            [rotate]="true"
+                                                            (pageChange)="goToPage($event)">
+                                            </ngb-pagination>
+
                                             <div *ngFor="let order of orders" class="card card-secondary shadow-none mb-5">
                                                 <button class="d-flex justify-content-between bg-light btn btn-light text-dark font-weight-bold"
                                                         type="button"
