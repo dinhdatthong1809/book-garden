@@ -50,7 +50,9 @@ public class BookService {
         Sort sort = request.getOrderBy().getSort();
         Pageable pageable = PageUtil.getPageable(request, sort);
 
-        Page<Book> pageBooks = bookRepository.findDistinctByTitleContainsAndCategoryIdContainsAndPriceBetween(request.getTitle(), request.getCategoryId(), minPrice, maxPrice, pageable);
+		Page<Book> pageBooks = bookRepository
+				.findDistinctByTitleContainsAndCategoryIdContainsAndPriceBetweenAndAmountGreaterThan(request.getTitle(),
+						request.getCategoryId(), minPrice, maxPrice, 0, pageable);
 
         response.setList(bookMapper.toListBookDto(pageBooks.getContent()));
         response.setTotalElements(pageBooks.getTotalElements());

@@ -10,10 +10,10 @@ import com.profteam.bookgarden.dom.Book;
 @Repository
 public interface BookRepository extends JpaRepository<Book, String> {
 
-    Page<Book> findDistinctByTitleContainsAndCategoryIdContainsAndPriceBetween(String title, String categoryId, double minPrice,
-                                                                                 double maxPrice, Pageable pageable);
-    
-    Page<Book> findDistinctByTitleLikeAndCategoryIdLike(String title, String categoryId, double minPrice,
-            double maxPrice, Pageable pageable);
+	Page<Book> findDistinctByTitleContainsAndCategoryIdContainsAndPriceBetweenAndAmountGreaterThan(String title,
+			String categoryId, double minPrice, double maxPrice, int amount, Pageable pageable);
+
+	Page<Book> findDistinctByTitleLikeAndCategoryIdLike(String title, String categoryId, double minPrice,
+			double maxPrice, Pageable pageable);
 
 }
