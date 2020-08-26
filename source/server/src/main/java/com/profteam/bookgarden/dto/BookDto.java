@@ -12,6 +12,8 @@ public class BookDto {
     private String title;
 
     private String description;
+    
+    private String introduce;
 
     private int pageNum;
 

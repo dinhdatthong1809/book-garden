@@ -2,6 +2,7 @@ export class BookDto {
     id: string;
     title: string;
     description: string;
+    introduce: string;
     price: number;
     image: string;
     category: Category = new Category();
